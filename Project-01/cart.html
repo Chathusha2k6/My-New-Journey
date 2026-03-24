@@ -7,111 +7,100 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
-        .glass { background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.3); }
+        body { font-family: 'Outfit', sans-serif; background-color: #f0f4f8; color: #1e293b; }
+        .mesh-gradient { background-image: radial-gradient(at 0% 0%, rgba(5, 150, 105, 0.1) 0px, transparent 50%), radial-gradient(at 100% 0%, rgba(249, 115, 22, 0.05) 0px, transparent 50%); }
+        .glass-card { background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.5); }
+        .glass-nav { background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(15px); border-bottom: 1px solid rgba(255, 255, 255, 0.3); }
     </style>
+    <script>
+        tailwind.config = { theme: { extend: { colors: { emerald: { 600: '#059669' }, orange: { 500: '#f97316' } }, borderRadius: { '4xl': '2rem', '5xl': '3rem' } } } }
+    </script>
 </head>
-<body x-data="{ subtotal: 920, delivery: 150 }">
+<body x-data="{ checkoutLoading: false }" class="mesh-gradient min-h-screen pb-24">
+    <script src="js/app.js"></script>
 
     <!-- Navigation -->
-    <nav class="sticky top-0 z-50 glass shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <div class="flex-shrink-0 flex items-center">
-                    <a href="index.html" class="text-2xl font-bold text-emerald-600 tracking-tight">CTS<span class="text-slate-900">_SM</span></a>
-                </div>
-                <div class="flex items-center space-x-6">
-                    <a href="index.html" class="text-slate-600 hover:text-emerald-600 transition-colors">Home</a>
-                    <a href="shop.html" class="text-slate-600 hover:text-emerald-600 transition-colors">Shop</a>
+    <nav class="sticky top-0 z-50 glass-nav">
+        <div class="max-w-7xl mx-auto px-4 lg:px-12">
+            <div class="flex justify-between items-center h-20">
+                <a href="index.html" class="flex items-center gap-2">
+                    <div class="w-10 h-10 bg-emerald-600 rounded-xl flex items-center justify-center text-white shadow-lg"><i data-lucide="shopping-bag" class="w-6 h-6"></i></div>
+                    <span class="text-2xl font-extrabold tracking-tight text-slate-900">CTS<span class="text-emerald-600">_SM</span></span>
+                </a>
+                <div class="flex items-center gap-6">
+                    <a href="shop.html" class="font-bold text-slate-500 hover:text-emerald-600 transition-colors uppercase tracking-widest text-xs">Return to Shop</a>
                 </div>
             </div>
         </div>
     </nav>
 
-    <main class="max-w-7xl mx-auto px-4 py-12">
-        <h1 class="text-3xl font-bold text-slate-900 mb-8">Your Items</h1>
-
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
-            <!-- Cart Items List -->
-            <div class="lg:col-span-2 space-y-6">
-                <!-- Item 1 -->
-                <div class="bg-white rounded-3xl p-6 flex flex-col sm:flex-row items-center gap-6 shadow-sm border border-slate-100">
-                    <img src="https://images.unsplash.com/photo-1518843875459-f738682238a6?q=80&w=200&auto=format&fit=crop" class="w-24 h-24 rounded-2xl object-cover" alt="Carrots">
-                    <div class="flex-1 text-center sm:text-left">
-                        <h3 class="font-bold text-slate-900">Organic Farm Carrots</h3>
-                        <p class="text-slate-500 text-sm mb-2">500g Pack</p>
-                        <span class="text-emerald-600 font-bold">Rs. 360</span>
-                    </div>
-                    <div class="flex items-center gap-4 bg-slate-50 p-2 rounded-full border border-slate-100">
-                        <button class="w-8 h-8 rounded-full bg-white flex items-center justify-center text-slate-600 hover:bg-emerald-600 hover:text-white transition-all"><i data-lucide="minus" class="w-4 h-4"></i></button>
-                        <span class="font-bold text-slate-800">2</span>
-                        <button class="w-8 h-8 rounded-full bg-white flex items-center justify-center text-slate-600 hover:bg-emerald-600 hover:text-white transition-all"><i data-lucide="plus" class="w-4 h-4"></i></button>
-                    </div>
-                    <button class="text-slate-400 hover:text-red-500 transition-colors"><i data-lucide="trash-2" class="w-5 h-5"></i></button>
+    <main class="max-w-7xl mx-auto px-4 lg:px-12 py-20">
+        <template x-if="$store.cart.items.length === 0">
+            <div class="text-center py-20 space-y-8 glass-card rounded-5xl border-none p-20 shadow-2xl shadow-slate-200/50">
+                <div class="w-32 h-32 bg-slate-100 rounded-full flex items-center justify-center mx-auto text-slate-300">
+                    <i data-lucide="shopping-cart" class="w-16 h-16"></i>
                 </div>
-
-                <!-- Item 2 -->
-                <div class="bg-white rounded-3xl p-6 flex flex-col sm:flex-row items-center gap-6 shadow-sm border border-slate-100">
-                    <img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?q=80&w=200&auto=format&fit=crop" class="w-24 h-24 rounded-2xl object-cover" alt="Strawberries">
-                    <div class="flex-1 text-center sm:text-left">
-                        <h3 class="font-bold text-slate-900">Local Strawberries</h3>
-                        <p class="text-slate-500 text-sm mb-2">250g Box</p>
-                        <span class="text-emerald-600 font-bold">Rs. 560</span>
-                    </div>
-                    <div class="flex items-center gap-4 bg-slate-50 p-2 rounded-full border border-slate-100">
-                        <button class="w-8 h-8 rounded-full bg-white flex items-center justify-center text-slate-600 hover:bg-emerald-600 hover:text-white transition-all"><i data-lucide="minus" class="w-4 h-4"></i></button>
-                        <span class="font-bold text-slate-800">1</span>
-                        <button class="w-8 h-8 rounded-full bg-white flex items-center justify-center text-slate-600 hover:bg-emerald-600 hover:text-white transition-all"><i data-lucide="plus" class="w-4 h-4"></i></button>
-                    </div>
-                    <button class="text-slate-400 hover:text-red-500 transition-colors"><i data-lucide="trash-2" class="w-5 h-5"></i></button>
-                </div>
-
-                <div class="pt-6 border-t border-slate-200">
-                    <a href="shop.html" class="inline-flex items-center gap-2 text-emerald-600 font-semibold hover:gap-3 transition-all">
-                        <i data-lucide="arrow-left" class="w-4 h-4"></i> Continue Shopping
-                    </a>
-                </div>
+                <h2 class="text-4xl font-black text-slate-900 tracking-tighter">Your basket is empty</h2>
+                <p class="text-slate-500 font-bold max-w-sm mx-auto">Looks like you haven't added any fresh goodness yet. Let's fill it up!</p>
+                <a href="shop.html" class="inline-block bg-emerald-600 text-white px-12 py-5 rounded-2xl font-black shadow-xl hover:scale-105 transition-all">Start Shopping</a>
             </div>
+        </template>
 
-            <!-- Order Summary -->
-            <div>
-                <div class="glass p-8 rounded-[2rem] shadow-xl sticky top-24">
-                    <h2 class="text-2xl font-bold text-slate-900 mb-6">Order Summary</h2>
-                    <div class="space-y-4 mb-8">
-                        <div class="flex justify-between text-slate-600">
-                            <span>Subtotal</span>
-                            <span class="font-bold">Rs. <span x-text="subtotal"></span></span>
-                        </div>
-                        <div class="flex justify-between text-slate-600">
-                            <span>Delivery Fee</span>
-                            <span class="font-bold">Rs. <span x-text="delivery"></span></span>
-                        </div>
-                        <div class="pt-4 border-t border-white/40 flex justify-between text-slate-900 text-xl font-black">
-                            <span>Total</span>
-                            <span class="text-emerald-600">Rs. <span x-text="subtotal + delivery"></span></span>
-                        </div>
+        <template x-if="$store.cart.items.length > 0">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-16">
+                <!-- Cart Items List -->
+                <div class="lg:col-span-2 space-y-8">
+                    <h1 class="text-4xl font-black text-slate-900 tracking-tighter mb-12">My Selection</h1>
+                    <div class="space-y-6">
+                        <template x-for="item in $store.cart.items" :key="item.id">
+                            <div class="bg-white rounded-[2.5rem] p-8 flex flex-col sm:flex-row items-center gap-10 shadow-sm border border-slate-100 group hover:shadow-2xl transition-all duration-500">
+                                <div class="w-32 h-32 rounded-3xl overflow-hidden shadow-inner bg-slate-50 flex-shrink-0">
+                                    <img :src="item.img" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                                </div>
+                                <div class="flex-1 text-center sm:text-left">
+                                    <h3 class="font-black text-2xl text-slate-900 tracking-tight" x-text="item.name"></h3>
+                                    <p class="text-slate-400 font-bold text-sm mb-4" x-text="item.weight"></p>
+                                    <div class="text-2xl font-extrabold text-emerald-600">Rs. <span x-text="item.price"></span></div>
+                                </div>
+                                <div class="flex items-center gap-6 bg-slate-50 p-3 rounded-2xl border border-slate-100">
+                                    <button @click="$store.cart.updateQuantity(item.id, -1)" class="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-slate-500 hover:bg-emerald-600 hover:text-white transition-all shadow-sm active:scale-90"><i data-lucide="minus" class="w-4 h-4"></i></button>
+                                    <span class="font-black text-xl text-slate-800 w-6 text-center" x-text="item.quantity"></span>
+                                    <button @click="$store.cart.updateQuantity(item.id, 1)" class="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-slate-500 hover:bg-emerald-600 hover:text-white transition-all shadow-sm active:scale-90"><i data-lucide="plus" class="w-4 h-4"></i></button>
+                                </div>
+                                <button @click="$store.cart.removeItem(item.id)" class="text-slate-300 hover:text-red-500 transition-colors hover:scale-125"><i data-lucide="trash-2" class="w-6 h-6"></i></button>
+                            </div>
+                        </template>
                     </div>
+                </div>
 
-                    <button class="w-full bg-orange-500 text-white py-4 rounded-2xl font-bold text-lg shadow-lg hover:bg-orange-600 hover:scale-[1.02] active:scale-95 transition-all mb-6">
-                        Checkout Now
-                    </button>
+                <!-- Order Summary -->
+                <div class="relative">
+                    <div class="glass-card p-12 rounded-5xl shadow-2xl shadow-slate-200/50 sticky top-32 overflow-hidden border-none text-slate-900">
+                        <div class="absolute -top-10 -right-10 w-40 h-40 bg-emerald-600/5 rounded-full blur-3xl"></div>
+                        <h2 class="text-3xl font-black tracking-tighter mb-10">Order Summary</h2>
+                        <div class="space-y-6 mb-10 text-lg font-bold">
+                            <div class="flex justify-between text-slate-500"><span>Goods Subtotal</span><span class="text-slate-900">Rs. <span x-text="$store.cart.subtotal"></span></span></div>
+                            <div class="flex justify-between text-slate-500"><span>Premium Delivery</span><span class="text-emerald-600">Free</span></div>
+                            <div class="pt-8 border-t border-white/40 flex justify-between text-4xl font-black"><span>Total</span><span class="text-emerald-600">Rs. <span x-text="$store.cart.subtotal"></span></span></div>
+                        </div>
 
-                    <div class="space-y-4">
-                        <div class="flex items-center gap-3 text-xs text-slate-500">
-                            <i data-lucide="shield-check" class="w-4 h-4 text-emerald-600"></i> Secure & encrypted payment
-                        </div>
-                        <div class="flex items-center gap-3 text-xs text-slate-500">
-                            <i data-lucide="zap" class="w-4 h-4 text-orange-500"></i> Fast delivery (Under 24h)
-                        </div>
-                        <div class="flex items-center gap-3 text-xs text-slate-500">
-                            <i data-lucide="truck" class="w-4 h-4 text-slate-600"></i> Cash on Delivery available
+                        <button @click="checkoutLoading = true; setTimeout(() => { checkoutLoading = false; $store.cart.clear(); window.location.href='index.html'; alert('Order Placed Successfully!') }, 2000)" 
+                                class="w-full bg-slate-900 text-white py-6 rounded-3xl font-black text-xl shadow-2xl hover:bg-emerald-600 transition-all flex items-center justify-center gap-4 group active:scale-95">
+                            <span x-show="!checkoutLoading">Confirm Order</span>
+                            <span x-show="checkoutLoading" class="animate-spin"><i data-lucide="loader-2"></i></span>
+                            <i x-show="!checkoutLoading" data-lucide="lock" class="w-6 h-6 text-emerald-500 group-hover:text-white transition-colors"></i>
+                        </button>
+
+                        <div class="mt-10 p-6 bg-emerald-50 rounded-3xl border border-emerald-100 space-y-4">
+                            <div class="flex items-center gap-4 text-xs font-black text-emerald-800 uppercase tracking-widest"><i data-lucide="shield-check" class="w-5 h-5"></i> Bank-Grade Security</div>
+                            <div class="flex items-center gap-4 text-xs font-black text-emerald-800 uppercase tracking-widest"><i data-lucide="truck" class="w-5 h-5"></i> Eco-Friendly Delivery</div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </template>
     </main>
 
     <script>lucide.createIcons();</script>
