@@ -20,6 +20,8 @@
     </style>
     <script>
         tailwind.config = { darkMode: 'class', theme: { extend: { colors: { emerald: { 600: '#059669' }, orange: { 500: '#f97316' } }, borderRadius: { '4xl': '2rem', '5xl': '3rem' } } } }
+        // Immediate Theme Injection
+        if (localStorage.getItem('cts_theme') === 'dark') document.documentElement.classList.add('dark');
     </script>
 </head>
 <body x-data="{
@@ -66,50 +68,59 @@ x-init="$store.theme.init()"
         </div>
     </nav>
 
-    <main class="max-w-7xl mx-auto px-4 lg:px-12 mt-10 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
-        <!-- Store List -->
-        <div class="pt-28 lg:pt-40">
-            <p class="text-xs font-black text-emerald-600 uppercase tracking-[0.2em] mb-2">Our Locations</p>
-            <h3 class="text-5xl font-black text-slate-900 dark:text-white tracking-tight mb-10">Find a CTS_SM Store Near You</h3>
+    <main class="max-w-7xl mx-auto px-6 md:px-8 lg:px-12 py-32 mt-10">
+        <div class="mb-20 text-center lg:text-left">
+            <p class="text-[10px] font-black uppercase tracking-[0.4em] text-emerald-600 mb-4">Store Finder</p>
+            <h1 class="text-6xl md:text-8xl font-black text-slate-900 dark:text-white tracking-tighter leading-none transition-colors">Our Hubs.</h1>
+        </div>
 
-            <div class="space-y-6">
-                <template x-for="(store, name) in stores" :key="name">
-                    <div @click="activeStore = name"
-                         :class="{'border-emerald-600 ring-4 ring-emerald-100 dark:ring-emerald-900/20': activeStore === name, 'border-slate-200 dark:border-slate-700': activeStore !== name}"
-                         class="frosted-glass p-8 rounded-4xl border cursor-pointer transition-all hover:border-emerald-600 hover:ring-4 hover:ring-emerald-100 dark:hover:ring-emerald-900/20">
-                        <div class="flex items-center justify-between mb-4">
-                            <h4 class="text-2xl font-black text-slate-900 dark:text-white tracking-tight" x-text="name"></h4>
-                            <div :class="{'bg-emerald-600 text-white': activeStore === name, 'bg-slate-100 text-slate-500 dark:bg-slate-700 dark:text-slate-300': activeStore !== name}"
-                                 class="w-10 h-10 rounded-full flex items-center justify-center transition-all">
-                                <i data-lucide="chevron-right" class="w-6 h-6"></i>
-                            </div>
+        <div class="grid lg:grid-cols-12 gap-12 lg:gap-20">
+            <!-- Store List -->
+            <div class="lg:col-span-5 space-y-6">
+                <template x-for="(info, name) in stores" :key="name">
+                    <button @click="activeStore = name" 
+                            :class="activeStore === name ? 'bg-emerald-600 text-white shadow-3xl scale-105' : 'bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-300 hover:shadow-xl'"
+                            class="w-full p-8 rounded-[3rem] text-left transition-all duration-500 flex items-center justify-between border border-transparent hover:border-emerald-500/20">
+                        <div>
+                            <h3 class="text-2xl font-black mb-1" x-text="name"></h3>
+                            <p class="text-[10px] font-black opacity-60 uppercase tracking-widest" x-text="info.hours"></p>
                         </div>
-                        <div class="flex items-center gap-3 text-sm font-medium text-slate-500 dark:text-slate-400 mb-6">
-                            <i data-lucide="map-pin" class="w-5 h-5 text-emerald-600"></i> <span x-text="store.address"></span>
-                        </div>
-                        <div class="flex flex-wrap gap-6 border-t border-slate-100 pt-6">
-                            <div class="flex items-center gap-3 text-xs font-black text-slate-400 uppercase tracking-widest"><i data-lucide="clock" class="w-4 h-4 text-emerald-600"></i> <span x-text="store.hours"></span></div>
-                            <div class="flex items-center gap-3 text-xs font-black text-slate-400 uppercase tracking-widest"><i data-lucide="phone" class="w-4 h-4 text-orange-500"></i> <span x-text="store.phone"></span></div>
-                        </div>
-                    </div>
+                        <i data-lucide="map-pin" class="w-6 h-6 opacity-40"></i>
+                    </button>
                 </template>
             </div>
 
-            <!-- Visual Map Placeholder -->
-            <div class="relative rounded-[4rem] overflow-hidden map-glow border-8 border-white group">
-                <img src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?q=80&w=1200" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[5s]">
-                <div class="absolute inset-0 bg-emerald-950/20 backdrop-grayscale-[0.5]"></div>
+            <!-- Details Panel -->
+            <div class="lg:col-span-7">
+                <div class="floating-ui rounded-[4rem] p-10 md:p-16 h-full space-y-12">
+                    <div class="space-y-6">
+                        <h2 class="text-4xl md:text-5xl font-black tracking-tighter text-slate-900 dark:text-white" x-text="activeStore"></h2>
+                        <div class="flex items-center gap-4 text-emerald-600">
+                            <span class="w-12 h-[2px] bg-emerald-600"></span>
+                            <span class="text-[10px] font-black uppercase tracking-[0.3em]">Operational Now</span>
+                        </div>
+                    </div>
 
-                <div class="absolute bottom-10 left-10 right-10 glass-card p-10 rounded-[3rem] border-none shadow-5xl" 
-                     x-show="selectedStore" x-transition>
-                    <div class="flex items-start justify-between">
-                         <div class="space-y-2">
-                             <p class="text-xs font-black text-emerald-600 uppercase tracking-[0.2em] mb-2">Selected Outlet</p>
-                             <h4 class="text-3xl font-black text-slate-900 tracking-tight" x-text="selectedStore"></h4>
-                         </div>
-                         <div class="bg-slate-900 text-white p-5 rounded-3xl hover:bg-emerald-600 transition-all shadow-xl active:scale-90 cursor-pointer">
-                             <i data-lucide="navigation-2" class="w-8 h-8"></i>
-                         </div>
+                    <div class="grid md:grid-cols-2 gap-12">
+                        <div class="space-y-4">
+                            <p class="text-[10px] font-black uppercase tracking-widest text-slate-400">Address</p>
+                            <p class="text-xl font-bold text-slate-900 dark:text-white" x-text="stores[activeStore].address"></p>
+                        </div>
+                        <div class="space-y-4">
+                            <p class="text-[10px] font-black uppercase tracking-widest text-slate-400">Direct Line</p>
+                            <p class="text-xl font-bold text-slate-900 dark:text-white" x-text="stores[activeStore].phone"></p>
+                        </div>
+                    </div>
+
+                    <div class="pt-12 border-t border-slate-100 dark:border-slate-800">
+                        <div class="h-64 md:h-80 w-full bg-slate-100 dark:bg-slate-900 rounded-[3rem] overflow-hidden relative shadow-inner">
+                            <img src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?q=80&w=1200" class="w-full h-full object-cover opacity-50 grayscale hover:grayscale-0 transition-all duration-700">
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <div class="w-16 h-16 bg-white dark:bg-slate-800 rounded-2xl flex items-center justify-center shadow-2xl">
+                                    <i data-lucide="navigation-2" class="w-8 h-8 text-emerald-600"></i>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

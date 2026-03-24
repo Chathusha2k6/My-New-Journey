@@ -89,6 +89,8 @@
     </style>
     <script>
         tailwind.config = { darkMode: 'class', theme: { extend: { colors: { emerald: { 600: '#059669' }, orange: { 500: '#f97316' } }, borderRadius: { '4xl': '2rem', '5xl': '3rem' } } } }
+        // Immediate Theme Injection
+        if (localStorage.getItem('cts_theme') === 'dark') document.documentElement.classList.add('dark');
     </script>
 </head>
 <body x-data="{ mobileMenu: false, showToast: false, toastMsg: '' }" @toast.window="toastMsg = $event.detail.message; showToast = true; setTimeout(() => showToast = false, 3000)">
@@ -101,7 +103,7 @@
     <!-- Toast Notification -->
     <div x-show="showToast" x-transition:enter="transition ease-out duration-500" x-transition:enter-start="opacity-0 translate-y-10 scale-90" x-transition:leave="transition ease-in duration-300" class="fixed bottom-10 right-10 z-[100] floating-ui px-8 py-5 rounded-[2rem] flex items-center gap-4">
         <div class="w-10 h-10 bg-emerald-600 rounded-2xl flex items-center justify-center text-white"><i data-lucide="check" class="w-5 h-5"></i></div>
-        <span class="font-bold text-slate-800" x-text="toastMsg"></span>
+        <span class="font-bold text-slate-800 dark:text-white" x-text="toastMsg"></span>
     </div>
 
     <!-- Modern Nav -->
@@ -176,7 +178,7 @@
     <!-- 3D Category Scrollers -->
     <section class="py-24 overflow-hidden">
         <div class="max-w-7xl mx-auto px-8 text-center mb-16">
-            <h2 class="text-4xl font-black tracking-tighter decoration-emerald-500 decoration-wavy underline underline-offset-8">Explore Reality</h2>
+            <h2 class="text-4xl font-black tracking-tighter decoration-emerald-500 decoration-wavy underline underline-offset-8 dark:text-white">Explore Reality</h2>
         </div>
         <div class="flex gap-10 overflow-x-auto px-12 pb-10 hide-scrollbar perspective-container" id="cat-scroll">
             <template x-for="cat in [
@@ -190,9 +192,9 @@
                 <div class="flex-shrink-0 w-72 card-3d group cursor-pointer" @click="window.location.href='shop.html'">
                     <div class="relative h-96 rounded-[3.5rem] overflow-hidden mb-6 shadow-xl">
                         <img :src="cat.img" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
-                        <div class="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-all"></div>
+                        <div class="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-all"></div>
                         <div class="absolute bottom-8 left-0 right-0 text-center">
-                            <span class="px-6 py-2 frosted-glass rounded-full text-xs font-black uppercase tracking-widest text-slate-900" x-text="cat.name"></span>
+                            <span class="px-6 py-2 frosted-glass rounded-full text-xs font-black uppercase tracking-widest text-slate-900 dark:text-white dark:bg-slate-900/60" x-text="cat.name"></span>
                         </div>
                     </div>
                 </div>

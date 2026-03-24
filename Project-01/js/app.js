@@ -107,6 +107,10 @@ document.addEventListener('alpine:init', () => {
             localStorage.setItem('cts_cart_v2', JSON.stringify(this.items));
         },
 
+        get totalAmount() {
+            return this.items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        },
+
         notify(message) {
             window.dispatchEvent(new CustomEvent('toast', { detail: { message } }));
         }
