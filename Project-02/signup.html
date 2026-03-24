@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Finance App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { 
+            font-family: 'Outfit', sans-serif; color: #111; 
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            background-attachment: fixed;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.03);
+            border-radius: 2rem;
+        }
+        @keyframes blob {
+            0% { transform: translate(0px, 0px) scale(1); }
+            33% { transform: translate(40px, -60px) scale(1.1); }
+            66% { transform: translate(-30px, 30px) scale(0.9); }
+            100% { transform: translate(0px, 0px) scale(1); }
+        }
+        .animate-blob { animation: blob 8s infinite; }
+        .animation-delay-2000 { animation-delay: 2s; }
+        .animation-delay-4000 { animation-delay: 4s; }
+    </style>
+</head>
+<body class="antialiased flex items-center justify-center min-h-screen relative py-12 md:py-0 overflow-x-hidden">
+    <!-- Monochrome abstract blurred shapes -->
+    <div class="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
+        <div class="absolute -top-40 -right-40 w-72 h-72 md:w-96 md:h-96 bg-gray-300 rounded-full mix-blend-multiply filter blur-3xl opacity-40 animate-blob"></div>
+        <div class="absolute top-40 -left-20 w-64 h-64 md:w-80 md:h-80 bg-zinc-300 rounded-full mix-blend-multiply filter blur-3xl opacity-40 animate-blob animation-delay-2000"></div>
+        <div class="absolute -bottom-20 left-40 w-72 h-72 md:w-96 md:h-96 bg-slate-300 rounded-full mix-blend-multiply filter blur-3xl opacity-40 animate-blob animation-delay-4000"></div>
+    </div>
+
+    <!-- Main Navigation (Minimal) -->
+    <a href="index.html" class="absolute top-8 left-6 md:left-10 flex items-center text-xl font-black tracking-tight text-gray-900 drop-shadow-sm z-20 transition-transform active:scale-95">
+        <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+        Go Back
+    </a>
+
+    <div class="w-full max-w-md md:max-w-lg p-6 z-10 w-full animate-[fadeIn_0.5s_ease-out_forwards] mt-12 md:mt-0">
+        <div class="mb-8 md:mb-10 text-center">
+            <h1 class="text-3xl md:text-5xl font-black tracking-tighter mb-2 text-gray-900 leading-tight">Secure Your<br>Wealth Structure.</h1>
+            <p class="text-[10px] md:text-[11px] font-bold text-gray-400 uppercase tracking-[0.2em] mt-3">Auth portal / Establish Identity</p>
+        </div>
+
+        <form id="signup-form" class="glass-panel p-6 md:p-10 space-y-6">
+            <div>
+                <label for="fullName" class="text-[10px] font-black text-gray-400 border border-gray-200 px-3 py-1 rounded-full uppercase tracking-[0.2em] mb-3 inline-block">Full Identity</label>
+                <input type="text" id="fullName" required class="w-full p-4 md:p-5 bg-white/70 border border-white rounded-[1.25rem] text-sm md:text-base font-black outline-none focus:border-black focus:bg-white transition-all shadow-inner placeholder:text-gray-300" placeholder="Johnathan Doe">
+            </div>
+            <div>
+                <label for="email" class="text-[10px] font-black text-gray-400 border border-gray-200 px-3 py-1 rounded-full uppercase tracking-[0.2em] mb-3 inline-block">Work Email</label>
+                <input type="email" id="email" required class="w-full p-4 md:p-5 bg-white/70 border border-white rounded-[1.25rem] text-sm md:text-base font-black outline-none focus:border-black focus:bg-white transition-all shadow-inner placeholder:text-gray-300" placeholder="executive@finance.com">
+            </div>
+            <div>
+                <label for="password" class="text-[10px] font-black text-gray-400 border border-gray-200 px-3 py-1 rounded-full uppercase tracking-[0.2em] mb-3 inline-block">Security Key</label>
+                <input type="password" id="password" required class="w-full p-4 md:p-5 bg-white/70 border border-white rounded-[1.25rem] text-xl font-black outline-none focus:border-black focus:bg-white transition-all shadow-inner placeholder:text-gray-300" placeholder="••••••••">
+            </div>
+            <div id="error-msg" class="text-[10px] md:text-xs font-bold text-red-500 hidden pt-2 text-center uppercase tracking-[0.15em] bg-red-50 rounded-lg py-3 px-2 border border-red-100 shadow-inner"></div>
+            
+            <div class="pt-6">
+                <button type="submit" class="w-full py-5 bg-black text-white text-xs font-black uppercase tracking-[0.2em] rounded-2xl hover:bg-gray-800 transition-colors shadow-lg hover:-translate-y-1">
+                    Initialize Protocol
+                </button>
+            </div>
+        </form>
+
+        <p class="mt-8 text-center text-[10px] md:text-xs font-bold text-gray-500 uppercase tracking-widest">
+            Identity Established? <a href="login.html" class="text-gray-900 font-black hover:underline border-b border-black ml-1">Authenticate</a>
+        </p>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+    <script src="supabase.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html>
