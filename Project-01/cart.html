@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart | CTS_SM Supermarket</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        .glass { background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.3); }
+    </style>
+</head>
+<body x-data="{ subtotal: 920, delivery: 150 }">
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 glass shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="index.html" class="text-2xl font-bold text-emerald-600 tracking-tight">CTS<span class="text-slate-900">_SM</span></a>
+                </div>
+                <div class="flex items-center space-x-6">
+                    <a href="index.html" class="text-slate-600 hover:text-emerald-600 transition-colors">Home</a>
+                    <a href="shop.html" class="text-slate-600 hover:text-emerald-600 transition-colors">Shop</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-4 py-12">
+        <h1 class="text-3xl font-bold text-slate-900 mb-8">Your Items</h1>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+            <!-- Cart Items List -->
+            <div class="lg:col-span-2 space-y-6">
+                <!-- Item 1 -->
+                <div class="bg-white rounded-3xl p-6 flex flex-col sm:flex-row items-center gap-6 shadow-sm border border-slate-100">
+                    <img src="https://images.unsplash.com/photo-1518843875459-f738682238a6?q=80&w=200&auto=format&fit=crop" class="w-24 h-24 rounded-2xl object-cover" alt="Carrots">
+                    <div class="flex-1 text-center sm:text-left">
+                        <h3 class="font-bold text-slate-900">Organic Farm Carrots</h3>
+                        <p class="text-slate-500 text-sm mb-2">500g Pack</p>
+                        <span class="text-emerald-600 font-bold">Rs. 360</span>
+                    </div>
+                    <div class="flex items-center gap-4 bg-slate-50 p-2 rounded-full border border-slate-100">
+                        <button class="w-8 h-8 rounded-full bg-white flex items-center justify-center text-slate-600 hover:bg-emerald-600 hover:text-white transition-all"><i data-lucide="minus" class="w-4 h-4"></i></button>
+                        <span class="font-bold text-slate-800">2</span>
+                        <button class="w-8 h-8 rounded-full bg-white flex items-center justify-center text-slate-600 hover:bg-emerald-600 hover:text-white transition-all"><i data-lucide="plus" class="w-4 h-4"></i></button>
+                    </div>
+                    <button class="text-slate-400 hover:text-red-500 transition-colors"><i data-lucide="trash-2" class="w-5 h-5"></i></button>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="bg-white rounded-3xl p-6 flex flex-col sm:flex-row items-center gap-6 shadow-sm border border-slate-100">
+                    <img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?q=80&w=200&auto=format&fit=crop" class="w-24 h-24 rounded-2xl object-cover" alt="Strawberries">
+                    <div class="flex-1 text-center sm:text-left">
+                        <h3 class="font-bold text-slate-900">Local Strawberries</h3>
+                        <p class="text-slate-500 text-sm mb-2">250g Box</p>
+                        <span class="text-emerald-600 font-bold">Rs. 560</span>
+                    </div>
+                    <div class="flex items-center gap-4 bg-slate-50 p-2 rounded-full border border-slate-100">
+                        <button class="w-8 h-8 rounded-full bg-white flex items-center justify-center text-slate-600 hover:bg-emerald-600 hover:text-white transition-all"><i data-lucide="minus" class="w-4 h-4"></i></button>
+                        <span class="font-bold text-slate-800">1</span>
+                        <button class="w-8 h-8 rounded-full bg-white flex items-center justify-center text-slate-600 hover:bg-emerald-600 hover:text-white transition-all"><i data-lucide="plus" class="w-4 h-4"></i></button>
+                    </div>
+                    <button class="text-slate-400 hover:text-red-500 transition-colors"><i data-lucide="trash-2" class="w-5 h-5"></i></button>
+                </div>
+
+                <div class="pt-6 border-t border-slate-200">
+                    <a href="shop.html" class="inline-flex items-center gap-2 text-emerald-600 font-semibold hover:gap-3 transition-all">
+                        <i data-lucide="arrow-left" class="w-4 h-4"></i> Continue Shopping
+                    </a>
+                </div>
+            </div>
+
+            <!-- Order Summary -->
+            <div>
+                <div class="glass p-8 rounded-[2rem] shadow-xl sticky top-24">
+                    <h2 class="text-2xl font-bold text-slate-900 mb-6">Order Summary</h2>
+                    <div class="space-y-4 mb-8">
+                        <div class="flex justify-between text-slate-600">
+                            <span>Subtotal</span>
+                            <span class="font-bold">Rs. <span x-text="subtotal"></span></span>
+                        </div>
+                        <div class="flex justify-between text-slate-600">
+                            <span>Delivery Fee</span>
+                            <span class="font-bold">Rs. <span x-text="delivery"></span></span>
+                        </div>
+                        <div class="pt-4 border-t border-white/40 flex justify-between text-slate-900 text-xl font-black">
+                            <span>Total</span>
+                            <span class="text-emerald-600">Rs. <span x-text="subtotal + delivery"></span></span>
+                        </div>
+                    </div>
+
+                    <button class="w-full bg-orange-500 text-white py-4 rounded-2xl font-bold text-lg shadow-lg hover:bg-orange-600 hover:scale-[1.02] active:scale-95 transition-all mb-6">
+                        Checkout Now
+                    </button>
+
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-3 text-xs text-slate-500">
+                            <i data-lucide="shield-check" class="w-4 h-4 text-emerald-600"></i> Secure & encrypted payment
+                        </div>
+                        <div class="flex items-center gap-3 text-xs text-slate-500">
+                            <i data-lucide="zap" class="w-4 h-4 text-orange-500"></i> Fast delivery (Under 24h)
+                        </div>
+                        <div class="flex items-center gap-3 text-xs text-slate-500">
+                            <i data-lucide="truck" class="w-4 h-4 text-slate-600"></i> Cash on Delivery available
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>lucide.createIcons();</script>
+</body>
+</html>

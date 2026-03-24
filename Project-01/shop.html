@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop | CTS_SM Supermarket</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        .glass { background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.3); }
+    </style>
+</head>
+<body x-data="{ cartCount: 0, mobileFilters: false }">
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 glass shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="index.html" class="text-2xl font-bold text-emerald-600 tracking-tight">CTS<span class="text-slate-900">_SM</span></a>
+                </div>
+                <div class="flex items-center space-x-6">
+                    <a href="index.html" class="text-slate-600 hover:text-emerald-600 transition-colors hidden sm:block">Home</a>
+                    <a href="shop.html" class="text-emerald-600 font-semibold hidden sm:block">Shop</a>
+                    <a href="contact.html" class="text-slate-600 hover:text-emerald-600 transition-colors hidden sm:block">Store Locator</a>
+                    <a href="cart.html" class="relative group p-2 rounded-full hover:bg-white/40 transition-all">
+                        <i data-lucide="shopping-cart" class="w-6 h-6 text-slate-600 group-hover:text-emerald-600"></i>
+                        <span x-show="cartCount > 0" x-text="cartCount" class="absolute top-0 right-0 bg-orange-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full ring-2 ring-white"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-4 py-8">
+        <div class="flex flex-col md:flex-row gap-8">
+            <!-- Sidebar Filters (Desktop) -->
+            <aside class="hidden md:block w-64 space-y-8 sticky top-24 h-fit">
+                <div class="glass p-6 rounded-3xl">
+                    <h3 class="font-bold text-slate-900 mb-4 flex items-center gap-2">
+                        <i data-lucide="filter" class="w-4 h-4"></i> Filters
+                    </h3>
+                    
+                    <div class="space-y-6">
+                        <!-- Categories -->
+                        <div>
+                            <p class="text-sm font-semibold text-slate-700 mb-3">Categories</p>
+                            <div class="space-y-2">
+                                <label class="flex items-center gap-2 text-sm text-slate-600 cursor-pointer hover:text-emerald-600">
+                                    <input type="checkbox" class="rounded text-emerald-600 focus:ring-emerald-600" checked> Vegetables
+                                </label>
+                                <label class="flex items-center gap-2 text-sm text-slate-600 cursor-pointer hover:text-emerald-600">
+                                    <input type="checkbox" class="rounded text-emerald-600 focus:ring-emerald-600"> Fruits
+                                </label>
+                                <label class="flex items-center gap-2 text-sm text-slate-600 cursor-pointer hover:text-emerald-600">
+                                    <input type="checkbox" class="rounded text-emerald-600 focus:ring-emerald-600"> Meat & Poultry
+                                </label>
+                                <label class="flex items-center gap-2 text-sm text-slate-600 cursor-pointer hover:text-emerald-600">
+                                    <input type="checkbox" class="rounded text-emerald-600 focus:ring-emerald-600"> Dairy
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Price Range -->
+                        <div>
+                            <p class="text-sm font-semibold text-slate-700 mb-3">Price Range</p>
+                            <input type="range" min="0" max="5000" class="w-full accent-emerald-600">
+                            <div class="flex justify-between text-xs text-slate-500 mt-2">
+                                <span>Rs. 0</span>
+                                <span>Rs. 5000+</span>
+                            </div>
+                        </div>
+
+                        <button class="w-full bg-emerald-600 text-white py-2 rounded-xl font-medium hover:bg-emerald-700 transition-colors">Apply Filters</button>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Product Grid -->
+            <div class="flex-1">
+                <div class="flex items-center justify-between mb-8">
+                    <h1 class="text-3xl font-bold text-slate-900">All Products</h1>
+                    <div class="flex items-center gap-4">
+                        <button @click="mobileFilters = true" class="md:hidden glass p-2 rounded-xl text-slate-600">
+                            <i data-lucide="filter" class="w-5 h-5"></i>
+                        </button>
+                        <select class="bg-white border border-slate-200 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-600">
+                            <option>Relevance</option>
+                            <option>Newest First</option>
+                            <option>Price: Low to High</option>
+                            <option>Price: High to Low</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Product Item 1 -->
+                    <div class="group bg-white rounded-3xl p-4 shadow-sm hover:shadow-xl transition-all border border-slate-100 relative">
+                        <div class="relative overflow-hidden rounded-2xl aspect-square mb-4">
+                            <img src="https://images.unsplash.com/photo-1596333522244-2db10073c1a7?q=80&w=400&auto=format&fit=crop" alt="Cucumber" 
+                                 class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-emerald-600/0 group-hover:bg-emerald-600/10 transition-colors flex items-center justify-center">
+                                <button @click="cartCount++" class="opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 glass bg-white/60 p-3 rounded-full text-emerald-700 shadow-lg transition-all duration-300">
+                                    <i data-lucide="plus" class="w-6 h-6"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <h3 class="font-semibold text-slate-800">Fresh Cucumber</h3>
+                        <p class="text-xs text-slate-500 mb-3">Green Valley • 1kg</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-emerald-600 font-bold text-lg">Rs. 320</span>
+                            <span class="text-[10px] bg-slate-100 text-slate-500 px-2 py-1 rounded-full">In Stock</span>
+                        </div>
+                    </div>
+
+                    <!-- Repeat for more products... -->
+                    <!-- Product Item 2 -->
+                    <div class="group bg-white rounded-3xl p-4 shadow-sm hover:shadow-xl transition-all border border-slate-100 relative">
+                        <div class="relative overflow-hidden rounded-2xl aspect-square mb-4">
+                            <img src="https://images.unsplash.com/photo-1550989460-0adf9ea622e2?q=80&w=400&auto=format&fit=crop" alt="Milk" 
+                                 class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-emerald-600/0 group-hover:bg-emerald-600/10 transition-colors flex items-center justify-center">
+                                <button @click="cartCount++" class="opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 glass bg-white/60 p-3 rounded-full text-emerald-700 shadow-lg transition-all duration-300">
+                                    <i data-lucide="plus" class="w-6 h-6"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <h3 class="font-semibold text-slate-800">Fresh Farm Milk</h3>
+                        <p class="text-xs text-slate-500 mb-3">Rich Dairy • 1L</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-emerald-600 font-bold text-lg">Rs. 240</span>
+                            <span class="text-[10px] bg-slate-100 text-slate-500 px-2 py-1 rounded-full">In Stock</span>
+                        </div>
+                    </div>
+
+                    <!-- Product Item 3 -->
+                    <div class="group bg-white rounded-3xl p-4 shadow-sm hover:shadow-xl transition-all border border-slate-100 relative">
+                        <div class="relative overflow-hidden rounded-2xl aspect-square mb-4">
+                            <img src="https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?q=80&w=400&auto=format&fit=crop" alt="Bread" 
+                                 class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-emerald-600/0 group-hover:bg-emerald-600/10 transition-colors flex items-center justify-center">
+                                <button @click="cartCount++" class="opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 glass bg-white/60 p-3 rounded-full text-emerald-700 shadow-lg transition-all duration-300">
+                                    <i data-lucide="plus" class="w-6 h-6"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <h3 class="font-semibold text-slate-800">Whole Grain Bread</h3>
+                        <p class="text-xs text-slate-500 mb-3">Daily Bake • 400g</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-emerald-600 font-bold text-lg">Rs. 280</span>
+                            <span class="text-[10px] bg-slate-100 text-slate-500 px-2 py-1 rounded-full">In Stock</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Mobile Filters Drawer -->
+    <div x-show="mobileFilters" class="fixed inset-0 z-[60]" @keydown.escape="mobileFilters = false">
+        <div x-show="mobileFilters" x-transition:enter="transition-opacity ease-linear duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" @click="mobileFilters = false"></div>
+        <div x-show="mobileFilters" x-transition:enter="transition ease-in-out duration-300 transform" x-transition:enter-start="translate-x-full" x-transition:enter-end="translate-x-0" class="absolute right-0 top-0 bottom-0 w-80 bg-white shadow-2xl p-6 overflow-y-auto">
+            <div class="flex items-center justify-between mb-8">
+                <h2 class="text-xl font-bold">Filters</h2>
+                <button @click="mobileFilters = false" class="text-slate-400 p-2"><i data-lucide="x" class="w-6 h-6"></i></button>
+            </div>
+            <!-- Mobile focus filters here -->
+            <div class="space-y-6">
+                <!-- Duplicate Desktop Filters for Mobile -->
+                <div>
+                    <p class="font-semibold text-slate-900 mb-4 text-sm">Category</p>
+                    <div class="grid grid-cols-2 gap-2">
+                        <button class="px-4 py-2 border border-emerald-600 bg-emerald-50 text-emerald-600 rounded-full text-xs font-bold">Vegetables</button>
+                        <button class="px-4 py-2 border border-slate-200 text-slate-600 rounded-full text-xs font-bold">Fruits</button>
+                        <button class="px-4 py-2 border border-slate-200 text-slate-600 rounded-full text-xs font-bold">Meat</button>
+                        <button class="px-4 py-2 border border-slate-200 text-slate-600 rounded-full text-xs font-bold">Dairy</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>lucide.createIcons();</script>
+</body>
+</html>
