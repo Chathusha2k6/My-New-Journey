@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neon Wave Player</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: #0a0a0f;
+            min-height: 100vh;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .glass-strong {
+            background: rgba(20, 20, 30, 0.8);
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-btn {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.2s ease;
+        }
+
+        .glass-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(0, 255, 170, 0.3);
+            box-shadow: 0 0 20px rgba(0, 255, 170, 0.1);
+        }
+
+        .glass-btn:active {
+            transform: scale(0.97);
+        }
+
+        .glass-btn.active {
+            background: linear-gradient(135deg, rgba(0, 255, 170, 0.2), rgba(0, 200, 150, 0.1));
+            border-color: rgba(0, 255, 170, 0.5);
+            box-shadow: 0 0 25px rgba(0, 255, 170, 0.2), inset 0 0 20px rgba(0, 255, 170, 0.05);
+        }
+
+        .neon-text {
+            background: linear-gradient(135deg, #00ffaa 0%, #00d4aa 50%, #00ffaa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 0 20px rgba(0, 255, 170, 0.3));
+        }
+
+        .neon-line {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00ffaa, transparent);
+            box-shadow: 0 0 10px #00ffaa;
+        }
+
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: -1;
+            will-change: transform;
+        }
+
+        .orb-1 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(0, 255, 170, 0.15) 0%, transparent 70%);
+            top: -150px;
+            right: -150px;
+        }
+
+        .orb-2 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(0, 200, 255, 0.12) 0%, transparent 70%);
+            bottom: -100px;
+            left: -100px;
+        }
+
+        .orb-3 {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255, 0, 128, 0.1) 0%, transparent 70%);
+            top: 40%;
+            left: 30%;
+        }
+
+        .progress-bar {
+            background: rgba(255, 255, 255, 0.08);
+            height: 4px;
+            border-radius: 2px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #00ffaa, #00d4aa);
+            height: 100%;
+            border-radius: 2px;
+            box-shadow: 0 0 10px rgba(0, 255, 170, 0.5);
+        }
+
+        .volume-slider {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 80px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            outline: none;
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 12px;
+            height: 12px;
+            background: #00ffaa;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(0, 255, 170, 0.5);
+        }
+
+        .track-item {
+            transition: all 0.2s ease;
+        }
+
+        .track-item:hover {
+            background: rgba(0, 255, 170, 0.05);
+        }
+
+        .track-item.playing {
+            background: linear-gradient(90deg, rgba(0, 255, 170, 0.15), rgba(0, 200, 255, 0.05));
+            border-left: 2px solid #00ffaa;
+        }
+
+        .eq-bar {
+            display: flex;
+            gap: 2px;
+            align-items: flex-end;
+            height: 18px;
+        }
+
+        .eq-bar span {
+            width: 3px;
+            background: linear-gradient(to top, #00ffaa, #00d4aa);
+            border-radius: 2px;
+        }
+
+        .eq-bar.active span {
+            animation: eq 0.35s ease-in-out infinite alternate;
+        }
+
+        .eq-bar.active span:nth-child(1) { animation-delay: 0s; }
+        .eq-bar.active span:nth-child(2) { animation-delay: 0.07s; }
+        .eq-bar.active span:nth-child(3) { animation-delay: 0.14s; }
+        .eq-bar.active span:nth-child(4) { animation-delay: 0.21s; }
+        .eq-bar.active span:nth-child(5) { animation-delay: 0.28s; }
+
+        @keyframes eq {
+            0% { height: 3px; opacity: 0.5; }
+            100% { height: 18px; opacity: 1; }
+        }
+
+        .nav-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 3px;
+            background: rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-dot.active {
+            width: 24px;
+            background: #00ffaa;
+            box-shadow: 0 0 10px rgba(0, 255, 170, 0.5);
+        }
+
+        section {
+            scroll-margin-top: 70px;
+        }
+
+        .thumbnail {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .glow-border {
+            box-shadow: 0 0 0 1px rgba(0, 255, 170, 0.2), 0 0 30px rgba(0, 255, 170, 0.1);
+        }
+
+        .play-btn-glow {
+            background: linear-gradient(135deg, #00ffaa, #00d4aa);
+            box-shadow: 0 0 30px rgba(0, 255, 170, 0.4), 0 0 60px rgba(0, 255, 170, 0.2);
+            transition: all 0.2s ease;
+        }
+
+        .play-btn-glow:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 40px rgba(0, 255, 170, 0.5), 0 0 80px rgba(0, 255, 170, 0.3);
+        }
+
+        .play-btn-glow:active {
+            transform: scale(0.98);
+        }
+
+        .floating {
+            animation: floating 6s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @media (max-width: 768px) {
+            .orb-1 { width: 300px; height: 300px; }
+            .orb-2 { width: 250px; height: 250px; }
+            .orb-3 { width: 200px; height: 200px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="orb orb-1 floating"></div>
+    <div class="orb orb-2 floating" style="animation-delay: -2s"></div>
+    <div class="orb orb-3 floating" style="animation-delay: -4s"></div>
+
+    <audio id="audioPlayer" preload="none"></audio>
+
+    <nav class="fixed top-0 left-0 right-0 z-50 glass-strong">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-[#00ffaa] to-[#00d4aa] flex items-center justify-center glow-border">
+                        <svg class="w-5 h-5 text-black" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+                        </svg>
+                    </div>
+                    <span class="text-xl font-bold tracking-tight">NEON<span class="neon-text">WAVE</span></span>
+                </div>
+                
+                <div class="hidden md:flex items-center gap-1" id="topNav">
+                    <button onclick="navigateTo('home')" class="nav-btn glass-btn px-5 py-2 rounded-xl text-sm font-medium active" data-section="home">Home</button>
+                    <button onclick="navigateTo('player')" class="nav-btn glass-btn px-5 py-2 rounded-xl text-sm font-medium" data-section="player">Player</button>
+                    <button onclick="navigateTo('library')" class="nav-btn glass-btn px-5 py-2 rounded-xl text-sm font-medium" data-section="library">Library</button>
+                    <button onclick="navigateTo('playlists')" class="nav-btn glass-btn px-5 py-2 rounded-xl text-sm font-medium" data-section="playlists">Playlists</button>
+                    <button onclick="navigateTo('settings')" class="nav-btn glass-btn px-5 py-2 rounded-xl text-sm font-medium" data-section="settings">Settings</button>
+                </div>
+
+                <div class="flex items-center gap-2">
+                    <button class="glass-btn p-2.5 rounded-xl">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                        </svg>
+                    </button>
+                    <button class="glass-btn p-2.5 rounded-xl relative">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+                        </svg>
+                        <span class="absolute top-2 right-2 w-2 h-2 bg-[#00ffaa] rounded-full"></span>
+                    </button>
+                    <div class="w-9 h-9 rounded-full bg-gradient-to-br from-[#00ffaa] to-[#00d4aa]"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex justify-center gap-1 pb-3 md:hidden" id="mobileNav">
+            <button onclick="navigateTo('home')" class="nav-btn glass-btn px-4 py-1.5 rounded-lg text-xs active" data-section="home">Home</button>
+            <button onclick="navigateTo('player')" class="nav-btn glass-btn px-4 py-1.5 rounded-lg text-xs" data-section="player">Player</button>
+            <button onclick="navigateTo('library')" class="nav-btn glass-btn px-4 py-1.5 rounded-lg text-xs" data-section="library">Library</button>
+            <button onclick="navigateTo('playlists')" class="nav-btn glass-btn px-4 py-1.5 rounded-lg text-xs" data-section="playlists">Playlists</button>
+        </div>
+    </nav>
+
+    <main class="pt-24 md:pt-20 pb-28 px-4">
+        <section id="home" class="min-h-screen">
+            <div class="max-w-7xl mx-auto">
+                <div class="mb-8">
+                    <h1 class="text-4xl md:text-6xl font-extrabold mb-2 tracking-tight">Good Evening</h1>
+                    <p class="text-gray-400 text-lg">Ready to dive into the rhythm?</p>
+                </div>
+
+                <div class="neon-line w-20 mb-8"></div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
+                    <div class="glass rounded-2xl p-5 flex items-center gap-4">
+                        <div class="eq-bar" id="homeEq">
+                            <span></span><span></span><span></span><span></span><span></span>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="font-semibold" id="homeTitle">Pick a track</h3>
+                            <p class="text-sm text-gray-400" id="homeArtist">From your library</p>
+                        </div>
+                    </div>
+
+                    <div class="glass rounded-2xl p-5 flex items-center gap-4 cursor-pointer hover:bg-white/5 transition-colors" onclick="navigateTo('library')">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-pink-500 to-rose-600 flex items-center justify-center">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">Favorites</h3>
+                            <p class="text-sm text-gray-400">24 tracks</p>
+                        </div>
+                    </div>
+
+                    <div class="glass rounded-2xl p-5 flex items-center gap-4 cursor-pointer hover:bg-white/5 transition-colors" onclick="navigateTo('playlists')">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">New Playlist</h3>
+                            <p class="text-sm text-gray-400">Create one</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-10">
+                    <h2 class="text-2xl font-bold mb-6 flex items-center gap-3">
+                        <span class="w-1 h-6 bg-[#00ffaa] rounded-full"></span>
+                        Trending Now
+                    </h2>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4" id="trendingGrid"></div>
+                </div>
+
+                <div>
+                    <h2 class="text-2xl font-bold mb-6 flex items-center gap-3">
+                        <span class="w-1 h-6 bg-[#00d4aa] rounded-full"></span>
+                        Recently Added
+                    </h2>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4" id="recentGrid"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="player" class="min-h-screen hidden">
+            <div class="max-w-2xl mx-auto">
+                <div class="glass rounded-3xl p-6 md:p-8 glow-border">
+                    <div class="aspect-square max-w-sm mx-auto rounded-2xl overflow-hidden mb-6 relative">
+                        <img id="playerArt" src="" alt="" class="album-art">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                        <div class="absolute bottom-4 left-4 right-4">
+                            <div class="eq-bar" id="playerEq">
+                                <span></span><span></span><span></span><span></span><span></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-center mb-5">
+                        <h2 class="text-2xl font-bold" id="trackTitle">Select a Track</h2>
+                        <p class="text-gray-400 mt-1" id="trackArtist">-</p>
+                    </div>
+
+                    <div class="mb-4" onclick="seekTo(event)">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                        </div>
+                        <div class="flex justify-between text-xs text-gray-500 mt-2 font-medium">
+                            <span id="currentTime">0:00</span>
+                            <span id="totalTime">0:00</span>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-center gap-4 mb-5">
+                        <button onclick="toggleShuffle()" class="glass-btn p-2.5 rounded-xl" id="shuffleBtn">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.46 20 9.5V4h-5.5zm.33 9.41l-1.41 1.41 3.13 3.13L14.5 20H20v-5.5l-2.04 2.04-3.13-3.13z"/>
+                            </svg>
+                        </button>
+                        <button onclick="prevTrack()" class="glass-btn p-3 rounded-xl">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/>
+                            </svg>
+                        </button>
+                        <button onclick="togglePlay()" id="playBtn" class="play-btn-glow p-4 rounded-2xl">
+                            <svg class="w-8 h-8 text-black" id="playIcon" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                            <svg class="w-8 h-8 text-black hidden" id="pauseIcon" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+                            </svg>
+                        </button>
+                        <button onclick="nextTrack()" class="glass-btn p-3 rounded-xl">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/>
+                            </svg>
+                        </button>
+                        <button onclick="toggleRepeat()" class="glass-btn p-2.5 rounded-xl" id="repeatBtn">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"/>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <div class="flex items-center justify-between pt-2 border-t border-white/5">
+                        <button class="glass-btn p-2.5 rounded-xl" onclick="toggleLike()">
+                            <svg class="w-5 h-5" id="likeIcon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                            </svg>
+                        </button>
+
+                        <div class="flex items-center gap-2">
+                            <svg class="w-4 h-4 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
+                            </svg>
+                            <input type="range" class="volume-slider" id="volumeSlider" min="0" max="100" value="80" oninput="setVolume(this.value)">
+                        </div>
+
+                        <button class="glass-btn p-2.5 rounded-xl" onclick="navigateTo('library')">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-8 12.5v-9l6 4.5-6 4.5z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="library" class="min-h-screen hidden">
+            <div class="max-w-4xl mx-auto">
+                <div class="mb-6">
+                    <h2 class="text-3xl font-bold">Your Library</h2>
+                    <div class="neon-line w-16 mt-3"></div>
+                </div>
+
+                <div class="flex gap-2 mb-6 overflow-x-auto pb-2">
+                    <button class="glass-btn px-4 py-2 rounded-xl text-sm font-medium whitespace-nowrap active">All</button>
+                    <button class="glass-btn px-4 py-2 rounded-xl text-sm font-medium whitespace-nowrap">Favorites</button>
+                    <button class="glass-btn px-4 py-2 rounded-xl text-sm font-medium whitespace-nowrap">Playlists</button>
+                    <button class="glass-btn px-4 py-2 rounded-xl text-sm font-medium whitespace-nowrap">Artists</button>
+                </div>
+
+                <div class="glass rounded-2xl overflow-hidden" id="libraryList"></div>
+            </div>
+        </section>
+
+        <section id="playlists" class="min-h-screen hidden">
+            <div class="max-w-4xl mx-auto">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-3xl font-bold">Playlists</h2>
+                    <button class="glass-btn px-4 py-2 rounded-xl text-sm font-medium flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                        </svg>
+                        Create New
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" id="playlistsGrid"></div>
+            </div>
+        </section>
+
+        <section id="settings" class="min-h-screen hidden">
+            <div class="max-w-2xl mx-auto">
+                <div class="mb-6">
+                    <h2 class="text-3xl font-bold">Settings</h2>
+                    <div class="neon-line w-16 mt-3"></div>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="glass rounded-2xl p-6">
+                        <h3 class="font-semibold mb-4">Audio Quality</h3>
+                        <div class="grid grid-cols-3 gap-2">
+                            <button class="glass-btn py-2.5 rounded-xl text-sm font-medium">Low</button>
+                            <button class="glass-btn py-2.5 rounded-xl text-sm font-medium active">Normal</button>
+                            <button class="glass-btn py-2.5 rounded-xl text-sm font-medium">High</button>
+                        </div>
+                    </div>
+
+                    <div class="glass rounded-2xl p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="font-semibold">Crossfade</h3>
+                                <p class="text-sm text-gray-400 mt-1">Smooth transitions</p>
+                            </div>
+                            <label class="relative inline-flex cursor-pointer">
+                                <input type="checkbox" class="sr-only peer" checked>
+                                <div class="w-12 h-6 bg-white/10 rounded-full peer peer-checked:bg-[#00ffaa] peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all after:shadow-lg"></div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="glass rounded-2xl p-6">
+                        <h3 class="font-semibold mb-2">About</h3>
+                        <p class="text-sm text-gray-400">NeonWave Player v1.0</p>
+                        <p class="text-xs text-gray-500 mt-1">Built with Tailwind CSS</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="fixed bottom-0 left-0 right-0 glass-strong border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 py-3">
+            <div class="flex items-center gap-3">
+                <div class="w-11 h-11 rounded-lg overflow-hidden flex-shrink-0 bg-gradient-to-br from-[#00ffaa] to-[#00d4aa]" id="miniArt">
+                    <img id="miniThumb" src="" class="thumbnail hidden">
+                </div>
+                <div class="flex-1 min-w-0">
+                    <h4 class="font-medium text-sm truncate" id="miniTitle">Select a track</h4>
+                    <p class="text-xs text-gray-400 truncate" id="miniArtist">-</p>
+                </div>
+                <div class="eq-bar flex-shrink-0" id="miniEq">
+                    <span></span><span></span><span></span><span></span><span></span>
+                </div>
+                <button onclick="prevTrack()" class="glass-btn p-2 rounded-lg flex-shrink-0">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/>
+                    </svg>
+                </button>
+                <button onclick="togglePlay()" class="play-btn-glow p-2.5 rounded-xl flex-shrink-0">
+                    <svg class="w-5 h-5 text-black" id="miniPlayIcon" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M8 5v14l11-7z"/>
+                    </svg>
+                    <svg class="w-5 h-5 text-black hidden" id="miniPauseIcon" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+                    </svg>
+                </button>
+                <button onclick="nextTrack()" class="glass-btn p-2 rounded-lg flex-shrink-0">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/>
+                    </svg>
+                </button>
+                <div class="hidden sm:flex items-center gap-2 flex-shrink-0">
+                    <svg class="w-4 h-4 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
+                    </svg>
+                    <input type="range" class="volume-slider" id="miniVolume" min="0" max="100" value="80" oninput="setVolume(this.value)">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixed right-4 bottom-24 flex flex-col gap-2 md:hidden z-40">
+        <div class="nav-dot active" data-section="home"></div>
+        <div class="nav-dot" data-section="player"></div>
+        <div class="nav-dot" data-section="library"></div>
+        <div class="nav-dot" data-section="playlists"></div>
+    </div>
+
+    <script>
+        const tracks = [
+            { id: 1, title: "Blinding Lights", artist: "The Weeknd", duration: "3:20", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3", thumb: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&h=300&fit=crop", color: "from-orange-500 to-red-600" },
+            { id: 2, title: "Midnight City", artist: "M83", duration: "4:03", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3", thumb: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=300&h=300&fit=crop", color: "from-purple-500 to-indigo-600" },
+            { id: 3, title: "Electric Feel", artist: "MGMT", duration: "3:49", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3", thumb: "https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=300&h=300&fit=crop", color: "from-emerald-500 to-teal-600" },
+            { id: 4, title: "Starboy", artist: "The Weeknd", duration: "3:50", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3", thumb: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=300&h=300&fit=crop", color: "from-yellow-500 to-amber-600" },
+            { id: 5, title: "Take On Me", artist: "a-ha", duration: "3:45", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3", thumb: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=300&h=300&fit=crop", color: "from-cyan-500 to-blue-600" },
+            { id: 6, title: "Bohemian Rhapsody", artist: "Queen", duration: "5:55", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3", thumb: "https://images.unsplash.com/photo-1501612780327-45045538702b?w=300&h=300&fit=crop", color: "from-pink-500 to-rose-600" },
+            { id: 7, title: "Walking on Sunshine", artist: "Katrina", duration: "3:43", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3", thumb: "https://images.unsplash.com/photo-1504509546545-e000b4a62425?w=300&h=300&fit=crop", color: "from-yellow-400 to-orange-500" },
+            { id: 8, title: "Don't Stop Me Now", artist: "Queen", duration: "3:29", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3", thumb: "https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?w=300&h=300&fit=crop", color: "from-violet-500 to-purple-600" },
+            { id: 9, title: "Sweet Child O' Mine", artist: "Guns N' Roses", duration: "5:56", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3", thumb: "https://images.unsplash.com/photo-1504898770365-14faca6a7320?w=300&h=300&fit=crop", color: "from-red-600 to-pink-600" },
+            { id: 10, title: "Another One Bites", artist: "Queen", duration: "3:35", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3", thumb: "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=300&h=300&fit=crop", color: "from-gray-600 to-gray-800" }
+        ];
+
+        const playlists = [
+            { name: "Liked Songs", count: 24, color: "from-pink-600 to-rose-700" },
+            { name: "Chill Vibes", count: 18, color: "from-cyan-600 to-blue-700" },
+            { name: "Late Night", count: 32, color: "from-purple-600 to-violet-700" },
+            { name: "Workout Mix", count: 42, color: "from-orange-600 to-red-700" }
+        ];
+
+        const audioPlayer = document.getElementById('audioPlayer');
+        let isPlaying = false;
+        let currentTrack = -1;
+        let repeat = false;
+        let shuffle = false;
+        let likedTracks = new Set();
+
+        function initUI() {
+            renderTrendingGrid();
+            renderRecentGrid();
+            renderLibraryList();
+            renderPlaylists();
+            audioPlayer.volume = 0.8;
+        }
+
+        function renderTrendingGrid() {
+            const grid = document.getElementById('trendingGrid');
+            grid.innerHTML = tracks.slice(0, 5).map((track, i) => `
+                <div class="glass rounded-xl p-3 cursor-pointer group hover:bg-white/[0.07] transition-colors" onclick="playTrack(${i})">
+                    <div class="aspect-square rounded-lg overflow-hidden mb-3 relative bg-gradient-to-br ${track.color}">
+                        <img src="${track.thumb}" alt="${track.title}" class="thumbnail" loading="lazy">
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <div class="w-10 h-10 rounded-full bg-[#00ffaa] flex items-center justify-center">
+                                <svg class="w-5 h-5 text-black" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M8 5v14l11-7z"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <h4 class="font-semibold text-sm truncate">${track.title}</h4>
+                    <p class="text-xs text-gray-400 truncate">${track.artist}</p>
+                </div>
+            `).join('');
+        }
+
+        function renderRecentGrid() {
+            const grid = document.getElementById('recentGrid');
+            grid.innerHTML = tracks.slice(5, 10).map((track, i) => `
+                <div class="glass rounded-xl p-3 cursor-pointer group hover:bg-white/[0.07] transition-colors" onclick="playTrack(${i + 5})">
+                    <div class="aspect-square rounded-lg overflow-hidden mb-3 relative bg-gradient-to-br ${track.color}">
+                        <img src="${track.thumb}" alt="${track.title}" class="thumbnail" loading="lazy">
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <div class="w-10 h-10 rounded-full bg-[#00ffaa] flex items-center justify-center">
+                                <svg class="w-5 h-5 text-black" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M8 5v14l11-7z"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <h4 class="font-semibold text-sm truncate">${track.title}</h4>
+                    <p class="text-xs text-gray-400 truncate">${track.artist}</p>
+                </div>
+            `).join('');
+        }
+
+        function renderLibraryList() {
+            const list = document.getElementById('libraryList');
+            list.innerHTML = tracks.map((track, i) => `
+                <div class="track-item p-4 flex items-center gap-4 cursor-pointer ${currentTrack === i ? 'playing' : ''}" onclick="playTrack(${i})">
+                    <div class="w-12 h-12 rounded-lg overflow-hidden flex-shrink-0 bg-gradient-to-br ${track.color}">
+                        <img src="${track.thumb}" alt="${track.title}" class="thumbnail" loading="lazy">
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <h4 class="font-medium truncate">${track.title}</h4>
+                        <p class="text-sm text-gray-400 truncate">${track.artist} - ${track.duration}</p>
+                    </div>
+                    <button class="glass-btn p-2 rounded-lg" onclick="event.stopPropagation(); toggleLikeTrack(${track.id})">
+                        <svg class="w-5 h-5 ${likedTracks.has(track.id) ? 'text-[#00ffaa]' : ''}" fill="${likedTracks.has(track.id) ? 'currentColor' : 'none'}" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                        </svg>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function renderPlaylists() {
+            const grid = document.getElementById('playlistsGrid');
+            grid.innerHTML = playlists.map(pl => `
+                <div class="glass rounded-2xl p-4 flex gap-4 cursor-pointer hover:bg-white/[0.07] transition-colors">
+                    <div class="w-16 h-16 rounded-xl bg-gradient-to-br ${pl.color} flex items-center justify-center flex-shrink-0">
+                        <svg class="w-7 h-7 opacity-60" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                        </svg>
+                    </div>
+                    <div class="flex-1 flex items-center">
+                        <div>
+                            <h3 class="font-semibold">${pl.name}</h3>
+                            <p class="text-sm text-gray-400">${pl.count} songs</p>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function playTrack(index) {
+            if (index < 0 || index >= tracks.length) return;
+            currentTrack = index;
+            const track = tracks[index];
+            audioPlayer.src = track.src;
+            audioPlayer.play().then(() => {
+                isPlaying = true;
+                updateUI();
+            }).catch(err => console.log('Playback failed:', err));
+            document.getElementById('player').classList.remove('hidden');
+            navigateTo('player');
+        }
+
+        function togglePlay() {
+            if (currentTrack < 0) { playTrack(0); return; }
+            if (isPlaying) audioPlayer.pause();
+            else audioPlayer.play();
+            isPlaying = !isPlaying;
+            updateUI();
+        }
+
+        function updateUI() {
+            const track = currentTrack >= 0 ? tracks[currentTrack] : null;
+            document.getElementById('trackTitle').textContent = track ? track.title : 'Select a Track';
+            document.getElementById('trackArtist').textContent = track ? track.artist : '-';
+            document.getElementById('miniTitle').textContent = track ? track.title : 'Select a track';
+            document.getElementById('miniArtist').textContent = track ? track.artist : '-';
+            document.getElementById('totalTime').textContent = track ? track.duration : '0:00';
+            document.getElementById('homeTitle').textContent = track ? track.title : 'Pick a track';
+            document.getElementById('homeArtist').textContent = track ? track.artist : 'From your library';
+
+            const thumb = document.getElementById('miniThumb');
+            const miniArt = document.getElementById('miniArt');
+            if (track) {
+                thumb.src = track.thumb;
+                thumb.classList.remove('hidden');
+                miniArt.className = 'w-11 h-11 rounded-lg overflow-hidden flex-shrink-0';
+                document.getElementById('playerArt').src = track.thumb;
+            } else {
+                thumb.classList.add('hidden');
+                miniArt.className = 'w-11 h-11 rounded-lg overflow-hidden flex-shrink-0 bg-gradient-to-br from-[#00ffaa] to-[#00d4aa]';
+            }
+
+            const playIcon = document.getElementById('playIcon');
+            const pauseIcon = document.getElementById('pauseIcon');
+            const miniPlayIcon = document.getElementById('miniPlayIcon');
+            const miniPauseIcon = document.getElementById('miniPauseIcon');
+
+            if (isPlaying) {
+                playIcon.classList.add('hidden');
+                pauseIcon.classList.remove('hidden');
+                miniPlayIcon.classList.add('hidden');
+                miniPauseIcon.classList.remove('hidden');
+                document.querySelectorAll('.eq-bar').forEach(bar => bar.classList.add('active'));
+            } else {
+                playIcon.classList.remove('hidden');
+                pauseIcon.classList.add('hidden');
+                miniPlayIcon.classList.remove('hidden');
+                miniPauseIcon.classList.add('hidden');
+                document.querySelectorAll('.eq-bar').forEach(bar => bar.classList.remove('active'));
+            }
+
+            const likeIcon = document.getElementById('likeIcon');
+            if (track && likedTracks.has(track.id)) {
+                likeIcon.setAttribute('fill', 'currentColor');
+                likeIcon.classList.add('text-[#00ffaa]');
+            } else {
+                likeIcon.setAttribute('fill', 'none');
+                likeIcon.classList.remove('text-[#00ffaa]');
+            }
+
+            document.getElementById('shuffleBtn').classList.toggle('active', shuffle);
+            document.getElementById('repeatBtn').classList.toggle('active', repeat);
+            renderLibraryList();
+        }
+
+        function prevTrack() {
+            if (shuffle) {
+                let newIndex;
+                do { newIndex = Math.floor(Math.random() * tracks.length); }
+                while (newIndex === currentTrack && tracks.length > 1);
+                playTrack(newIndex);
+            } else {
+                playTrack((currentTrack - 1 + tracks.length) % tracks.length);
+            }
+        }
+
+        function nextTrack() {
+            if (shuffle) {
+                let newIndex;
+                do { newIndex = Math.floor(Math.random() * tracks.length); }
+                while (newIndex === currentTrack && tracks.length > 1);
+                playTrack(newIndex);
+            } else {
+                playTrack((currentTrack + 1) % tracks.length);
+            }
+        }
+
+        function toggleRepeat() {
+            repeat = !repeat;
+            audioPlayer.loop = repeat;
+            updateUI();
+        }
+
+        function toggleShuffle() {
+            shuffle = !shuffle;
+            updateUI();
+        }
+
+        function toggleLike() {
+            if (currentTrack >= 0) toggleLikeTrack(tracks[currentTrack].id);
+        }
+
+        function toggleLikeTrack(id) {
+            likedTracks.has(id) ? likedTracks.delete(id) : likedTracks.add(id);
+            updateUI();
+        }
+
+        function setVolume(value) {
+            audioPlayer.volume = value / 100;
+            document.getElementById('volumeSlider').value = value;
+            document.getElementById('miniVolume').value = value;
+        }
+
+        function seekTo(event) {
+            const rect = event.currentTarget.getBoundingClientRect();
+            const percent = (event.clientX - rect.left) / rect.width;
+            if (audioPlayer.duration) audioPlayer.currentTime = percent * audioPlayer.duration;
+        }
+
+        audioPlayer.addEventListener('timeupdate', () => {
+            if (audioPlayer.duration) {
+                const percent = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+                document.getElementById('progressFill').style.width = percent + '%';
+                const mins = Math.floor(audioPlayer.currentTime / 60);
+                const secs = Math.floor(audioPlayer.currentTime % 60);
+                document.getElementById('currentTime').textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
+            }
+        });
+
+        audioPlayer.addEventListener('ended', () => {
+            repeat ? (audioPlayer.currentTime = 0, audioPlayer.play()) : nextTrack();
+        });
+
+        function navigateTo(sectionId) {
+            document.querySelectorAll('section').forEach(s => s.classList.add('hidden'));
+            document.getElementById(sectionId)?.classList.remove('hidden');
+            document.querySelectorAll('.nav-btn, .nav-dot').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.section === sectionId);
+            });
+        }
+
+        document.querySelectorAll('.nav-dot').forEach(dot => {
+            dot.addEventListener('click', () => navigateTo(dot.dataset.section));
+        });
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.id;
+                    document.querySelectorAll('.nav-btn, .nav-dot').forEach(btn => {
+                        btn.classList.toggle('active', btn.dataset.section === id);
+                    });
+                }
+            });
+        }, { rootMargin: '-20% 0px -70% 0px' });
+
+        document.querySelectorAll('section').forEach(s => observer.observe(s));
+
+        initUI();
+    </script>
+</body>
+</html>
