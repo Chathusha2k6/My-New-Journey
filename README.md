@@ -1,43 +1,41 @@
-# G'day, I'm Chathusha. 
+# Hey, I'm Chathusha 👋
 
-On a mission to build resilient, automated cloud systems. Currently navigating the vast landscapes of web development, architecture, and deployment.
-
----
-
-### 🛡️ Skills in my Arsenal
-
-* **Cloud & DevOps:** Architecting with **AWS**, deploying with **Docker**, configuring on **Linux**.
-* **Web Development:** Frontend magic with **Next.js**, backend efficiency with **Node.js** and **TypeScript**.
-* **Automation:** Workflow orchestration with **n8n** and exploring local intelligence with **Ollama**.
+I’m a developer who thrives at the intersection of code and infrastructure. Currently, I’m deep-diving into **Full-Stack Development**, **Cloud Architecture**, and **DevOps**. My goal is to build applications that aren't just functional, but are also scalable, automated, and secure.
 
 ---
 
-### 📊 My GitHub Journey
+### 🔍 What I’m Focused On
 
-<p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=Chathusha2k6&show_icons=true&theme=tokyonight" alt="Chathusha's GitHub stats" />
-</p>
-
----
-
-### ⚡ Side Quests
-
-* 🔭 Building a custom **LMS (Learning Management System)** from scratch.
-* Self-hosting projects and getting my hands dirty with VPS.
-* 🎮 Outside of code: Perfecting a racing line in **NFS** or traversing history in **Assassin's Creed**.
+* **Modern Web Apps:** Crafting high-performance interfaces using **Next.js** and robust backends with **Node.js**.
+* **Infrastructure as Code:** Automating everything. I'm obsessed with **Docker** containerization and managing **Linux** servers to ensure smooth deployments.
+* **Cloud Ecosystems:** Leveraging **AWS** and **Oracle Cloud** to host resilient services.
+* **AI Integration:** Experimenting with **Ollama** and **DeepSeek** to bring local AI intelligence into my dev workflow.
 
 ---
 
-### 📫 Connect with Me
+### 🛠️ Technical Toolkit
 
-<p align="center">
-  <a href="[YOUR_LINKEDIN_URL]" target="_blank">
-    <img src="https://img.shields.io/badge/-LinkedIn-0077B5?style=flat-square&logo=linkedin&logoColor=white" alt="LinkedIn" />
-  </a>
-  <a href="[YOUR_PORTFOLIO_URL]" target="_blank">
-    <img src="https://img.shields.io/badge/-Portfolio-000?style=flat-square&logo=visualstudiocode&logoColor=white" alt="Portfolio" />
-  </a>
-  <a href="[YOUR_FIVERR_URL]" target="_blank">
-    <img src="https://img.shields.io/badge/-Fiverr-1DBF73?style=flat-square&logo=fiverr&logoColor=white" alt="Fiverr" />
-  </a>
-</p>
+| Category | Tools & Technologies |
+| :--- | :--- |
+| **Languages** | TypeScript, JavaScript, HTML/CSS |
+| **Frameworks** | Next.js, React, Node.js, Express |
+| **Cloud & Ops** | AWS, Oracle Cloud, Docker, Bash/Linux |
+| **Automation** | n8n, GitHub Actions |
+
+---
+
+### 🏗️ Current Projects & Side Quests
+
+- 🎓 **Personal LMS:** Building a custom Learning Management System to streamline my own studies and help friends stay organized.
+- 🚀 **Portfolio:** Polishing my personal space to showcase my work to the global freelance market.
+- 🕹️ **Recharge:** When I'm away from the terminal, you'll find me in a high-speed chase in **NFS** or diving into the lore of **Assassin's Creed**.
+
+---
+
+### 📈 GitHub Status
+![Chathusha's Stats](https://github-readme-stats.vercel.app/api?username=Chathusha2k6&show_icons=true&theme=tokyonight&count_private=true)
+
+---
+
+### 📫 Let's Chat
+- [LinkedIn](YOUR_LINKEDIN_URL) | [Fiverr](YOUR_FIVERR_URL)
