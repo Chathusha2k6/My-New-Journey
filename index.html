@@ -1,198 +1,465 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CTS Dev | Next-Gen Cloud Solutions</title>
+    <title>John Doe | Creative Developer & Designer</title>
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Professional portfolio of John Doe, a Creative Developer specializing in high-end web experiences and digital products.">
+    
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#6366f1',
+                        secondary: '#a855f7',
+                        dark: '#030712',
+                        glass: 'rgba(255, 255, 255, 0.03)',
+                        'glass-border': 'rgba(255, 255, 255, 0.1)',
+                    },
+                    fontFamily: {
+                        outfit: ['Outfit', 'sans-serif'],
+                        inter: ['Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        'gradient-x': 'gradient-x 15s ease infinite',
+                        'blob': 'blob 7s infinite',
+                        'fade-in-up': 'fade-in-up 0.8s ease-out forwards',
+                    },
+                    keyframes: {
+                        'gradient-x': {
+                            '0%, 100%': { 'background-size': '200% 200%', 'background-position': 'left center' },
+                            '50%': { 'background-size': '200% 200%', 'background-position': 'right center' },
+                        },
+                        'blob': {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        'fade-in-up': {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap');
-        
         body {
-            background-color: #050505;
-            color: white;
-            font-family: 'Space+Grotesk', sans-serif;
-            overflow-x: hidden;
+            background-color: #030712;
+            color: #f3f4f6;
+            font-family: 'Inter', sans-serif;
         }
-
-        #bg-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: -1;
+        h1, h2, h3, h4, .font-outfit {
+            font-family: 'Outfit', sans-serif;
         }
-
         .glass {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
-            border-radius: 20px;
         }
-
-        .widget-shadow {
-            box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5);
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(99, 102, 241, 0.4);
+            transform: translateY(-5px);
+            transition: all 0.3s ease;
         }
-
-        .glow-text {
-            text-shadow: 0 0 15px rgba(59, 130, 246, 0.8);
+        .text-gradient {
+            background: linear-gradient(to right, #6366f1, #a855f7, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-
-        .hero-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 50%;
-            height: 4px;
-            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
-            border-radius: 2px;
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
-<body class="p-4 md:p-8">
+<body class="selection:bg-primary selection:text-white">
 
-    <canvas id="bg-canvas"></canvas>
+    <!-- Background Elements -->
+    <div class="fixed inset-0 -z-10 overflow-hidden">
+        <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/20 rounded-full blur-[120px] animate-blob"></div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-secondary/20 rounded-full blur-[120px] animate-blob animation-delay-2000"></div>
+        <div class="absolute top-[30%] right-[10%] w-[30%] h-[30%] bg-pink-500/10 rounded-full blur-[120px] animate-blob animation-delay-4000"></div>
+    </div>
 
-    <nav class="fixed top-4 left-4 right-4 z-50 glass p-4 flex justify-between items-center md:top-8 md:left-8 md:right-8">
-        <h1 class="text-3xl font-bold tracking-tighter text-blue-500">CTS<span class="text-white">DEV</span></h1>
-        <div class="space-x-8 hidden md:flex text-sm font-medium">
-            <a href="#hero" class="hover:text-blue-400 transition">Home</a>
-            <a href="#solutions" class="hover:text-blue-400 transition">Solutions</a>
-            <a href="#about" class="hover:text-blue-400 transition">About</a>
-            <a href="#contact" class="bg-blue-600 px-6 py-2 rounded-full hover:bg-blue-700 transition">Contact</a>
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 flex justify-center p-6">
+        <div class="glass px-8 py-3 rounded-full flex items-center space-x-8 max-w-fit shadow-2xl">
+            <a href="#home" class="text-sm font-medium hover:text-primary transition-colors">Home</a>
+            <a href="#about" class="text-sm font-medium hover:text-primary transition-colors">About</a>
+            <a href="#projects" class="text-sm font-medium hover:text-primary transition-colors">Projects</a>
+            <a href="#skills" class="text-sm font-medium hover:text-primary transition-colors">Skills</a>
+            <a href="#contact" class="text-sm font-medium hover:text-primary transition-colors">Contact</a>
         </div>
-        <button class="md:hidden text-gray-400">☰</button>
     </nav>
 
-    <main class="mt-32 space-y-20">
+    <!-- Mobile Menu Button (Visible on small screens) -->
+    <div class="fixed top-6 right-6 z-[60] md:hidden">
+        <button id="menu-toggle" class="glass p-3 rounded-xl">
+            <i data-lucide="menu"></i>
+        </button>
+    </div>
 
-        <section id="hero" class="glass p-12 flex flex-col items-center text-center widget-shadow">
-            <h2 class="hero-title text-6xl md:text-7xl font-bold mb-6 relative">Building<br>Digital <span class="text-blue-500">Legacy</span></h2>
-            <p class="text-xl text-gray-400 max-w-2xl mb-12">Next-generation cloud solutions, full-stack development, and AI integration for global enterprises.</p>
-            <button class="px-10 py-5 bg-white text-black font-bold rounded-2xl hover:scale-105 transition transform widget-shadow">Explore Our Tech</button>
-        </section>
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex flex-col justify-center items-center px-6 pt-20">
+        <div class="max-w-4xl text-center space-y-8">
+            <div class="inline-flex items-center space-x-2 glass px-4 py-2 rounded-full border-glass-border animate-fade-in-up">
+                <span class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                </span>
+                <span class="text-xs font-medium uppercase tracking-widest text-gray-400">Available for freelance</span>
+            </div>
+            
+            <h1 class="text-5xl md:text-8xl font-extrabold tracking-tight animate-fade-in-up" style="animation-delay: 0.2s">
+                Crafting <span class="text-gradient">Digital</span><br>Masterpieces
+            </h1>
+            
+            <p class="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto animate-fade-in-up" style="animation-delay: 0.4s">
+                I am a Creative Developer based in the digital world, specializing in building high-performance, visually stunning web experiences that users love.
+            </p>
+            
+            <div class="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-6 animate-fade-in-up" style="animation-delay: 0.6s">
+                <a href="#projects" class="bg-primary hover:bg-primary/90 text-white px-8 py-4 rounded-2xl font-semibold shadow-lg shadow-primary/25 transition-all hover:scale-105 active:scale-95 w-full md:w-auto">
+                    View My Work
+                </a>
+                <a href="#contact" class="glass hover:bg-white/10 text-white px-8 py-4 rounded-2xl font-semibold transition-all border-glass-border w-full md:w-auto">
+                    Get In Touch
+                </a>
+            </div>
+        </div>
+        
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 animate-bounce text-gray-500">
+            <i data-lucide="chevron-down"></i>
+        </div>
+    </section>
 
-        <section id="solutions" class="space-y-12">
-            <h3 class="text-4xl font-bold text-center tracking-tight glow-text">Core Solutions</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <!-- About Section -->
+    <section id="about" class="py-24 px-6 max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+            <div class="reveal">
+                <h2 class="text-4xl md:text-5xl font-bold mb-8">About <span class="text-primary">Me</span></h2>
+                <div class="space-y-6 text-gray-400 text-lg leading-relaxed">
+                    <p>
+                        With over 5 years of experience in the industry, I have honed my skills in transforming complex problems into elegant digital solutions. My approach combines technical excellence with a deep understanding of user experience.
+                    </p>
+                    <p>
+                        I believe that every line of code should contribute to a better world. Whether it's a small landing page or a massive enterprise application, I bring the same level of passion and precision to every project.
+                    </p>
+                </div>
                 
-                <div class="glass p-8 flex flex-col space-y-4 hover:border-blue-500 hover:scale-105 transition duration-300 widget-shadow">
-                    <div class="text-5xl text-blue-500">☁️</div>
-                    <h4 class="text-2xl font-bold">Cloud Engineering</h4>
-                    <p class="text-gray-400 flex-grow">Advanced server management on AWS, Azure, and Google Cloud with DevOps automation.</p>
-                    <a href="#" class="text-sm font-medium text-blue-400 hover:underline">Learn more →</a>
-                </div>
-
-                <div class="glass p-8 flex flex-col space-y-4 hover:border-blue-500 hover:scale-105 transition duration-300 widget-shadow">
-                    <div class="text-5xl text-blue-500">💻</div>
-                    <h4 class="text-2xl font-bold">Full-Stack Dev</h4>
-                    <p class="text-gray-400 flex-grow">Crafting high-performance web applications using modern MERN & Python stacks.</p>
-                    <a href="#" class="text-sm font-medium text-blue-400 hover:underline">Learn more →</a>
-                </div>
-
-                <div class="glass p-8 flex flex-col space-y-4 hover:border-blue-500 hover:scale-105 transition duration-300 widget-shadow">
-                    <div class="text-5xl text-blue-500">🚀</div>
-                    <h4 class="text-2xl font-bold">Performance Ops</h4>
-                    <p class="text-gray-400 flex-grow">Optimizing infrastructure and software for speed, security, and scalability.</p>
-                    <a href="#" class="text-sm font-medium text-blue-400 hover:underline">Learn more →</a>
-                </div>
-
-            </div>
-        </section>
-
-        <section id="about" class="glass p-12 flex flex-col md:flex-row items-center space-y-8 md:space-y-0 md:space-x-12 widget-shadow">
-            <div class="md:w-1/2">
-                <h3 class="text-4xl font-bold mb-6 tracking-tight">Our Technology Focus</h3>
-                <p class="text-lg text-gray-400 mb-8">We utilize cutting-edge tools to deliver robust and scalable software. Our core competence lies in modern cloud architectures and efficient development pipelines.</p>
-                <div class="flex flex-wrap gap-3">
-                    <span class="bg-gray-800 text-sm px-4 py-2 rounded-full">Tailwind CSS</span>
-                    <span class="bg-gray-800 text-sm px-4 py-2 rounded-full">React / Vue</span>
-                    <span class="bg-gray-800 text-sm px-4 py-2 rounded-full">Docker / Kubernetes</span>
-                    <span class="bg-gray-800 text-sm px-4 py-2 rounded-full">AWS / Google Cloud</span>
-                    <span class="bg-gray-800 text-sm px-4 py-2 rounded-full">Three.js</span>
-                    <span class="bg-gray-800 text-sm px-4 py-2 rounded-full">Linux / Ubuntu</span>
+                <div class="grid grid-cols-2 gap-6 mt-10">
+                    <div class="glass p-6 rounded-2xl">
+                        <div class="text-3xl font-bold text-primary mb-1">50+</div>
+                        <div class="text-sm text-gray-500 uppercase tracking-wider">Projects Completed</div>
+                    </div>
+                    <div class="glass p-6 rounded-2xl">
+                        <div class="text-3xl font-bold text-secondary mb-1">12+</div>
+                        <div class="text-sm text-gray-500 uppercase tracking-wider">Awards Won</div>
+                    </div>
                 </div>
             </div>
-            <div class="md:w-1/2 w-full h-80 flex justify-center items-center">
-                <div class="w-full h-full bg-blue-900 rounded-3xl opacity-30 flex justify-center items-center widget-shadow border border-gray-700">
-                    <span class="text-5xl text-gray-600">🚀</span>
+            
+            <div class="relative reveal" style="transition-delay: 0.2s">
+                <div class="aspect-square rounded-3xl overflow-hidden glass p-4">
+                    <div class="w-full h-full rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
+                        <!-- Placeholder Image Replacement -->
+                        <i data-lucide="user" class="w-32 h-32 text-white/20"></i>
+                    </div>
+                </div>
+                <!-- Decorative element -->
+                <div class="absolute -bottom-6 -right-6 w-32 h-32 glass rounded-2xl -z-10 animate-pulse"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section (Bento Grid) -->
+    <section id="projects" class="py-24 px-6 max-w-7xl mx-auto">
+        <div class="text-center mb-16 reveal">
+            <h2 class="text-4xl md:text-6xl font-bold mb-4">Featured <span class="text-gradient">Projects</span></h2>
+            <p class="text-gray-400 max-w-xl mx-auto">A curated selection of my latest work, blending aesthetics with functionality.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-6 h-auto md:h-[800px]">
+            <!-- Large Project 1 -->
+            <div class="md:col-span-2 md:row-span-2 glass-card rounded-[2.5rem] overflow-hidden group relative reveal">
+                <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/20 to-transparent z-10 opacity-60 group-hover:opacity-80 transition-opacity"></div>
+                <div class="w-full h-full bg-indigo-900/20 flex items-center justify-center p-8">
+                     <i data-lucide="layout" class="w-24 h-24 text-primary/40 group-hover:scale-110 transition-transform duration-500"></i>
+                </div>
+                <div class="absolute bottom-0 left-0 p-10 z-20 w-full">
+                    <div class="flex justify-between items-end">
+                        <div>
+                            <div class="text-primary text-sm font-semibold mb-2 uppercase tracking-widest">Web Application</div>
+                            <h3 class="text-3xl font-bold mb-2">Nexus Platform</h3>
+                            <p class="text-gray-300 max-w-sm line-clamp-2">A revolutionary SaaS dashboard designed for data visualization and team collaboration.</p>
+                        </div>
+                        <a href="#" class="bg-white/10 hover:bg-white text-white hover:text-dark p-4 rounded-2xl transition-all">
+                            <i data-lucide="arrow-up-right"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
-        </section>
 
-    </main>
+            <!-- Small Project 2 -->
+            <div class="md:col-span-2 glass-card rounded-[2.5rem] overflow-hidden group relative reveal" style="transition-delay: 0.2s">
+                <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/20 to-transparent z-10 opacity-60 group-hover:opacity-80 transition-opacity"></div>
+                <div class="w-full h-full bg-purple-900/20 flex items-center justify-center p-8">
+                    <i data-lucide="smartphone" class="w-16 h-16 text-secondary/40 group-hover:scale-110 transition-transform duration-500"></i>
+                </div>
+                <div class="absolute bottom-0 left-0 p-8 z-20 w-full">
+                    <div class="flex justify-between items-end">
+                        <div>
+                            <div class="text-secondary text-sm font-semibold mb-1 uppercase tracking-widest">Mobile UI</div>
+                            <h3 class="text-2xl font-bold">Lumina App</h3>
+                        </div>
+                        <a href="#" class="bg-white/10 hover:bg-white text-white hover:text-dark p-3 rounded-xl transition-all">
+                            <i data-lucide="arrow-up-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
 
-    <footer class="mt-20 glass p-8 text-center text-gray-500 widget-shadow">
-        <p>&copy; 2026 CTS Dev. All Rights Reserved.</p>
-        <p class="text-sm mt-2">Next-Gen Software Development. Globally Distributed.</p>
+            <!-- Small Project 3 -->
+            <div class="md:col-span-1 glass-card rounded-[2.5rem] overflow-hidden group relative reveal" style="transition-delay: 0.4s">
+                <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/20 to-transparent z-10 opacity-60 group-hover:opacity-80 transition-opacity"></div>
+                <div class="w-full h-full bg-cyan-900/20 flex items-center justify-center p-8">
+                    <i data-lucide="layers" class="w-12 h-12 text-cyan-400/40 group-hover:scale-110 transition-transform duration-500"></i>
+                </div>
+                <div class="absolute bottom-0 left-0 p-6 z-20 w-full">
+                    <h3 class="text-xl font-bold">Orbit UI Kit</h3>
+                </div>
+            </div>
+
+            <!-- Small Project 4 -->
+            <div class="md:col-span-1 glass-card rounded-[2.5rem] overflow-hidden group relative reveal" style="transition-delay: 0.6s">
+                <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/20 to-transparent z-10 opacity-60 group-hover:opacity-80 transition-opacity"></div>
+                <div class="w-full h-full bg-pink-900/20 flex items-center justify-center p-8">
+                    <i data-lucide="zap" class="w-12 h-12 text-pink-400/40 group-hover:scale-110 transition-transform duration-500"></i>
+                </div>
+                <div class="absolute bottom-0 left-0 p-6 z-20 w-full">
+                    <h3 class="text-xl font-bold">Pulse Engine</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-24 px-6 max-w-7xl mx-auto">
+        <div class="glass rounded-[3rem] p-12 md:p-20 relative overflow-hidden reveal">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 relative z-10">
+                <div>
+                    <h2 class="text-4xl md:text-5xl font-bold mb-8">Technical <span class="text-primary">Skills</span></h2>
+                    <p class="text-gray-400 text-lg mb-12">I continuously evolve my tech stack to stay ahead in the rapidly changing digital landscape.</p>
+                    
+                    <div class="space-y-8">
+                        <div class="space-y-2">
+                            <div class="flex justify-between text-sm">
+                                <span>Frontend Development</span>
+                                <span class="text-primary">95%</span>
+                            </div>
+                            <div class="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
+                                <div class="h-full bg-primary rounded-full" style="width: 95%"></div>
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="flex justify-between text-sm">
+                                <span>UI/UX Design</span>
+                                <span class="text-secondary">85%</span>
+                            </div>
+                            <div class="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
+                                <div class="h-full bg-secondary rounded-full" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="flex justify-between text-sm">
+                                <span>Backend Logic</span>
+                                <span class="text-cyan-400">75%</span>
+                            </div>
+                            <div class="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
+                                <div class="h-full bg-cyan-400 rounded-full" style="width: 75%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-6">
+                    <div class="glass flex flex-col items-center justify-center p-6 rounded-2xl hover:bg-white/10 transition-colors group">
+                        <i data-lucide="code" class="w-8 h-8 mb-3 text-primary group-hover:scale-110 transition-transform"></i>
+                        <span class="text-sm font-medium">Javascript</span>
+                    </div>
+                    <div class="glass flex flex-col items-center justify-center p-6 rounded-2xl hover:bg-white/10 transition-colors group">
+                        <i data-lucide="figma" class="w-8 h-8 mb-3 text-secondary group-hover:scale-110 transition-transform"></i>
+                        <span class="text-sm font-medium">Figma</span>
+                    </div>
+                    <div class="glass flex flex-col items-center justify-center p-6 rounded-2xl hover:bg-white/10 transition-colors group">
+                        <i data-lucide="database" class="w-8 h-8 mb-3 text-cyan-400 group-hover:scale-110 transition-transform"></i>
+                        <span class="text-sm font-medium">Supabase</span>
+                    </div>
+                    <div class="glass flex flex-col items-center justify-center p-6 rounded-2xl hover:bg-white/10 transition-colors group">
+                        <i data-lucide="git-branch" class="w-8 h-8 mb-3 text-pink-400 group-hover:scale-110 transition-transform"></i>
+                        <span class="text-sm font-medium">Git</span>
+                    </div>
+                    <div class="glass flex flex-col items-center justify-center p-6 rounded-2xl hover:bg-white/10 transition-colors group">
+                        <i data-lucide="cpu" class="w-8 h-8 mb-3 text-orange-400 group-hover:scale-110 transition-transform"></i>
+                        <span class="text-sm font-medium">Node.js</span>
+                    </div>
+                    <div class="glass flex flex-col items-center justify-center p-6 rounded-2xl hover:bg-white/10 transition-colors group">
+                        <i data-lucide="wind" class="w-8 h-8 mb-3 text-blue-400 group-hover:scale-110 transition-transform"></i>
+                        <span class="text-sm font-medium">Tailwind</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Background Decoration -->
+            <div class="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 w-96 h-96 bg-primary/10 rounded-full blur-[100px]"></div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 px-6 max-w-7xl mx-auto">
+        <div class="text-center mb-16 reveal">
+            <h2 class="text-4xl md:text-6xl font-bold mb-4">Let's <span class="text-gradient">Connect</span></h2>
+            <p class="text-gray-400 max-w-xl mx-auto">Have a project in mind? Let's build something extraordinary together.</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+            <div class="lg:col-span-1 space-y-8 reveal">
+                <div class="glass p-8 rounded-[2rem] flex items-center space-x-6">
+                    <div class="bg-primary/20 p-4 rounded-2xl text-primary">
+                        <i data-lucide="mail"></i>
+                    </div>
+                    <div>
+                        <div class="text-xs text-gray-500 uppercase tracking-widest font-bold">Email Me</div>
+                        <div class="text-lg font-medium">hello@johndoe.com</div>
+                    </div>
+                </div>
+                <div class="glass p-8 rounded-[2rem] flex items-center space-x-6">
+                    <div class="bg-secondary/20 p-4 rounded-2xl text-secondary">
+                        <i data-lucide="linkedin"></i>
+                    </div>
+                    <div>
+                        <div class="text-xs text-gray-500 uppercase tracking-widest font-bold">LinkedIn</div>
+                        <div class="text-lg font-medium">linkedin.com/in/johndoe</div>
+                    </div>
+                </div>
+                <div class="glass p-8 rounded-[2rem] flex items-center space-x-6">
+                    <div class="bg-cyan-400/20 p-4 rounded-2xl text-cyan-400">
+                        <i data-lucide="twitter"></i>
+                    </div>
+                    <div>
+                        <div class="text-xs text-gray-500 uppercase tracking-widest font-bold">Twitter</div>
+                        <div class="text-lg font-medium">@johndoe_dev</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-2 reveal" style="transition-delay: 0.2s">
+                <form class="glass p-10 md:p-12 rounded-[3rem] space-y-8">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="space-y-2">
+                            <label class="text-sm font-medium text-gray-400 ml-2">Name</label>
+                            <input type="text" placeholder="Your Name" class="w-full glass bg-transparent px-6 py-4 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all border-glass-border">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-sm font-medium text-gray-400 ml-2">Email</label>
+                            <input type="email" placeholder="your@email.com" class="w-full glass bg-transparent px-6 py-4 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all border-glass-border">
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-sm font-medium text-gray-400 ml-2">Message</label>
+                        <textarea rows="5" placeholder="Tell me about your project..." class="w-full glass bg-transparent px-6 py-4 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all border-glass-border"></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-white text-dark py-5 rounded-2xl font-bold hover:scale-[1.02] active:scale-[0.98] transition-all shadow-xl shadow-white/10">
+                        Send Message
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 border-t border-glass-border px-6">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0">
+            <div class="text-2xl font-bold tracking-tighter">
+                JD<span class="text-primary">.</span>
+            </div>
+            <div class="text-sm text-gray-500 font-medium">
+                &copy; 2026 John Doe. Designed with passion.
+            </div>
+            <div class="flex space-x-6 text-gray-400">
+                <a href="#" class="hover:text-primary transition-colors"><i data-lucide="github" class="w-5 h-5"></i></a>
+                <a href="#" class="hover:text-primary transition-colors"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+                <a href="#" class="hover:text-primary transition-colors"><i data-lucide="dribbble" class="w-5 h-5"></i></a>
+            </div>
+        </div>
     </footer>
 
+    <!-- Scripts -->
     <script>
-        // --- THREE.JS BACKGROUND ---
-        // Setup scene, camera, and renderer
-        const canvas = document.querySelector('#bg-canvas');
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true });
+        // Initialize Lucide Icons
+        lucide.createIcons();
 
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setPixelRatio(window.devicePixelRatio);
+        // Reveal on Scroll
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealOnScroll = () => {
+            const windowHeight = window.innerHeight;
+            revealElements.forEach(el => {
+                const revealTop = el.getBoundingClientRect().top;
+                const revealPoint = 150;
+                if (revealTop < windowHeight - revealPoint) {
+                    el.classList.add('active');
+                }
+            });
+        };
 
-        // Particle Geometry
-        const particlesGeometry = new THREE.BufferGeometry();
-        const particlesCount = 2000;
-        const posArray = new Float32Array(particlesCount * 3);
+        window.addEventListener('scroll', revealOnScroll);
+        // Initial check
+        revealOnScroll();
 
-        for(let i=0; i < particlesCount * 3; i++) {
-            posArray[i] = (Math.random() - 0.5) * 10;
-        }
-
-        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-
-        // Particle Material (Cool blue color)
-        const material = new THREE.PointsMaterial({
-            size: 0.005,
-            color: '#3b82f6',
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menu-toggle');
+        // (Simplified for this demo, would normally show a full screen overlay)
+        menuToggle.addEventListener('click', () => {
+            alert('Mobile menu clicked! In a full implementation, this would open a beautiful glassmorphism overlay.');
         });
 
-        // Particle Mesh
-        const particlesMesh = new THREE.Points(particlesGeometry, material);
-        scene.add(particlesMesh);
-
-        camera.position.z = 3;
-
-        // Mouse Interaction
-        let mouseX = 0;
-        let mouseY = 0;
-
-        document.addEventListener('mousemove', (event) => {
-            mouseX = (event.clientX / window.innerWidth - 0.5);
-            mouseY = (event.clientY / window.innerHeight - 0.5);
-        });
-
-        // Animation Loop
-        function animate() {
-            requestAnimationFrame(animate);
-
-            // Subtle rotation
-            particlesMesh.rotation.y += 0.0005;
-            
-            // Mouse follower effect
-            particlesMesh.rotation.x = mouseY * 0.1;
-            particlesMesh.rotation.y += mouseX * 0.1;
-
-            renderer.render(scene, camera);
-        }
-        animate();
-
-        // Handle window resize
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
+        // Smooth Scroll for Navigation Links
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
         });
     </script>
 </body>
