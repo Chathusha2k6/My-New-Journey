@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ICT With NDA | Professional O/L ICT Coaching</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 font-sans transition-colors duration-300">
+
+    <!-- Header / Navigation -->
+    <header class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
+        <nav class="container mx-auto px-6 py-4 flex items-center justify-between">
+            <a href="#" class="text-2xl font-extrabold tracking-tighter text-primary-600 dark:text-primary-400">
+                ICT With <span class="text-slate-900 dark:text-white">NDA</span>
+            </a>
+            
+            <div class="hidden md:flex items-center space-x-8 text-sm font-medium">
+                <a href="#home" class="hover:text-primary-600 transition-colors">Home</a>
+                <a href="#about" class="hover:text-primary-600 transition-colors">About</a>
+                <a href="#courses" class="hover:text-primary-600 transition-colors">Courses</a>
+                <a href="#resources" class="hover:text-primary-600 transition-colors">Resources</a>
+                <a href="#contact" class="px-5 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-full transition-all transform hover:scale-105 active:scale-95">Enroll Now</a>
+                
+                <!-- Theme Toggle Button -->
+                <button id="theme-toggle" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors focus:outline-none">
+                    <i id="theme-toggle-icon" class="fas fa-moon text-slate-600 dark:text-yellow-400"></i>
+                </button>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <div class="md:hidden flex items-center space-x-4">
+                <button id="theme-toggle-mobile" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800">
+                    <i class="fas fa-moon dark:fa-sun"></i>
+                </button>
+                <button id="menu-btn" class="p-2 text-slate-600 dark:text-slate-300">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-0 z-40 bg-white dark:bg-slate-900 transform translate-x-full transition-transform duration-300 md:hidden">
+        <div class="flex flex-col items-center justify-center h-full space-y-8 text-2xl font-bold">
+            <a href="#home" class="mobile-link">Home</a>
+            <a href="#about" class="mobile-link">About</a>
+            <a href="#courses" class="mobile-link">Courses</a>
+            <a href="#resources" class="mobile-link">Resources</a>
+            <a href="#contact" class="px-8 py-3 bg-primary-600 text-white rounded-full">Enroll Now</a>
+        </div>
+        <button id="close-menu" class="absolute top-6 right-6 text-3xl">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="pt-32 pb-20 px-6 overflow-hidden">
+        <div class="container mx-auto flex flex-col lg:flex-row items-center justify-between">
+            <div class="lg:w-1/2 space-y-8 text-center lg:text-left">
+                <div class="inline-block px-4 py-1.5 bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 rounded-full text-xs font-bold tracking-wider uppercase">
+                    Excellence in O/L ICT
+                </div>
+                <h1 class="text-5xl md:text-7xl font-black tracking-tight leading-tight">
+                    Master <span class="text-primary-600">ICT</span> <br>
+                    With Confidence & Precision.
+                </h1>
+                <p class="text-lg text-slate-600 dark:text-slate-400 max-w-xl mx-auto lg:mx-0">
+                    Empowering students to excel in the digital era. Join NDA Sir for comprehensive ICT lessons designed for O/L success.
+                </p>
+                <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start space-y-4 sm:space-y-0 sm:space-x-4">
+                    <a href="#courses" class="w-full sm:w-auto px-8 py-4 bg-primary-600 hover:bg-primary-700 text-white font-bold rounded-2xl shadow-lg shadow-primary-600/30 transition-all transform hover:-translate-y-1">
+                        Explore Courses
+                    </a>
+                    <a href="#about" class="w-full sm:w-auto px-8 py-4 bg-white dark:bg-slate-800 text-slate-900 dark:text-white font-bold rounded-2xl border border-slate-200 dark:border-slate-700 transition-all hover:bg-slate-50 dark:hover:bg-slate-700">
+                        Who is NDA Sir?
+                    </a>
+                </div>
+                <div class="flex items-center justify-center lg:justify-start space-x-6 pt-4">
+                    <div class="flex -space-x-3">
+                        <div class="w-10 h-10 rounded-full bg-slate-200 border-2 border-white dark:border-slate-900 flex items-center justify-center text-xs font-bold">JD</div>
+                        <div class="w-10 h-10 rounded-full bg-primary-200 border-2 border-white dark:border-slate-900 flex items-center justify-center text-xs font-bold">AS</div>
+                        <div class="w-10 h-10 rounded-full bg-slate-300 border-2 border-white dark:border-slate-900 flex items-center justify-center text-xs font-bold">+</div>
+                    </div>
+                    <span class="text-sm font-medium text-slate-500">Trusted by 500+ Students</span>
+                </div>
+            </div>
+            <div class="lg:w-1/2 mt-16 lg:mt-0 relative">
+                <!-- Decorative Elements -->
+                <div class="absolute -top-10 -left-10 w-40 h-40 bg-primary-400/20 rounded-full blur-3xl animate-pulse"></div>
+                <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-purple-400/20 rounded-full blur-3xl animate-pulse shadow-glow"></div>
+                
+                <div class="relative z-10 p-4 bg-gradient-to-br from-slate-100 to-white dark:from-slate-800 dark:to-slate-900 rounded-[2.5rem] border border-slate-200 dark:border-slate-700 shadow-2xl overflow-hidden">
+                    <img id="hero-img" src="hero.png" alt="ICT Learning" class="rounded-[2rem] w-full h-[400px] object-cover opacity-80 hover:scale-105 transition-transform duration-700">
+                    <div class="absolute bottom-10 left-10 p-6 bg-white/90 dark:bg-slate-800/90 backdrop-blur rounded-3xl border border-white/20 shadow-xl max-w-xs transform hover:scale-110 transition-transform">
+                        <div class="flex items-center space-x-3 mb-2">
+                             <div class="p-2 bg-green-500 rounded-lg text-white">
+                                <i class="fas fa-check-circle"></i>
+                             </div>
+                             <span class="font-bold">Result Guaranteed</span>
+                        </div>
+                        <p class="text-xs text-slate-500">Proven track record of A's in O/L ICT since 2018.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 bg-slate-50 dark:bg-slate-800/50">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col lg:flex-row items-center gap-16">
+                <div class="lg:w-1/2">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="space-y-4">
+                            <div class="h-64 bg-slate-300 dark:bg-slate-700 rounded-3xl overflow-hidden hover:opacity-80 transition-opacity">
+                                <img src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&q=80&w=400" alt="Tech" class="w-full h-full object-cover">
+                            </div>
+                            <div class="p-8 bg-primary-600 text-white rounded-3xl text-center shadow-xl shadow-primary-600/20">
+                                <div class="text-4xl font-extrabold mb-1">10+</div>
+                                <div class="text-sm font-medium opacity-80 uppercase tracking-widest">Experience</div>
+                            </div>
+                        </div>
+                        <div class="space-y-4 mt-8">
+                            <div class="p-8 bg-slate-900 text-white rounded-3xl text-center shadow-xl shadow-slate-900/20">
+                                <div class="text-4xl font-extrabold mb-1">98%</div>
+                                <div class="text-sm font-medium opacity-80 uppercase tracking-widest">Success Rate</div>
+                            </div>
+                            <div class="h-64 bg-slate-400 dark:bg-slate-600 rounded-3xl overflow-hidden hover:opacity-80 transition-opacity">
+                                <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&q=80&w=400" alt="Coding" class="w-full h-full object-cover">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="lg:w-1/2 space-y-8">
+                    <h2 class="text-4xl font-extrabold tracking-tight">Meet NDA Sir <br><span class="text-primary-500 underline decoration-slate-300 dark:decoration-slate-700 underline-offset-8">Your ICT Mentor</span></h2>
+                    <p class="text-lg text-slate-600 dark:text-slate-400">
+                        I am a dedicated ICT educator with over a decade of experience in nurturing young minds for the O/L examinations. My mission is to simplify complex computer science concepts and make them accessible to every student.
+                    </p>
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 flex-shrink-0 bg-white dark:bg-slate-800 rounded-xl shadow-sm flex items-center justify-center text-primary-500">
+                                <i class="fas fa-microchip"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold">Cutting-edge Teaching</h4>
+                                <p class="text-sm text-slate-500">Using the latest digital tools and visual aids for better understanding.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 flex-shrink-0 bg-white dark:bg-slate-800 rounded-xl shadow-sm flex items-center justify-center text-primary-500">
+                                <i class="fas fa-user-graduate"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold">Student-Centric Approach</h4>
+                                <p class="text-sm text-slate-500">Focusing on individual progress and clearing personalized doubts.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="px-8 py-3 bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold rounded-xl transition-transform hover:scale-105">Read My Story</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section id="courses" class="py-24 px-6">
+        <div class="container mx-auto">
+            <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+                <h2 class="text-4xl font-black">Our Specialized Modules</h2>
+                <p class="text-slate-500">Comprehensive coverage of the O/L ICT syllabus with a focus on both theory and practical applications.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Course Card 1 -->
+                <div class="group p-8 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-[2rem] shadow-sm hover:shadow-2xl hover:shadow-primary-500/10 hover:-translate-y-2 transition-all duration-300">
+                    <div class="w-14 h-14 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-terminal"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Logic Gates & Algorithms</h3>
+                    <p class="text-slate-500 dark:text-slate-400 text-sm mb-6">Master the building blocks of computing and problem-solving through logical thinking.</p>
+                    <a href="#" class="text-primary-600 font-bold flex items-center gap-2 text-sm">Learn More <i class="fas fa-arrow-right text-xs group-hover:translate-x-1 transition-transform"></i></a>
+                </div>
+                
+                <!-- Course Card 2 -->
+                <div class="group p-8 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-[2rem] shadow-sm hover:shadow-2xl hover:shadow-primary-500/10 hover:-translate-y-2 transition-all duration-300">
+                    <div class="w-14 h-14 bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Networking & Web Design</h3>
+                    <p class="text-slate-500 dark:text-slate-400 text-sm mb-6">Understand how the internet works and build your first website using HTML/CSS.</p>
+                    <a href="#" class="text-primary-600 font-bold flex items-center gap-2 text-sm">Learn More <i class="fas fa-arrow-right text-xs group-hover:translate-x-1 transition-transform"></i></a>
+                </div>
+
+                <!-- Course Card 3 -->
+                <div class="group p-8 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-[2rem] shadow-sm hover:shadow-2xl hover:shadow-primary-500/10 hover:-translate-y-2 transition-all duration-300">
+                    <div class="w-14 h-14 bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Pascal Programming</h3>
+                    <p class="text-slate-500 dark:text-slate-400 text-sm mb-6">Dive into coding with a structured approach. Prepare for the programming paper with ease.</p>
+                    <a href="#" class="text-primary-600 font-bold flex items-center gap-2 text-sm">Learn More <i class="fas fa-arrow-right text-xs group-hover:translate-x-1 transition-transform"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resources Section -->
+    <section id="resources" class="py-24 bg-primary-900 text-white overflow-hidden relative">
+        <div class="absolute top-0 right-0 p-20 opacity-10">
+            <i class="fas fa-database text-9xl"></i>
+        </div>
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="flex flex-col lg:flex-row items-center justify-between gap-12">
+                <div class="lg:w-1/3">
+                    <h2 class="text-4xl font-extrabold leading-tight mb-6">Exclusive Free Resources for You</h2>
+                    <p class="opacity-70 mb-8">Download my hand-crafted notes and past paper analysis to boost your exam preparation.</p>
+                    <a href="#" class="px-8 py-3 bg-white text-primary-900 font-bold rounded-full transition-transform hover:scale-105 active:scale-95">Access Student Portal</a>
+                </div>
+                <div class="lg:w-2/3 grid grid-cols-1 sm:grid-cols-2 gap-6 w-full">
+                    <div class="p-6 bg-white/10 backdrop-blur rounded-3xl border border-white/10 flex items-center space-x-4 hover:bg-white/20 transition-colors cursor-pointer">
+                        <div class="w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-primary-900 text-xl"><i class="fas fa-file-pdf"></i></div>
+                        <div>
+                            <div class="font-bold">Unit Summaries</div>
+                            <div class="text-xs opacity-60">PDF Downloads</div>
+                        </div>
+                    </div>
+                    <div class="p-6 bg-white/10 backdrop-blur rounded-3xl border border-white/10 flex items-center space-x-4 hover:bg-white/20 transition-colors cursor-pointer">
+                        <div class="w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-primary-900 text-xl"><i class="fas fa-play"></i></div>
+                        <div>
+                            <div class="font-bold">Video Tutorials</div>
+                            <div class="text-xs opacity-60">Weekly Uploads</div>
+                        </div>
+                    </div>
+                    <div class="p-6 bg-white/10 backdrop-blur rounded-3xl border border-white/10 flex items-center space-x-4 hover:bg-white/20 transition-colors cursor-pointer">
+                        <div class="w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-primary-900 text-xl"><i class="fas fa-pen-nib"></i></div>
+                        <div>
+                            <div class="font-bold">Past Paper DB</div>
+                            <div class="text-xs opacity-60">Last 10 Years</div>
+                        </div>
+                    </div>
+                    <div class="p-6 bg-white/10 backdrop-blur rounded-3xl border border-white/10 flex items-center space-x-4 hover:bg-white/20 transition-colors cursor-pointer">
+                        <div class="w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-primary-900 text-xl"><i class="fas fa-calendar-check"></i></div>
+                        <div>
+                            <div class="font-bold">Mock Exams</div>
+                            <div class="text-xs opacity-60">Monthly Evaluation</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 px-6">
+        <div class="container mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                <div>
+                    <h2 class="text-5xl font-black mb-6">Let's Talk <br><span class="text-primary-600">Connectivity.</span></h2>
+                    <p class="text-slate-500 mb-8">Have a question about the syllabus or want to join my physical/online sessions? Send a message!</p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-primary-100 dark:bg-primary-900/30 text-primary-600 rounded-full flex items-center justify-center"><i class="fas fa-phone"></i></div>
+                            <span class="font-medium">+94 7X XXX XXXX</span>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-primary-100 dark:bg-primary-900/30 text-primary-600 rounded-full flex items-center justify-center"><i class="fas fa-envelope"></i></div>
+                            <span class="font-medium">nda.ict@example.com</span>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-primary-100 dark:bg-primary-900/30 text-primary-600 rounded-full flex items-center justify-center"><i class="fas fa-map-marker-alt"></i></div>
+                            <span class="font-medium">Colombo, Sri Lanka</span>
+                        </div>
+                    </div>
+
+                    <div class="flex space-x-4 mt-12">
+                        <a href="#" class="w-10 h-10 bg-slate-100 dark:bg-slate-800 rounded-lg flex items-center justify-center hover:bg-primary-600 hover:text-white transition-all"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="w-10 h-10 bg-slate-100 dark:bg-slate-800 rounded-lg flex items-center justify-center hover:bg-primary-600 hover:text-white transition-all"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#" class="w-10 h-10 bg-slate-100 dark:bg-slate-800 rounded-lg flex items-center justify-center hover:bg-primary-600 hover:text-white transition-all"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+
+                <div class="bg-white dark:bg-slate-800 p-8 sm:p-12 rounded-[2.5rem] border border-slate-200 dark:border-slate-700 shadow-xl">
+                    <form id="contact-form" class="space-y-6">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Name</label>
+                                <input type="text" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-primary-500 transition-colors" placeholder="Your Name">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Email</label>
+                                <input type="email" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-primary-500 transition-colors" placeholder="Email Address">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Message</label>
+                            <textarea rows="4" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-primary-500 transition-colors" placeholder="Your Message"></textarea>
+                        </div>
+                        <button type="submit" class="w-full py-4 bg-primary-600 text-white font-black rounded-xl shadow-lg shadow-primary-600/30 hover:bg-primary-700 transition-all active:scale-[0.98]">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 border-t border-slate-200 dark:border-slate-800">
+        <div class="container mx-auto px-6 text-center">
+            <p class="text-slate-500">&copy; <span id="year"></span> ICT With NDA. All rights reserved.</p>
+            <p class="text-[10px] text-slate-300 dark:text-slate-700 mt-2">Designed for O/L ICT Excellence.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="main.js"></script>
+</body>
+</html>

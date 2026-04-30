@@ -1,0 +1,118 @@
+/* Custom Styles - Amma's Heavenly Treats */
+
+:root {
+    --bakery-gold: #C5A059;
+    --bakery-brown: #4A3728;
+    --transition-speed: 150ms;
+}
+
+html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+}
+
+/* CPU Performance - Disable heavy animations */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Performance mode - disable blur animations */
+.performance-mode .animate-pulse,
+.performance-mode .animate-bounce {
+    animation: none !important;
+}
+
+.performance-mode .blur-3xl,
+.performance-mode .blur-2xl,
+.performance-mode .blur-xl {
+    filter: blur(0) !important;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #FDFBF7; }
+::-webkit-scrollbar-thumb { background: #E6B8B8; border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: #C5A059; }
+
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Dark Mode Scrollbar */
+.dark ::-webkit-scrollbar-track { background: #1a1a1a; }
+.dark ::-webkit-scrollbar-thumb { background: #4A3728; }
+
+/* Animations */
+@keyframes fadeInSlideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.reveal-hidden {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease-out;
+}
+
+.reveal-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Lightbox */
+#lightbox { backdrop-filter: blur(8px); }
+#lightbox img { box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); }
+
+/* Cart Sidebar */
+@media (max-width: 640px) {
+    #cart-sidebar { width: 100%; }
+}
+
+/* Touch Targets */
+@media (pointer: coarse) {
+    button, a { min-height: 44px; min-width: 44px; }
+}
+
+/* Focus States */
+button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible {
+    outline: 2px solid #C5A059;
+    outline-offset: 2px;
+}
+
+/* Selection */
+::selection { background-color: #C5A059; color: white; }
+.dark ::selection { background-color: #C5A059; color: white; }
+
+/* Dark Mode Colors */
+.dark body { background-color: #1a1a1a; color: #FDFBF7; }
+.dark .bg-white { background-color: #252525; }
+.dark .bg-bakery-cream { background-color: #1a1a1a; }
+.dark .bg-bakery-light { background-color: #1f1f1f; }
+.dark .text-bakery-brown { color: #FDFBF7; }
+.dark .text-slate-500, .dark .text-slate-400 { color: #9ca3af; }
+.dark .bg-gray-100 { background-color: #374151; }
+.dark .bg-gray-50 { background-color: #1f2937; }
+.dark .bg-gray-700 { background-color: #4b5563; }
+.dark .border-gray-100, .dark .border-gray-200 { border-color: #374151; }
+.dark input, .dark textarea, .dark select { color: #FDFBF7; }
+.dark input::placeholder, .dark textarea::placeholder { color: rgba(253, 251, 247, 0.3); }
+
+/* Smooth transitions for color changes */
+* {
+    transition-property: background-color, border-color, color;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+}
+
+/* Disable transitions on animated elements */
+.reveal-hidden, .reveal-visible, .group:hover .group-hover\:scale-105 {
+    transition-property: all;
+}
+
+/* Print */
+@media print {
+    .fixed, .sticky { display: none !important; }
+}

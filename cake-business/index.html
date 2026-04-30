@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Amma's Heavenly Treats | Premium Handcrafted Cakes | Sri Lanka</title>
+    <meta name="description" content="Handcrafted cakes from Amma's kitchen. Wedding cakes, birthday cakes, Sri Lankan traditional sweets - delivered across Sri Lanka. Order now via WhatsApp!">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600;700&family=Zilla+Slab:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/svg+xml" href="logo.svg">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        bakery: {
+                            gold: '#C5A059',
+                            cream: '#FDFBF7',
+                            brown: '#4A3728',
+                            rose: '#E6B8B8',
+                            dark: '#1a1a1a',
+                            'dark-card': '#252525',
+                            light: '#F8F5F0',
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Outfit', 'sans-serif'],
+                        lk: ['Zilla Slab', 'serif'],
+                    },
+                    fontSize: {
+                        'xxs': ['0.65rem', { lineHeight: '1rem' }],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-bakery-cream dark:bg-bakery-dark text-bakery-brown dark:text-bakery-cream transition-colors duration-300 font-sans overflow-x-hidden">
+
+    <!-- Image Lightbox Modal -->
+    <div id="lightbox" class="fixed inset-0 z-[100] bg-black/95 hidden flex-col items-center justify-center p-4">
+        <button id="close-lightbox" class="absolute top-4 right-4 z-10 w-11 h-11 bg-white/10 rounded-full flex items-center justify-center text-white text-xl hover:bg-white/20 transition-colors">
+            <i class="fas fa-times"></i>
+        </button>
+        <button id="prev-img" class="absolute left-4 top-1/2 -translate-y-1/2 w-11 h-11 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-colors">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button id="next-img" class="absolute right-4 top-1/2 -translate-y-1/2 w-11 h-11 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-colors">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+        <div class="relative max-w-4xl w-full text-center">
+            <img id="lightbox-img" src="" alt="" class="w-full max-h-[60vh] object-contain rounded-xl shadow-2xl">
+            <h3 id="lightbox-title" class="text-white text-lg font-serif font-bold mt-4"></h3>
+            <p id="lightbox-desc" class="text-white/70 text-sm mt-1"></p>
+        </div>
+    </div>
+
+    <!-- Cart Sidebar -->
+    <div id="cart-sidebar" class="fixed top-0 right-0 h-full w-full sm:w-96 bg-white dark:bg-bakery-dark-card z-[60] transform translate-x-full transition-transform duration-500 shadow-2xl">
+        <div class="flex flex-col h-full">
+            <div class="p-4 sm:p-6 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center">
+                <h3 class="text-lg font-serif font-bold"><i class="fas fa-shopping-bag mr-2 text-bakery-gold"></i>Your Cart</h3>
+                <button id="close-cart" class="w-9 h-9 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
+                    <i class="fas fa-times text-sm"></i>
+                </button>
+            </div>
+            <div id="cart-items" class="flex-1 overflow-y-auto p-4 sm:p-6 space-y-3">
+                <div class="text-center text-gray-400 py-12">
+                    <i class="fas fa-shopping-bag text-4xl mb-3 opacity-50"></i>
+                    <p class="text-sm">Your cart is empty</p>
+                </div>
+            </div>
+            <div class="p-4 sm:p-6 border-t border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-bakery-dark">
+                <div class="flex justify-between items-center mb-3">
+                    <span class="font-bold">Total:</span>
+                    <span id="cart-total" class="text-xl font-serif font-bold text-bakery-gold">LKR 0</span>
+                </div>
+                <button id="checkout-btn" class="w-full py-3 bg-bakery-gold text-white font-bold rounded-full hover:bg-bakery-brown transition-all shadow-lg disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base" disabled>
+                    <i class="fab fa-whatsapp mr-2"></i>Order via WhatsApp
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Overlay -->
+    <div id="cart-overlay" class="fixed inset-0 bg-black/50 z-[55] hidden"></div>
+
+    <!-- Navbar -->
+    <header class="fixed top-0 w-full z-50 bg-white/95 dark:bg-bakery-dark/95 backdrop-blur-xl border-b border-gray-100 dark:border-gray-800 transition-colors duration-300">
+        <nav class="container mx-auto px-3 sm:px-6 py-2.5 sm:py-3 flex items-center justify-between">
+            <a href="#" class="flex items-center gap-2">
+                <img src="logo.svg" alt="Heavenly Treats Logo" class="h-9 sm:h-11 w-auto">
+            </a>
+            
+            <div class="hidden xl:flex items-center space-x-6 text-xs font-medium uppercase tracking-wide">
+                <a href="#home" class="hover:text-bakery-gold transition-colors">Home</a>
+                <a href="#about" class="hover:text-bakery-gold transition-colors">About</a>
+                <a href="#collections" class="hover:text-bakery-gold transition-colors">Menu</a>
+                <a href="#traditional" class="hover:text-bakery-gold transition-colors">Traditional</a>
+                <a href="#gallery" class="hover:text-bakery-gold transition-colors">Gallery</a>
+                <a href="#contact" class="px-4 py-1.5 bg-bakery-gold text-white rounded-full hover:bg-bakery-brown transition-all shadow-md text-xs">Order</a>
+            </div>
+
+            <div class="flex items-center gap-1.5 sm:gap-3">
+                <button id="perf-toggle" title="Toggle Performance Mode" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
+                    <i class="fas fa-bolt text-bakery-gold text-sm"></i>
+                </button>
+                
+                <button id="theme-toggle" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
+                    <i class="fas fa-moon text-bakery-gold text-sm"></i>
+                </button>
+                
+                <button id="cart-btn" class="relative w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
+                    <i class="fas fa-shopping-bag text-bakery-gold text-sm"></i>
+                    <span id="cart-count" class="absolute -top-1 -right-1 w-4 h-4 bg-bakery-gold text-white text-[10px] rounded-full flex items-center justify-center font-bold">0</span>
+                </button>
+
+                <button id="menu-btn" class="xl:hidden w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center">
+                    <i class="fas fa-bars text-bakery-brown dark:text-bakery-cream text-sm"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-0 z-40 bg-white dark:bg-bakery-dark transform translate-x-full transition-transform duration-500 flex flex-col items-center justify-center space-y-5 text-center">
+        <button id="close-menu" class="absolute top-4 right-4 w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center">
+            <i class="fas fa-times text-bakery-brown dark:text-bakery-cream"></i>
+        </button>
+        <a href="#home" class="text-xl font-serif mobile-link">Home</a>
+        <a href="#about" class="text-xl font-serif mobile-link">About</a>
+        <a href="#collections" class="text-xl font-serif mobile-link">Menu</a>
+        <a href="#traditional" class="text-xl font-serif mobile-link">Traditional</a>
+        <a href="#gallery" class="text-xl font-serif mobile-link">Gallery</a>
+        <a href="#contact" class="px-8 py-3 bg-bakery-gold text-white rounded-full font-bold">Order Now</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative min-h-screen flex items-center pt-16 sm:pt-20 overflow-hidden">
+        <div class="absolute top-0 right-0 w-1/3 h-full bg-bakery-gold/5 -z-10 translate-x-1/2 rounded-full blur-3xl"></div>
+        
+        <div class="container mx-auto px-4 sm:px-6 py-10 sm:py-16 flex flex-col lg:flex-row items-center gap-8 sm:gap-12">
+            <div class="lg:w-1/2 space-y-5 sm:space-y-6 text-center lg:text-left">
+                <div class="inline-flex items-center space-x-2 px-3 py-1.5 bg-bakery-gold/10 border border-bakery-gold/20 rounded-full text-bakery-gold text-[10px] sm:text-xs font-bold uppercase tracking-wider">
+                    <span class="w-1.5 h-1.5 bg-bakery-gold rounded-full animate-pulse"></span>
+                    <span>Handcrafted in Sri Lanka</span>
+                </div>
+                <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-serif font-bold leading-tight">
+                    Sweetness <br>
+                    <span class="text-bakery-gold italic">Redefined.</span>
+                </h1>
+                <p class="text-sm sm:text-base text-slate-500 dark:text-slate-400 max-w-md mx-auto lg:mx-0 leading-relaxed">
+                    From Amma's kitchen to your celebrations. Premium artisanal cakes baked with finest ingredients & boundless love.
+                </p>
+                <div class="flex flex-col sm:flex-row items-center gap-3 justify-center lg:justify-start">
+                    <a href="#collections" class="w-full sm:w-auto px-6 sm:px-8 py-3 bg-bakery-brown text-white font-bold rounded-full shadow-lg flex items-center justify-center gap-2 hover:bg-bakery-gold transition-all text-sm sm:text-base">
+                        View Menu <i class="fas fa-arrow-right text-xs"></i>
+                    </a>
+                    <a href="https://wa.me/94726709280" target="_blank" class="w-full sm:w-auto px-6 sm:px-8 py-3 bg-green-500 text-white font-bold rounded-full flex items-center justify-center gap-2 hover:bg-green-600 transition-all text-sm sm:text-base">
+                        <i class="fab fa-whatsapp"></i> WhatsApp Order
+                    </a>
+                </div>
+            </div>
+            
+            <div class="lg:w-1/2 relative">
+                <div class="relative z-10 w-full max-w-xs sm:max-w-sm md:max-w-lg mx-auto aspect-square rounded-2xl sm:rounded-[2.5rem] overflow-hidden shadow-2xl transform lg:rotate-2 hover:rotate-0 transition-transform duration-700 border-[6px] sm:border-8 border-white dark:border-gray-800">
+                    <img src="hero-cake.png" alt="Delicious Cake" class="w-full h-full object-cover">
+                </div>
+                <div class="absolute -top-8 -right-8 w-28 sm:w-40 h-28 sm:h-40 bg-bakery-gold/20 rounded-full blur-3xl -z-10 animate-pulse"></div>
+                <div class="absolute -bottom-8 -left-8 w-36 sm:w-52 h-36 sm:h-52 bg-bakery-rose/20 rounded-full blur-3xl -z-10 animate-pulse" style="animation-delay: 0.5s;"></div>
+                
+                <div class="absolute -bottom-3 sm:-bottom-5 -right-3 sm:-right-5 p-3 sm:p-5 bg-white dark:bg-bakery-dark-card rounded-xl sm:rounded-2xl shadow-xl z-20 hidden md:block">
+                    <div class="flex items-center gap-2 sm:gap-3">
+                        <div class="w-9 sm:w-11 h-9 sm:h-11 bg-bakery-gold/20 text-bakery-gold rounded-full flex items-center justify-center text-sm sm:text-base">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div>
+                            <span class="block text-base sm:text-lg font-bold">4.9/5</span>
+                            <span class="text-[10px] sm:text-xs text-slate-400 uppercase">Happy Customers</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Features -->
+    <section class="py-6 sm:py-10 bg-white dark:bg-bakery-dark-card border-y border-gray-100 dark:border-gray-800">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 text-center">
+                <div class="flex flex-col items-center gap-1.5">
+                    <i class="fas fa-truck text-lg sm:text-xl text-bakery-gold"></i>
+                    <h4 class="font-bold text-xs sm:text-sm">Island Delivery</h4>
+                    <p class="text-[10px] sm:text-xs text-slate-400">Across Sri Lanka</p>
+                </div>
+                <div class="flex flex-col items-center gap-1.5">
+                    <i class="fas fa-heart text-lg sm:text-xl text-bakery-gold"></i>
+                    <h4 class="font-bold text-xs sm:text-sm">100% Handmade</h4>
+                    <p class="text-[10px] sm:text-xs text-slate-400">Crafted with love</p>
+                </div>
+                <div class="flex flex-col items-center gap-1.5">
+                    <i class="fas fa-leaf text-lg sm:text-xl text-bakery-gold"></i>
+                    <h4 class="font-bold text-xs sm:text-sm">Fresh Ingredients</h4>
+                    <p class="text-[10px] sm:text-xs text-slate-400">No artificial additives</p>
+                </div>
+                <div class="flex flex-col items-center gap-1.5">
+                    <i class="fas fa-clock text-lg sm:text-xl text-bakery-gold"></i>
+                    <h4 class="font-bold text-xs sm:text-sm">Same Day Order</h4>
+                    <p class="text-[10px] sm:text-xs text-slate-400">Quick service</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-12 sm:py-20 lg:py-28 bg-white dark:bg-bakery-dark-card">
+        <div class="container mx-auto px-4 sm:px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-center">
+                <div class="relative order-2 lg:order-1">
+                    <div class="grid grid-cols-2 gap-3 sm:gap-4">
+                        <div class="space-y-3 sm:space-y-4">
+                            <img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?w=400" alt="Baking" class="w-full aspect-[4/5] object-cover rounded-xl sm:rounded-2xl shadow-lg transform translate-y-4 sm:translate-y-6">
+                            <img src="https://images.unsplash.com/photo-1557925923-33b27f891f88?w=400" alt="Ingredients" class="w-full aspect-square object-cover rounded-xl sm:rounded-2xl shadow-lg">
+                        </div>
+                        <div class="space-y-3 sm:space-y-4">
+                            <img src="https://images.unsplash.com/photo-1621303837174-89787a7d4729?w=400" alt="Cake" class="w-full aspect-square object-cover rounded-xl sm:rounded-2xl shadow-lg">
+                            <img src="https://images.unsplash.com/photo-1535141192574-5d4897c12636?w=400" alt="Decorating" class="w-full aspect-[4/5] object-cover rounded-xl sm:rounded-2xl shadow-lg transform -translate-y-4 sm:-translate-y-6">
+                        </div>
+                    </div>
+                    <div class="absolute inset-0 m-auto w-20 sm:w-28 h-20 sm:h-28 bg-bakery-gold rounded-full border-4 border-white dark:border-bakery-dark flex flex-col items-center justify-center text-white text-center transform rotate-12 shadow-lg z-10">
+                        <span class="font-serif italic text-[10px] sm:text-xs">Authentic</span>
+                        <span class="font-bold uppercase tracking-wider text-xs sm:text-sm">Amma's</span>
+                        <span class="font-serif italic text-[10px] sm:text-xs">Touch</span>
+                    </div>
+                </div>
+                
+                <div class="space-y-4 sm:space-y-6 order-1 lg:order-2">
+                    <div class="space-y-2">
+                        <span class="text-bakery-gold font-bold uppercase tracking-widest text-[10px] sm:text-xs">Our Story</span>
+                        <h2 class="text-2xl sm:text-3xl lg:text-4xl font-serif font-bold leading-tight">Where Passion Meets the Oven</h2>
+                    </div>
+                    <p class="text-sm sm:text-base text-slate-500 dark:text-slate-400 leading-relaxed">
+                        At Amma's Heavenly Treats, we believe a cake is more than dessert - it's a centerpiece of memories. Founded to bring premium bakery standards to traditional Sri Lankan homes, every creation is a testament to Amma's secret recipes and artistic flair.
+                    </p>
+                    <div class="grid grid-cols-2 gap-4 sm:gap-6">
+                        <div>
+                            <span class="block text-2xl sm:text-3xl font-serif font-bold text-bakery-gold">500+</span>
+                            <span class="text-[10px] sm:text-xs font-medium uppercase tracking-wider text-slate-400">Happy Clients</span>
+                        </div>
+                        <div>
+                            <span class="block text-2xl sm:text-3xl font-serif font-bold text-bakery-gold">100%</span>
+                            <span class="text-[10px] sm:text-xs font-medium uppercase tracking-wider text-slate-400">Natural</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Collections / Menu Section -->
+    <section id="collections" class="py-12 sm:py-20 bg-bakery-light dark:bg-bakery-dark">
+        <div class="container mx-auto px-4">
+            <div class="text-center max-w-xl mx-auto mb-10 sm:mb-16 space-y-3">
+                <h2 class="text-2xl sm:text-3xl lg:text-4xl font-serif font-bold">Our Menu</h2>
+                <div class="w-16 sm:w-20 h-0.5 bg-bakery-gold mx-auto rounded-full"></div>
+                <p class="text-sm sm:text-base text-slate-500 dark:text-slate-400">Perfect creations for every special moment</p>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+                <!-- Wedding Cake -->
+                <div class="group bg-white dark:bg-bakery-dark-card rounded-xl sm:rounded-2xl shadow-lg hover:shadow-xl transition-all overflow-hidden" data-price="15000" data-name="Bridal Ethereal Wedding Cake">
+                    <div class="relative aspect-[4/3] overflow-hidden cursor-pointer" onclick="openLightbox(this)">
+                        <img src="https://images.unsplash.com/photo-1535254973040-6e7a474050a1?w=600" alt="Wedding Cake" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                        <span class="absolute bottom-3 left-3 text-white font-serif italic text-lg">Bridal Ethereal</span>
+                        <span class="absolute top-2 right-2 px-2 py-0.5 bg-green-500 text-white text-[10px] font-bold rounded-full">Available</span>
+                    </div>
+                    <div class="p-4">
+                        <p class="text-xs sm:text-sm text-slate-400 mb-3">Elegant multi-tiered wedding masterpieces.</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-bakery-gold font-bold text-sm sm:text-base">LKR 15,000+</span>
+                            <button onclick="addToCart(this)" class="w-9 h-9 sm:w-10 sm:h-10 bg-bakery-gold/10 text-bakery-gold rounded-full flex items-center justify-center hover:bg-bakery-gold hover:text-white transition-all">
+                                <i class="fas fa-cart-plus text-xs sm:text-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Birthday Cake -->
+                <div class="group bg-white dark:bg-bakery-dark-card rounded-xl sm:rounded-2xl shadow-lg hover:shadow-xl transition-all overflow-hidden" data-price="4500" data-name="Joyful Blooms Birthday Cake">
+                    <div class="relative aspect-[4/3] overflow-hidden cursor-pointer" onclick="openLightbox(this)">
+                        <img src="https://images.unsplash.com/photo-1558301211-0d8c8ddee6ec?w=600" alt="Birthday Cake" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                        <span class="absolute bottom-3 left-3 text-white font-serif italic text-lg">Joyful Blooms</span>
+                        <span class="absolute top-2 right-2 px-2 py-0.5 bg-green-500 text-white text-[10px] font-bold rounded-full">Available</span>
+                    </div>
+                    <div class="p-4">
+                        <p class="text-xs sm:text-sm text-slate-400 mb-3">Vibrant colors and playful flavors.</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-bakery-gold font-bold text-sm sm:text-base">LKR 4,500+</span>
+                            <button onclick="addToCart(this)" class="w-9 h-9 sm:w-10 sm:h-10 bg-bakery-gold/10 text-bakery-gold rounded-full flex items-center justify-center hover:bg-bakery-gold hover:text-white transition-all">
+                                <i class="fas fa-cart-plus text-xs sm:text-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Anniversary Cake -->
+                <div class="group bg-white dark:bg-bakery-dark-card rounded-xl sm:rounded-2xl shadow-lg hover:shadow-xl transition-all overflow-hidden" data-price="8500" data-name="Romantic Heart Anniversary Cake">
+                    <div class="relative aspect-[4/3] overflow-hidden cursor-pointer" onclick="openLightbox(this)">
+                        <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600" alt="Anniversary Cake" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                        <span class="absolute bottom-3 left-3 text-white font-serif italic text-lg">Romantic Heart</span>
+                        <span class="absolute top-2 right-2 px-2 py-0.5 bg-green-500 text-white text-[10px] font-bold rounded-full">Available</span>
+                    </div>
+                    <div class="p-4">
+                        <p class="text-xs sm:text-sm text-slate-400 mb-3">Heart-shaped with premium chocolate.</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-bakery-gold font-bold text-sm sm:text-base">LKR 8,500+</span>
+                            <button onclick="addToCart(this)" class="w-9 h-9 sm:w-10 sm:h-10 bg-bakery-gold/10 text-bakery-gold rounded-full flex items-center justify-center hover:bg-bakery-gold hover:text-white transition-all">
+                                <i class="fas fa-cart-plus text-xs sm:text-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Custom Cake -->
+                <div class="group bg-white dark:bg-bakery-dark-card rounded-xl sm:rounded-2xl shadow-lg hover:shadow-xl transition-all overflow-hidden" data-price="12000" data-name="Custom Designer Cake">
+                    <div class="relative aspect-[4/3] overflow-hidden cursor-pointer" onclick="openLightbox(this)">
+                        <img src="https://images.unsplash.com/photo-1606342170367-73238680197d?w=600" alt="Custom Cake" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                        <span class="absolute bottom-3 left-3 text-white font-serif italic text-lg">Custom Design</span>
+                        <span class="absolute top-2 right-2 px-2 py-0.5 bg-green-500 text-white text-[10px] font-bold rounded-full">Available</span>
+                    </div>
+                    <div class="p-4">
+                        <p class="text-xs sm:text-sm text-slate-400 mb-3">Your imagination is our canvas.</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-bakery-gold font-bold text-sm sm:text-base">LKR 12,000+</span>
+                            <button onclick="addToCart(this)" class="w-9 h-9 sm:w-10 sm:h-10 bg-bakery-gold/10 text-bakery-gold rounded-full flex items-center justify-center hover:bg-bakery-gold hover:text-white transition-all">
+                                <i class="fas fa-cart-plus text-xs sm:text-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cupcakes - Sold Out -->
+                <div class="group bg-white dark:bg-bakery-dark-card rounded-xl sm:rounded-2xl shadow-lg overflow-hidden opacity-80" data-price="350" data-name="Petite Bliss Cupcakes">
+                    <div class="relative aspect-[4/3] overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1519869325930-281384150729?w=600" alt="Cupcakes" class="w-full h-full object-cover grayscale">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                        <span class="absolute bottom-3 left-3 text-white font-serif italic text-lg">Petite Bliss</span>
+                        <span class="absolute top-2 right-2 px-2 py-0.5 bg-red-500 text-white text-[10px] font-bold rounded-full">Sold Out</span>
+                    </div>
+                    <div class="p-4">
+                        <p class="text-xs sm:text-sm text-slate-400 mb-3">Tiny bites of perfection.</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-bakery-gold font-bold text-sm sm:text-base">LKR 350/pcs</span>
+                            <button disabled class="w-9 h-9 sm:w-10 sm:h-10 bg-gray-200 text-gray-400 rounded-full flex items-center justify-center">
+                                <i class="fas fa-ban text-xs sm:text-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kids Special - Sold Out -->
+                <div class="group bg-white dark:bg-bakery-dark-card rounded-xl sm:rounded-2xl shadow-lg overflow-hidden opacity-80" data-price="5000" data-name="Kids Special Theme Cake">
+                    <div class="relative aspect-[4/3] overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1558301211-0d8c8ddee6ec?w=600" alt="Kids Cake" class="w-full h-full object-cover grayscale">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                        <span class="absolute bottom-3 left-3 text-white font-serif italic text-lg">Kids Special</span>
+                        <span class="absolute top-2 right-2 px-2 py-0.5 bg-red-500 text-white text-[10px] font-bold rounded-full">Sold Out</span>
+                    </div>
+                    <div class="p-4">
+                        <p class="text-xs sm:text-sm text-slate-400 mb-3">Fun theme cakes for kids parties.</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-bakery-gold font-bold text-sm sm:text-base">LKR 5,000+</span>
+                            <button disabled class="w-9 h-9 sm:w-10 sm:h-10 bg-gray-200 text-gray-400 rounded-full flex items-center justify-center">
+                                <i class="fas fa-ban text-xs sm:text-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Price Calculator Section -->
+    <section id="calculator" class="py-12 sm:py-20 bg-white dark:bg-bakery-dark-card">
+        <div class="container mx-auto px-4">
+            <div class="text-center max-w-xl mx-auto mb-10 sm:mb-12 space-y-3">
+                <span class="inline-block px-3 py-1 bg-bakery-gold/10 text-bakery-gold text-[10px] sm:text-xs font-bold uppercase tracking-wider rounded-full">Easy Pricing</span>
+                <h2 class="text-2xl sm:text-3xl lg:text-4xl font-serif font-bold">Price Calculator</h2>
+                <div class="w-16 sm:w-20 h-0.5 bg-bakery-gold mx-auto rounded-full"></div>
+                <p class="text-sm sm:text-base text-slate-500 dark:text-slate-400">Calculate your cake price based on size and requirements</p>
+            </div>
+            
+            <div class="max-w-2xl mx-auto bg-bakery-light dark:bg-bakery-dark rounded-2xl p-6 sm:p-8 shadow-xl">
+                <div class="space-y-5">
+                    <div>
+                        <label class="block text-xs sm:text-sm font-bold mb-2">Cake Type කේක් වර්ගය</label>
+                        <select id="calc-type" class="w-full bg-white dark:bg-bakery-dark-card border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 text-sm outline-none focus:border-bakery-gold">
+                            <option value="birthday">🎂 Birthday Cake</option>
+                            <option value="wedding">💒 Wedding Cake (+50%)</option>
+                            <option value="anniversary">💕 Anniversary Cake (+30%)</option>
+                            <option value="custom">✨ Custom Design (+40%)</option>
+                            <option value="traditional">🇱🇰 Traditional Sweet</option>
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-xs sm:text-sm font-bold mb-2">Size ප්‍රමාණය (Portions කොටස්)</label>
+                        <input type="range" id="calc-size" min="10" max="100" value="20" class="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer">
+                        <div class="flex justify-between text-xs text-slate-400 mt-1">
+                            <span>10</span>
+                            <span id="calc-size-display" class="text-bakery-gold font-bold">20 Portions</span>
+                            <span>100</span>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-xs sm:text-sm font-bold mb-2">Flavor රසය</label>
+                        <select id="calc-flavor" class="w-full bg-white dark:bg-bakery-dark-card border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 text-sm outline-none focus:border-bakery-gold">
+                            <option value="vanilla">🍦 Vanilla (+LKR 500)</option>
+                            <option value="chocolate">🍫 Chocolate (+LKR 700)</option>
+                            <option value="redvelvet">🎀 Red Velvet (+LKR 1000)</option>
+                            <option value="butter">🧈 Butter (+LKR 600)</option>
+                            <option value="fruit">🍓 Fruit (+LKR 800)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="flex flex-wrap gap-3">
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" id="calc-writing" class="w-4 h-4 accent-bakery-gold">
+                            <span class="text-xs sm:text-sm">✍️ Custom Message (+LKR 500)</span>
+                        </label>
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" id="calc-delivery" class="w-4 h-4 accent-bakery-gold">
+                            <span class="text-xs sm:text-sm">🚚 Island Delivery (+LKR 1500)</span>
+                        </label>
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" id="calc-candles" class="w-4 h-4 accent-bakery-gold">
+                            <span class="text-xs sm:text-sm">🕯️ Candles & Sparklers (+LKR 300)</span>
+                        </label>
+                    </div>
+                    
+                    <div class="bg-bakery-gold/10 rounded-xl p-5 text-center">
+                        <span class="text-xs sm:text-sm text-slate-500">Estimated Price</span>
+                        <div class="text-3xl sm:text-4xl font-serif font-bold text-bakery-gold mt-1">
+                            LKR <span id="calc-total">4,500</span>
+                        </div>
+                        <p class="text-[10px] sm:text-xs text-slate-400 mt-2">*Final price may vary based on design complexity</p>
+                    </div>
+                    
+                    <button onclick="orderFromCalculator()" class="w-full py-3 bg-green-500 text-white font-bold rounded-full hover:bg-green-600 transition-all text-sm sm:text-base">
+                        <i class="fab fa-whatsapp mr-2"></i>Order This Cake
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Order Tracking Section -->
+    <section id="tracking" class="py-12 sm:py-20 bg-bakery-light dark:bg-bakery-dark">
+        <div class="container mx-auto px-4">
+            <div class="text-center max-w-xl mx-auto mb-10 sm:mb-12 space-y-3">
+                <span class="inline-block px-3 py-1 bg-bakery-gold/10 text-bakery-gold text-[10px] sm:text-xs font-bold uppercase tracking-wider rounded-full">Track Your Order</span>
+                <h2 class="text-2xl sm:text-3xl lg:text-4xl font-serif font-bold">Order Status</h2>
+                <div class="w-16 sm:w-20 h-0.5 bg-bakery-gold mx-auto rounded-full"></div>
+                <p class="text-sm sm:text-base text-slate-500 dark:text-slate-400">Enter your order ID to check the status</p>
+            </div>
+            
+            <div class="max-w-xl mx-auto">
+                <div class="bg-white dark:bg-bakery-dark-card rounded-2xl p-6 sm:p-8 shadow-xl">
+                    <div class="flex gap-3 mb-6">
+                        <input type="text" id="tracking-id" placeholder="Enter Order ID (e.g., HT-12345)" class="flex-1 bg-gray-100 dark:bg-gray-700 border-0 rounded-xl px-4 py-3 text-sm outline-none">
+                        <button onclick="trackOrder()" class="px-6 py-3 bg-bakery-gold text-white font-bold rounded-xl hover:bg-bakery-brown transition-all text-sm">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                    
+                    <div id="tracking-result" class="hidden">
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm font-bold">Order #<span id="track-order-id">HT-12345</span></span>
+                                <span id="track-status" class="px-3 py-1 bg-yellow-100 text-yellow-700 text-xs font-bold rounded-full">Preparing</span>
+                            </div>
+                            <div class="relative">
+                                <div class="absolute left-4 top-0 bottom-0 w-0.5 bg-gray-200 dark:bg-gray-600">
+                                    <div id="track-progress" class="absolute top-0 left-0 w-full bg-bakery-gold transition-all duration-500" style="height: 0%"></div>
+                                </div>
+                                <div class="space-y-6 pl-10">
+                                    <div class="relative" id="step-ordered">
+                                        <div class="absolute -left-[26px] w-5 h-5 bg-bakery-gold rounded-full flex items-center justify-center"><i class="fas fa-check text-white text-[8px]"></i></div>
+                                        <span class="text-sm font-bold">Order Received</span>
+                                        <p class="text-xs text-slate-400">Your order has been confirmed</p>
+                                    </div>
+                                    <div class="relative" id="step-preparing">
+                                        <div class="absolute -left-[26px] w-5 h-5 bg-gray-200 dark:bg-gray-600 rounded-full flex items-center justify-center"><i class="fas fa-clock text-gray-400 text-[8px]"></i></div>
+                                        <span class="text-sm text-slate-400">Preparing</span>
+                                        <p class="text-xs text-slate-400">Baking your cake with love</p>
+                                    </div>
+                                    <div class="relative" id="step-ready">
+                                        <div class="absolute -left-[26px] w-5 h-5 bg-gray-200 dark:bg-gray-600 rounded-full flex items-center justify-center"><i class="fas fa-box text-gray-400 text-[8px]"></i></div>
+                                        <span class="text-sm text-slate-400">Ready for Pickup/Delivery</span>
+                                        <p class="text-xs text-slate-400">Your cake is ready!</p>
+                                    </div>
+                                    <div class="relative" id="step-delivered">
+                                        <div class="absolute -left-[26px] w-5 h-5 bg-gray-200 dark:bg-gray-600 rounded-full flex items-center justify-center"><i class="fas fa-check text-gray-400 text-[8px]"></i></div>
+                                        <span class="text-sm text-slate-400">Delivered</span>
+                                        <p class="text-xs text-slate-400">Enjoy your cake!</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center mt-4">
+                        <p class="text-xs text-slate-400">Questions? Contact us: <a href="https://wa.me/94726709280" class="text-bakery-gold font-bold">072 670 9280</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sri Lankan Traditional Sweets Section -->
+    <section id="traditional" class="py-12 sm:py-20 bg-white dark:bg-bakery-dark-card">
+        <div class="container mx-auto px-4">
+            <div class="text-center max-w-xl mx-auto mb-10 sm:mb-16 space-y-3">
+                <span class="inline-block px-3 py-1 bg-bakery-gold/10 text-bakery-gold text-[10px] sm:text-xs font-bold uppercase tracking-wider rounded-full">Sri Lankan Specials</span>
+                <h2 class="text-2xl sm:text-3xl lg:text-4xl font-serif font-bold">Traditional Sweets</h2>
+                <div class="w-16 sm:w-20 h-0.5 bg-bakery-gold mx-auto rounded-full"></div>
+                <p class="text-sm sm:text-base text-slate-500 dark:text-slate-400">Authentic Sri Lankan flavors passed down through generations</p>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+                <!-- Kiribath -->
+                <div class="group bg-bakery-light dark:bg-bakery-dark rounded-xl shadow-lg hover:shadow-xl transition-all overflow-hidden" data-price="2500" data-name="Kiribath Special">
+                    <div class="relative aspect-square overflow-hidden cursor-pointer" onclick="openLightbox(this)">
+                        <img src="https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=600" alt="Kiribath" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                        <span class="absolute bottom-3 left-3 text-white font-serif italic text-base sm:text-lg">Kiribath Special</span>
+                        <span class="absolute top-2 right-2 px-2 py-0.5 bg-bakery-gold text-white text-[10px] font-bold rounded-full">🇱🇰 Traditional</span>
+                    </div>
+                    <div class="p-3 sm:p-4">
+                        <p class="text-[11px] sm:text-sm text-slate-400 mb-2">Coconut milk cake with jaggery glaze</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-bakery-gold font-bold text-sm">LKR 2,500</span>
+                            <button onclick="addToCart(this)" class="w-8 h-8 sm:w-9 sm:h-9 bg-bakery-gold/10 text-bakery-gold rounded-full flex items-center justify-center hover:bg-bakery-gold hover:text-white transition-all">
+                                <i class="fas fa-cart-plus text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Wattalapam -->
+                <div class="group bg-bakery-light dark:bg-bakery-dark rounded-xl shadow-lg hover:shadow-xl transition-all overflow-hidden" data-price="3500" data-name="Wattalapam">
+                    <div class="relative aspect-square overflow-hidden cursor-pointer" onclick="openLightbox(this)">
+                        <img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?w=600" alt="Wattalapam" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                        <span class="absolute bottom-3 left-3 text-white font-serif italic text-base sm:text-lg">Wattalapam</span>
+                        <span class="absolute top-2 right-2 px-2 py-0.5 bg-bakery-gold text-white text-[10px] font-bold rounded-full">🇱🇰 Traditional</span>
+                    </div>
+                    <div class="p-3 sm:p-4">
+                        <p class="text-[11px] sm:text-sm text-slate-400 mb-2">Rich custard with jaggery & cashews</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-bakery-gold font-bold text-sm">LKR 3,500</span>
+                            <button onclick="addToCart(this)" class="w-8 h-8 sm:w-9 sm:h-9 bg-bakery-gold/10 text-bakery-gold rounded-full flex items-center justify-center hover:bg-bakery-gold hover:text-white transition-all">
+                                <i class="fas fa-cart-plus text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dodol -->
+                <div class="group bg-bakery-light dark:bg-bakery-dark rounded-xl shadow-lg hover:shadow-xl transition-all overflow-hidden" data-price="2800" data-name="Dodol Dream">
+                    <div class="relative aspect-square overflow-hidden cursor-pointer" onclick="openLightbox(this)">
+                        <img src="https://images.unsplash.com/photo-1576618148400-f54bed99fcfd?w=600" alt="Dodol" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                        <span class="absolute bottom-3 left-3 text-white font-serif italic text-base sm:text-lg">Dodol Dream</span>
+                        <span class="absolute top-2 right-2 px-2 py-0.5 bg-bakery-gold text-white text-[10px] font-bold rounded-full">🇱🇰 Traditional</span>
+                    </div>
+                    <div class="p-3 sm:p-4">
+                        <p class="text-[11px] sm:text-sm text-slate-400 mb-2">Layered cake with dodol filling</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-bakery-gold font-bold text-sm">LKR 2,800</span>
+                            <button onclick="addToCart(this)" class="w-8 h-8 sm:w-9 sm:h-9 bg-bakery-gold/10 text-bakery-gold rounded-full flex items-center justify-center hover:bg-bakery-gold hover:text-white transition-all">
+                                <i class="fas fa-cart-plus text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pol Panga -->
+                <div class="group bg-bakery-light dark:bg-bakery-dark rounded-xl shadow-lg hover:shadow-xl transition-all overflow-hidden" data-price="1800" data-name="Pol Panga">
+                    <div class="relative aspect-square overflow-hidden cursor-pointer" onclick="openLightbox(this)">
+                        <img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=600" alt="Pol Panga" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                        <span class="absolute bottom-3 left-3 text-white font-serif italic text-base sm:text-lg">Pol Panga</span>
+                        <span class="absolute top-2 right-2 px-2 py-0.5 bg-bakery-gold text-white text-[10px] font-bold rounded-full">🇱🇰 Traditional</span>
+                    </div>
+                    <div class="p-3 sm:p-4">
+                        <p class="text-[11px] sm:text-sm text-slate-400 mb-2">Coconut pancakes with palm sugar</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-bakery-gold font-bold text-sm">LKR 1,800</span>
+                            <button onclick="addToCart(this)" class="w-8 h-8 sm:w-9 sm:h-9 bg-bakery-gold/10 text-bakery-gold rounded-full flex items-center justify-center hover:bg-bakery-gold hover:text-white transition-all">
+                                <i class="fas fa-cart-plus text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Christmas Cake -->
+                <div class="group bg-bakery-light dark:bg-bakery-dark rounded-xl shadow-lg hover:shadow-xl transition-all overflow-hidden" data-price="4500" data-name="Christmas Fruit Cake">
+                    <div class="relative aspect-square overflow-hidden cursor-pointer" onclick="openLightbox(this)">
+                        <img src="https://images.unsplash.com/photo-1542826438-bd32f43d626f?w=600" alt="Christmas Cake" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                        <span class="absolute bottom-3 left-3 text-white font-serif italic text-base sm:text-lg">Christmas Cake</span>
+                        <span class="absolute top-2 right-2 px-2 py-0.5 bg-red-500 text-white text-[10px] font-bold rounded-full">Festival</span>
+                    </div>
+                    <div class="p-3 sm:p-4">
+                        <p class="text-[11px] sm:text-sm text-slate-400 mb-2">Rich fruit cake with local dry fruits</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-bakery-gold font-bold text-sm">LKR 4,500</span>
+                            <button onclick="addToCart(this)" class="w-8 h-8 sm:w-9 sm:h-9 bg-bakery-gold/10 text-bakery-gold rounded-full flex items-center justify-center hover:bg-bakery-gold hover:text-white transition-all">
+                                <i class="fas fa-cart-plus text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Achcharu Cake -->
+                <div class="group bg-bakery-light dark:bg-bakery-dark rounded-xl shadow-lg hover:shadow-xl transition-all overflow-hidden" data-price="3200" data-name="Achcharu Cake">
+                    <div class="relative aspect-square overflow-hidden cursor-pointer" onclick="openLightbox(this)">
+                        <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=600" alt="Achcharu Cake" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                        <span class="absolute bottom-3 left-3 text-white font-serif italic text-base sm:text-lg">Achcharu Cake</span>
+                        <span class="absolute top-2 right-2 px-2 py-0.5 bg-bakery-gold text-white text-[10px] font-bold rounded-full">🇱🇰 Traditional</span>
+                    </div>
+                    <div class="p-3 sm:p-4">
+                        <p class="text-[11px] sm:text-sm text-slate-400 mb-2">Tropical fruit cake with spicy undertone</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-bakery-gold font-bold text-sm">LKR 3,200</span>
+                            <button onclick="addToCart(this)" class="w-8 h-8 sm:w-9 sm:h-9 bg-bakery-gold/10 text-bakery-gold rounded-full flex items-center justify-center hover:bg-bakery-gold hover:text-white transition-all">
+                                <i class="fas fa-cart-plus text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kondaputtu -->
+                <div class="group bg-bakery-light dark:bg-bakery-dark rounded-xl shadow-lg hover:shadow-xl transition-all overflow-hidden" data-price="2200" data-name="Kondaputtu">
+                    <div class="relative aspect-square overflow-hidden cursor-pointer" onclick="openLightbox(this)">
+                        <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=600" alt="Kondaputtu" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                        <span class="absolute bottom-3 left-3 text-white font-serif italic text-base sm:text-lg">Kondaputtu</span>
+                        <span class="absolute top-2 right-2 px-2 py-0.5 bg-bakery-gold text-white text-[10px] font-bold rounded-full">🇱🇰 Traditional</span>
+                    </div>
+                    <div class="p-3 sm:p-4">
+                        <p class="text-[11px] sm:text-sm text-slate-400 mb-2">Steamed rice flour with coconut</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-bakery-gold font-bold text-sm">LKR 2,200</span>
+                            <button onclick="addToCart(this)" class="w-8 h-8 sm:w-9 sm:h-9 bg-bakery-gold/10 text-bakery-gold rounded-full flex items-center justify-center hover:bg-bakery-gold hover:text-white transition-all">
+                                <i class="fas fa-cart-plus text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Malu Paan -->
+                <div class="group bg-bakery-light dark:bg-bakery-dark rounded-xl shadow-lg hover:shadow-xl transition-all overflow-hidden" data-price="1500" data-name="Malu Paan">
+                    <div class="relative aspect-square overflow-hidden cursor-pointer" onclick="openLightbox(this)">
+                        <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=600" alt="Malu Paan" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                        <span class="absolute bottom-3 left-3 text-white font-serif italic text-base sm:text-lg">Malu Paan</span>
+                        <span class="absolute top-2 right-2 px-2 py-0.5 bg-blue-500 text-white text-[10px] font-bold rounded-full">Seafood</span>
+                    </div>
+                    <div class="p-3 sm:p-4">
+                        <p class="text-[11px] sm:text-sm text-slate-400 mb-2">Seafood stuffed bread rolls</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-bakery-gold font-bold text-sm">LKR 1,500</span>
+                            <button onclick="addToCart(this)" class="w-8 h-8 sm:w-9 sm:h-9 bg-bakery-gold/10 text-bakery-gold rounded-full flex items-center justify-center hover:bg-bakery-gold hover:text-white transition-all">
+                                <i class="fas fa-cart-plus text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-12 sm:py-20 bg-bakery-light dark:bg-bakery-dark">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col sm:flex-row justify-between items-center gap-4 mb-8 sm:mb-12">
+                <div class="text-center sm:text-left space-y-2">
+                    <h2 class="text-2xl sm:text-3xl lg:text-4xl font-serif font-bold">Gallery</h2>
+                    <p class="text-sm sm:text-base text-slate-500 dark:text-slate-400">Our handcrafted creations</p>
+                </div>
+                <div class="flex gap-2">
+                    <button onclick="scrollGallery(-1)" class="w-9 h-9 sm:w-10 sm:h-10 border border-bakery-gold text-bakery-gold rounded-full hover:bg-bakery-gold hover:text-white transition-all">
+                        <i class="fas fa-chevron-left text-xs"></i>
+                    </button>
+                    <button onclick="scrollGallery(1)" class="w-9 h-9 sm:w-10 sm:h-10 bg-bakery-gold text-white rounded-full transition-all">
+                        <i class="fas fa-chevron-right text-xs"></i>
+                    </button>
+                </div>
+            </div>
+             
+            <div id="gallery-scroll" class="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide" style="-webkit-overflow-scrolling: touch;">
+                <div class="gallery-item min-w-[250px] sm:min-w-[300px] snap-center group relative overflow-hidden rounded-xl shadow-lg cursor-pointer" onclick="openGalleryLightbox(this)">
+                    <img src="https://images.unsplash.com/photo-1606342170367-73238680197d?w=600" alt="Gallery" class="w-full h-48 sm:h-56 object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                        <span class="text-white font-bold">Royal Velvet Wedding</span>
+                    </div>
+                </div>
+                <div class="gallery-item min-w-[250px] sm:min-w-[300px] snap-center group relative overflow-hidden rounded-xl shadow-lg cursor-pointer" onclick="openGalleryLightbox(this)">
+                    <img src="https://images.unsplash.com/photo-1535254973040-6e7a474050a1?w=600" alt="Gallery" class="w-full h-48 sm:h-56 object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                        <span class="text-white font-bold">Elegant White</span>
+                    </div>
+                </div>
+                <div class="gallery-item min-w-[250px] sm:min-w-[300px] snap-center group relative overflow-hidden rounded-xl shadow-lg cursor-pointer" onclick="openGalleryLightbox(this)">
+                    <img src="https://images.unsplash.com/photo-1614707267537-b85aaf00c4b7?w=600" alt="Gallery" class="w-full h-48 sm:h-56 object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                        <span class="text-white font-bold">Chocolate Dream</span>
+                    </div>
+                </div>
+                <div class="gallery-item min-w-[250px] sm:min-w-[300px] snap-center group relative overflow-hidden rounded-xl shadow-lg cursor-pointer" onclick="openGalleryLightbox(this)">
+                    <img src="https://images.unsplash.com/photo-1542826438-bd32f43d626f?w=600" alt="Gallery" class="w-full h-48 sm:h-56 object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                        <span class="text-white font-bold">Fruit Paradise</span>
+                    </div>
+                </div>
+                <div class="gallery-item min-w-[250px] sm:min-w-[300px] snap-center group relative overflow-hidden rounded-xl shadow-lg cursor-pointer" onclick="openGalleryLightbox(this)">
+                    <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600" alt="Gallery" class="w-full h-48 sm:h-56 object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                        <span class="text-white font-bold">Pink Blossom</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-12 sm:py-20 bg-white dark:bg-bakery-dark-card">
+        <div class="container mx-auto px-4">
+            <div class="text-center max-w-xl mx-auto mb-10 sm:mb-12 space-y-3">
+                <h2 class="text-2xl sm:text-3xl font-serif font-bold">What Customers Say</h2>
+                <div class="w-16 h-0.5 bg-bakery-gold mx-auto rounded-full"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+                <div class="bg-bakery-light dark:bg-bakery-dark p-5 sm:p-6 rounded-xl">
+                    <div class="flex gap-1 mb-3">
+                        <i class="fas fa-star text-bakery-gold text-xs"></i>
+                        <i class="fas fa-star text-bakery-gold text-xs"></i>
+                        <i class="fas fa-star text-bakery-gold text-xs"></i>
+                        <i class="fas fa-star text-bakery-gold text-xs"></i>
+                        <i class="fas fa-star text-bakery-gold text-xs"></i>
+                    </div>
+                    <p class="text-sm text-slate-500 mb-4">"The kiribath cake was amazing! Reminded me of home. My family loved it for Sri Lankan New Year!"</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-9 h-9 bg-bakery-gold/20 rounded-full flex items-center justify-center text-bakery-gold font-bold text-xs">SP</div>
+                        <div>
+                            <h4 class="font-bold text-sm">Samantha P.</h4>
+                            <p class="text-xs text-slate-400">Colombo</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-bakery-light dark:bg-bakery-dark p-5 sm:p-6 rounded-xl">
+                    <div class="flex gap-1 mb-3">
+                        <i class="fas fa-star text-bakery-gold text-xs"></i>
+                        <i class="fas fa-star text-bakery-gold text-xs"></i>
+                        <i class="fas fa-star text-bakery-gold text-xs"></i>
+                        <i class="fas fa-star text-bakery-gold text-xs"></i>
+                        <i class="fas fa-star text-bakery-gold text-xs"></i>
+                    </div>
+                    <p class="text-sm text-slate-500 mb-4">"Best wedding cake ever! Everyone at the reception asked for the bakery's number!"</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-9 h-9 bg-bakery-rose/30 rounded-full flex items-center justify-center text-bakery-brown font-bold text-xs">KR</div>
+                        <div>
+                            <h4 class="font-bold text-sm">Kamal R.</h4>
+                            <p class="text-xs text-slate-400">Kandy</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-bakery-light dark:bg-bakery-dark p-5 sm:p-6 rounded-xl">
+                    <div class="flex gap-1 mb-3">
+                        <i class="fas fa-star text-bakery-gold text-xs"></i>
+                        <i class="fas fa-star text-bakery-gold text-xs"></i>
+                        <i class="fas fa-star text-bakery-gold text-xs"></i>
+                        <i class="fas fa-star text-bakery-gold text-xs"></i>
+                        <i class="fas fa-star text-bakery-gold text-xs"></i>
+                    </div>
+                    <p class="text-sm text-slate-500 mb-4">"Their wattalapam is the authentic taste I was looking for! Perfect for Christmas."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-9 h-9 bg-bakery-gold/20 rounded-full flex items-center justify-center text-bakery-gold font-bold text-xs">DA</div>
+                        <div>
+                            <h4 class="font-bold text-sm">Dilini A.</h4>
+                            <p class="text-xs text-slate-400">Galle</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Review Form -->
+            <div class="mt-8 sm:mt-12 bg-bakery-light dark:bg-bakery-dark rounded-2xl p-5 sm:p-8">
+                <h3 class="text-lg sm:text-xl font-serif font-bold mb-4 text-center">Share Your Experience ✨</h3>
+                <form id="review-form" class="space-y-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <input type="text" id="review-name" placeholder="Your Name නම" class="w-full bg-white dark:bg-bakery-dark-card border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 text-sm outline-none focus:border-bakery-gold" required>
+                        <input type="tel" id="review-phone" placeholder="Phone දුරකථනය" class="w-full bg-white dark:bg-bakery-dark-card border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 text-sm outline-none focus:border-bakery-gold">
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-sm">Rating:</span>
+                        <div id="star-rating" class="flex gap-1">
+                            <button type="button" onclick="setRating(1)" class="text-2xl text-gray-300 hover:text-yellow-400 transition-colors">★</button>
+                            <button type="button" onclick="setRating(2)" class="text-2xl text-gray-300 hover:text-yellow-400 transition-colors">★</button>
+                            <button type="button" onclick="setRating(3)" class="text-2xl text-gray-300 hover:text-yellow-400 transition-colors">★</button>
+                            <button type="button" onclick="setRating(4)" class="text-2xl text-gray-300 hover:text-yellow-400 transition-colors">★</button>
+                            <button type="button" onclick="setRating(5)" class="text-2xl text-gray-300 hover:text-yellow-400 transition-colors">★</button>
+                        </div>
+                        <input type="hidden" id="review-rating" value="0">
+                    </div>
+                    <textarea id="review-text" rows="3" placeholder="Your review... ඔබේ අදහස..." class="w-full bg-white dark:bg-bakery-dark-card border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 text-sm outline-none focus:border-bakery-gold resize-none" required></textarea>
+                    <button type="submit" class="w-full py-3 bg-bakery-gold text-white font-bold rounded-full hover:bg-bakery-brown transition-all text-sm">
+                        <i class="fas fa-paper-plane mr-2"></i>Submit Review via WhatsApp
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-12 sm:py-20 bg-bakery-brown dark:bg-gray-900">
+        <div class="container mx-auto px-4">
+            <div class="bg-bakery-brown dark:bg-gray-800 rounded-2xl sm:rounded-[3rem] p-6 sm:p-10 lg:p-14 text-white relative overflow-hidden shadow-2xl">
+                <div class="absolute -top-20 -right-20 w-72 h-72 bg-bakery-gold/20 rounded-full blur-[100px]"></div>
+                 
+                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 relative z-10">
+                    <div class="space-y-6">
+                        <div class="space-y-2">
+                            <h2 class="text-2xl sm:text-3xl lg:text-5xl font-serif font-bold leading-tight">Bring Home the <span class="text-bakery-gold italic">Magic.</span></h2>
+                            <p class="text-sm sm:text-base text-slate-300">Contact us to place your order. We deliver across Sri Lanka!</p>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <a href="tel:+94726709280" class="flex items-center gap-3 hover:text-bakery-gold transition-colors">
+                                <div class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center"><i class="fas fa-phone text-bakery-gold"></i></div>
+                                <div>
+                                    <span class="block text-[10px] uppercase tracking-wider opacity-60">Call Us</span>
+                                    <span class="font-bold">072 670 9280</span>
+                                </div>
+                            </a>
+                            <a href="https://wa.me/94726709280" target="_blank" class="flex items-center gap-3 hover:text-bakery-gold transition-colors">
+                                <div class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center"><i class="fab fa-whatsapp text-bakery-gold"></i></div>
+                                <div>
+                                    <span class="block text-[10px] uppercase tracking-wider opacity-60">WhatsApp</span>
+                                    <span class="font-bold">072 670 9280</span>
+                                </div>
+                            </a>
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center"><i class="fas fa-location-dot text-bakery-gold"></i></div>
+                                <div>
+                                    <span class="block text-[10px] uppercase tracking-wider opacity-60">Address</span>
+                                    <span class="font-bold text-sm sm:text-base">No. 14, 1st Lane, Royalpond, Matiyagane</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-3">
+                            <a href="#" class="w-9 h-9 border border-white/20 rounded-full flex items-center justify-center hover:bg-pink-500 hover:border-pink-500 transition-all">
+                                <i class="fab fa-instagram text-sm"></i>
+                            </a>
+                            <a href="#" class="w-9 h-9 border border-white/20 rounded-full flex items-center justify-center hover:bg-blue-600 hover:border-blue-600 transition-all">
+                                <i class="fab fa-facebook-f text-sm"></i>
+                            </a>
+                            <a href="#" class="w-9 h-9 border border-white/20 rounded-full flex items-center justify-center hover:bg-black hover:border-black transition-all">
+                                <i class="fab fa-tiktok text-sm"></i>
+                            </a>
+                            <a href="https://wa.me/94726709280" class="w-9 h-9 border border-white/20 rounded-full flex items-center justify-center hover:bg-green-500 hover:border-green-500 transition-all">
+                                <i class="fab fa-whatsapp text-sm"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="bg-white/5 backdrop-blur-md rounded-xl sm:rounded-2xl p-5 sm:p-8 border border-white/10">
+                        <h3 class="text-lg font-serif font-bold mb-4">Place Your Order</h3>
+                        <form id="order-form" class="space-y-4">
+                             <div>
+                                <label class="block text-[10px] uppercase tracking-wider opacity-60 mb-1">Name නම</label>
+                                <input type="text" id="cust-name" class="w-full bg-transparent border-b border-white/20 focus:border-bakery-gold outline-none py-2 text-sm" placeholder="Your name" required>
+                             </div>
+                             <div>
+                                <label class="block text-[10px] uppercase tracking-wider opacity-60 mb-1">Phone දුරකථනය</label>
+                                <input type="tel" id="cust-phone" class="w-full bg-transparent border-b border-white/20 focus:border-bakery-gold outline-none py-2 text-sm" placeholder="071 XXX XXXX" required>
+                             </div>
+                             <div>
+                                <label class="block text-[10px] uppercase tracking-wider opacity-60 mb-1">Occasion අවස්ථාව</label>
+                                <select id="cust-occasion" class="w-full bg-transparent border-b border-white/20 focus:border-bakery-gold outline-none py-2 text-sm appearance-none">
+                                    <option value="Birthday" class="bg-bakery-brown">🎂 Birthday</option>
+                                    <option value="Wedding" class="bg-bakery-brown">💒 Wedding</option>
+                                    <option value="Anniversary" class="bg-bakery-brown">💕 Anniversary</option>
+                                    <option value="Christmas" class="bg-bakery-brown">🎄 Christmas</option>
+                                    <option value="Sinhala New Year" class="bg-bakery-brown">🎊 Sinhala New Year</option>
+                                    <option value="Other" class="bg-bakery-brown">✨ Other</option>
+                                </select>
+                             </div>
+                             <div>
+                                <label class="block text-[10px] uppercase tracking-wider opacity-60 mb-1">Message පණිවිඩය</label>
+                                <textarea id="cust-message" rows="2" class="w-full bg-transparent border-b border-white/20 focus:border-bakery-gold outline-none py-2 text-sm" placeholder="Special requests..."></textarea>
+                             </div>
+                             <button type="submit" class="w-full py-3 bg-bakery-gold text-white font-bold rounded-full hover:bg-white hover:text-bakery-gold transition-all text-sm">
+                                <i class="fab fa-whatsapp mr-2"></i>Send via WhatsApp
+                             </button>
+                        </form>
+                    </div>
+                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-10 sm:py-14 text-center bg-white dark:bg-bakery-dark-card">
+        <div class="flex items-center justify-center gap-2 mb-4">
+            <img src="logo.svg" alt="Logo" class="h-8 sm:h-10 w-auto">
+        </div>
+        <p class="text-xs sm:text-sm text-slate-400 mb-4 px-4">Handcrafted sweetness since 2015. Made with ❤️ in Sri Lanka 🇱🇰</p>
+        <div class="flex flex-wrap justify-center gap-x-4 gap-y-2 text-[10px] sm:text-xs font-medium uppercase tracking-wider text-slate-400 mb-6">
+            <a href="#home" class="hover:text-bakery-gold">Home</a>
+            <a href="#about" class="hover:text-bakery-gold">About</a>
+            <a href="#collections" class="hover:text-bakery-gold">Menu</a>
+            <a href="#traditional" class="hover:text-bakery-gold">Traditional</a>
+            <a href="#gallery" class="hover:text-bakery-gold">Gallery</a>
+            <a href="#contact" class="hover:text-bakery-gold">Contact</a>
+        </div>
+        <p class="text-[10px] sm:text-xs text-slate-400">&copy; <span id="year"></span> Amma's Heavenly Treats</p>
+    </footer>
+
+    <!-- Floating WhatsApp -->
+    <a href="https://wa.me/94726709280" target="_blank" class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 w-12 h-12 sm:w-14 sm:h-14 bg-green-500 text-white rounded-full flex items-center justify-center text-xl sm:text-2xl shadow-lg hover:scale-110 transition-transform">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script src="main.js"></script>
+</body>
+</html>

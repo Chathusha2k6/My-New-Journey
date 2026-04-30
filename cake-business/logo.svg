@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" fill="none">
+  <!-- Cake Icon -->
+  <g transform="translate(5, 5)">
+    <!-- Cake Base -->
+    <rect x="5" y="30" width="40" height="20" rx="3" fill="#C5A059"/>
+    <!-- Cake Middle -->
+    <rect x="10" y="18" width="30" height="14" rx="2" fill="#4A3728"/>
+    <!-- Cake Top -->
+    <rect x="15" y="8" width="20" height="12" rx="2" fill="#C5A059"/>
+    <!-- Candle -->
+    <rect x="23" y="2" width="4" height="8" rx="1" fill="#E6B8B8"/>
+    <!-- Flame -->
+    <ellipse cx="25" cy="1" rx="3" ry="3" fill="#FFD700">
+      <animate attributeName="ry" values="3;4;3" dur="0.5s" repeatCount="indefinite"/>
+    </ellipse>
+    <!-- Decorative dots -->
+    <circle cx="12" cy="40" r="2" fill="#FDFBF7"/>
+    <circle cx="25" cy="40" r="2" fill="#FDFBF7"/>
+    <circle cx="38" cy="40" r="2" fill="#FDFBF7"/>
+  </g>
+  <!-- Text: Heavenly -->
+  <text x="55" y="28" font-family="Georgia, serif" font-size="18" font-weight="bold" fill="#C5A059" id="logo-text-1">Heavenly</text>
+  <!-- Text: Treats -->
+  <text x="55" y="48" font-family="Georgia, serif" font-size="18" font-weight="bold" fill="#4A3728" id="logo-text-2">Treats</text>
+</svg>
