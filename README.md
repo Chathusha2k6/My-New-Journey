@@ -1,57 +1,54 @@
 <div align="center">
-  <!-- Soft & Professional Header -->
-  <img src="https://capsule-render.vercel.app/api?type=soft&color=auto&height=200&section=header&text=Britney%20Senaratne&fontSize=50&animation=fadeIn&fontAlignY=40" width="100%" />
+  <img src="https://capsule-render.vercel.app/api?type=rect&color=0077B5&height=180&section=header&text=BRITNEY%20SENARATNE&fontSize=50&animation=fadeIn&fontAlignY=40&desc=Business%20Technology%20Management%20Undergraduate&descSize=20&descAlignY=65" width="100%" />
 
   <br>
-  
-  ### 🚀 Optimizing Processes | Driving Efficiency | Leveraging Technology
-  
-  [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/YOUR_LINKEDIN_USERNAME)
-  [![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:your.email@example.com)
-  ![Location](https://img.shields.io/badge/Gampaha-Sri_Lanka-27AE60?style=for-the-badge&logo=google-maps&logoColor=white)
 
+  <p align="center">
+    <a href="https://linkedin.com/in/YOUR_LINKEDIN_USERNAME"><img src="https://img.shields.io/badge/Connect_on_LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" /></a>
+    <a href="mailto:your.email@example.com"><img src="https://img.shields.io/badge/Send_an_Email-D14836?style=for-the-badge&logo=gmail&logoColor=white" /></a>
+  </p>
 </div>
 
 ---
 
-### ⚡ Professional Summary
+### 🏛️ Executive Summary
 <p align="left">
   <img align="right" src="https://github-readme-stats.vercel.app/api/top-langs/?username=YOUR_GITHUB_USERNAME&layout=compact&theme=flat&hide_border=true" width="300" />
 
-  I am a **Business Technology Management** undergraduate specialized in bridging the gap between operational needs and technical solutions. I focus on transforming complex workflows into streamlined, data-driven processes.
+  Driven **Business Technology Management** undergraduate with a sharp focus on streamlining organizational workflows and enhancing operational efficiency. I specialize in bridging the gap between high-level business strategy and technical execution.
   <br><br>
-  🎯 **Goal:** Building sustainable business growth through operational excellence.  
-  🧩 **Passion:** Solving "The Efficiency Puzzle" using modern tech stacks.  
-  🌱 **Currently:** Deep diving into Business Intelligence and CRM Architecture.
+  ⚡ **Current Focus:** Advanced Business Intelligence & CRM Strategy. <br>
+  🌍 **Location:** Gampaha, Sri Lanka. <br>
+  🚀 **Philosophy:** Turning operational friction into seamless automation.
 </p>
 
 <br>
 
 ---
 
-### 🛠️ Strategic Skill Matrix
+### 🛠️ Core Competencies & Skills
 
 <table border="0" width="100%">
  <tr>
     <td width="33%" align="center"><b>💼 Operations</b></td>
-    <td width="33%" align="center"><b>📊 Data Intelligence</b></td>
-    <td width="33%" align="center"><b>⚙️ Digital Tools</b></td>
+    <td width="33%" align="center"><b>📊 Analysis</b></td>
+    <td width="33%" align="center"><b>⚙️ Technology</b></td>
  </tr>
  <tr>
     <td align="center">
-        Workflow Design <br>
-        Process Mapping <br>
-        Resource Planning
+        Workflow Coordination <br>
+        Process Documentation <br>
+        Team Collaboration
     </td>
     <td align="center">
-        KPI Tracking <br>
-        Power BI Analysis <br>
-        Market Reporting
+        KPI Monitoring <br>
+        Data Visualization <br>
+        Reporting & Insights
     </td>
     <td align="center">
-        CRM Systems <br>
+        CRM Operations <br>
         Agile Methodologies <br>
-        Digital Transformation
+        Digital Solutions
     </td>
  </tr>
 </table>
@@ -60,32 +57,35 @@
 
 ### 🧰 Digital Toolbox
 <p align="center">
-  <!-- Fixed Icons using Skill Icons API for guaranteed loading -->
-  <img src="https://skillicons.dev/icons?i=excel,powerbi,figma,canva,github,git,discord,notion" alt="Skills" />
+  <img src="https://img.shields.io/badge/Microsoft_Excel-217346?style=flat-square&logo=microsoft-excel&logoColor=white" />
+  <img src="https://img.shields.io/badge/Power_BI-F2C811?style=flat-square&logo=power-bi&logoColor=black" />
+  <img src="https://img.shields.io/badge/Figma-F24E1E?style=flat-square&logo=figma&logoColor=white" />
+  <img src="https://img.shields.io/badge/Canva-00C4CC?style=flat-square&logo=canva&logoColor=white" />
+  <img src="https://img.shields.io/badge/Git-F05032?style=flat-square&logo=git&logoColor=white" />
+  <img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github&logoColor=white" />
+  <img src="https://img.shields.io/badge/Notion-000000?style=flat-square&logo=notion&logoColor=white" />
+  <img src="https://img.shields.io/badge/Discord-5865F2?style=flat-square&logo=discord&logoColor=white" />
 </p>
 
 ---
 
-### 🚀 Career North Star
+### 🚀 Vision & Career Roadmap
 <div align="center">
-<table>
-  <tr>
-    <td>
-      <p align="center">
-        <i>"My mission is to engineer <b>seamless business ecosystems</b> where technology and human operations exist in perfect harmony. I strive to eliminate operational friction and empower businesses to scale through <b>intelligent automation</b> and <b>insight-driven</b> decision making."</i>
-      </p>
-    </td>
-  </tr>
-</table>
+  <img src="https://quotes-github-readme.vercel.app/api?type=horizontal&quote=My%20goal%20is%20to%20engineer%20seamless%20business%20ecosystems%20where%20technology%20and%20operations%20exist%20in%20perfect%20harmony.&author=Britney%20Senaratne" width="100%" />
 </div>
+
+<br>
+
+> "I am dedicated to building a career in **Business Operations** by mastering process optimization and leveraging technology-driven solutions to drive sustainable business growth."
 
 ---
 
-### 📈 Contribution & Activity
+### 📈 Activity & Insights
 <div align="center">
+  <img src="https://github-readme-stats.vercel.app/api?username=YOUR_GITHUB_USERNAME&show_icons=true&theme=flat&hide_border=true" alt="Stats" />
   <img src="https://github-readme-streak-stats.herokuapp.com/?user=YOUR_GITHUB_USERNAME&theme=flat&hide_border=true" alt="Streak" />
 </div>
 
 <p align="center">
-  <img src="https://komarev.com/ghpvc/?username=YOUR_GITHUB_USERNAME&label=Profile%20Views&color=blue&style=flat-square" alt="Views" />
+  <img src="https://komarev.com/ghpvc/?username=YOUR_GITHUB_USERNAME&label=Profile%20Views&color=0077B5&style=flat-square" alt="Views" />
 </p>
