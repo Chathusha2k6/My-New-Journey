@@ -1,545 +1,350 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>John Doe | Creative Developer & Designer</title>
-    <!-- SEO Meta Tags -->
-    <meta name="description"
-        content="Professional portfolio of John Doe, a Creative Developer specializing in high-end web experiences and digital products.">
-
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#6366f1',
-                        secondary: '#a855f7',
-                        dark: '#030712',
-                        glass: 'rgba(255, 255, 255, 0.03)',
-                        'glass-border': 'rgba(255, 255, 255, 0.1)',
-                    },
-                    fontFamily: {
-                        outfit: ['Outfit', 'sans-serif'],
-                        inter: ['Inter', 'sans-serif'],
-                    },
-                    animation: {
-                        'gradient-x': 'gradient-x 15s ease infinite',
-                        'blob': 'blob 7s infinite',
-                        'fade-in-up': 'fade-in-up 0.8s ease-out forwards',
-                    },
-                    keyframes: {
-                        'gradient-x': {
-                            '0%, 100%': { 'background-size': '200% 200%', 'background-position': 'left center' },
-                            '50%': { 'background-size': '200% 200%', 'background-position': 'right center' },
-                        },
-                        'blob': {
-                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
-                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
-                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
-                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
-                        },
-                        'fade-in-up': {
-                            '0%': { opacity: '0', transform: 'translateY(20px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-
-    <!-- Google Fonts -->
+    <title>Michael Carter - Portfolio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
-
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-
-    <style>
-        html {
-            scroll-behavior: smooth;
-        }
-        body {
-            background-color: #030712;
-            color: #f3f4f6;
-            font-family: 'Inter', sans-serif;
-        }
-
-        h1,
-        h2,
-        h3,
-        h4,
-        .font-outfit {
-            font-family: 'Outfit', sans-serif;
-        }
-
-        .glass {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .glass-card:hover {
-            background: rgba(255, 255, 255, 0.05);
-            border-color: rgba(99, 102, 241, 0.4);
-            transform: translateY(-5px);
-            transition: all 0.3s ease;
-        }
-
-        .text-gradient {
-            background: linear-gradient(to right, #6366f1, #a855f7, #ec4899);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease-out;
-        }
-
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 
-<body class="selection:bg-primary selection:text-white">
+<body>
 
-    <!-- Background Elements -->
-    <div class="fixed inset-0 -z-10 overflow-hidden">
-        <div
-            class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/20 rounded-full blur-[120px] animate-blob">
-        </div>
-        <div
-            class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-secondary/20 rounded-full blur-[120px] animate-blob animation-delay-2000">
-        </div>
-        <div
-            class="absolute top-[30%] right-[10%] w-[30%] h-[30%] bg-pink-500/10 rounded-full blur-[120px] animate-blob animation-delay-4000">
-        </div>
-    </div>
+    <!-- Background Orbs Removed -->
 
     <!-- Navigation -->
-    <nav class="fixed top-0 left-0 right-0 z-50 flex justify-center p-6">
-        <div class="glass px-8 py-3 rounded-full flex items-center space-x-8 max-w-fit shadow-2xl">
-            <a href="#home" class="text-sm font-medium hover:text-primary transition-colors">Home</a>
-            <a href="#about" class="text-sm font-medium hover:text-primary transition-colors">About</a>
-            <a href="#projects" class="text-sm font-medium hover:text-primary transition-colors">Projects</a>
-            <a href="#skills" class="text-sm font-medium hover:text-primary transition-colors">Skills</a>
-            <a href="#contact" class="text-sm font-medium hover:text-primary transition-colors">Contact</a>
+    <nav class="navbar">
+        <div class="container nav-container">
+            <div class="logo">Michael Carter</div>
+            <div class="nav-links">
+                <a href="#work">Work</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <a href="#" class="btn btn-black">Use For Free</a>
         </div>
     </nav>
 
-    <!-- Mobile Menu Button (Visible on small screens) -->
-    <div class="fixed top-6 right-6 z-[60] md:hidden">
-        <button id="menu-toggle" class="glass p-3 rounded-xl">
-            <i data-lucide="menu"></i>
-        </button>
-    </div>
-
     <!-- Hero Section -->
-    <section id="home" class="min-h-screen flex flex-col justify-center items-center px-6 pt-20">
-        <div class="max-w-4xl text-center space-y-8">
-            <div
-                class="inline-flex items-center space-x-2 glass px-4 py-2 rounded-full border-glass-border animate-fade-in-up">
-                <span class="relative flex h-2 w-2">
-                    <span
-                        class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                    <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-                </span>
-                <span class="text-xs font-medium uppercase tracking-widest text-gray-400">Available for freelance</span>
+    <section class="hero">
+
+        <div class="container hero-content-container">
+            <div class="hero-left">
+                <div class="badge">
+                    <span class="dot"></span>
+                    <span class="badge-text">2 projects left in March</span>
+                </div>
+                <h1 class="headline">Carter is solving problems through strategic design and compelling visuals</h1>
+            </div>
+            <div class="hero-right">
+                <p class="sub-headline">As a digital product designer with a strong focus on visual design and Framer
+                    websites, he collaborates closely with teams to craft seamless, user-centered experiences. A
+                    reliable partner in bringing ideas to life</p>
+                <a href="mailto:rosyidqoim@gmail.com" class="btn btn-black">Email Me</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats & Trust Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h3>10+</h3>
+                    <p>happy clients</p>
+                </div>
+                <div class="stat-item">
+                    <h3>5+</h3>
+                    <p>years of experiences</p>
+                </div>
+                <div class="stat-item">
+                    <h3>20+</h3>
+                    <p>projects completed</p>
+                </div>
+                <div class="stat-item">
+                    <h3>Trusted</h3>
+                    <p>by many</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Works Section -->
+    <section id="work" class="works">
+        <div class="container">
+            <div class="section-header flex-header">
+                <h2>Selected Works</h2>
+                <a href="#" class="btn btn-outline">All Works</a>
             </div>
 
-            <h1 class="text-5xl md:text-8xl font-extrabold tracking-tight animate-fade-in-up"
-                style="animation-delay: 0.2s">
-                Crafting <span class="text-gradient">Digital</span><br>Masterpieces
-            </h1>
-
-            <p class="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto animate-fade-in-up"
-                style="animation-delay: 0.4s">
-                I am a Creative Developer based in the digital world, specializing in building high-performance,
-                visually stunning web experiences that users love.
-            </p>
-
-            <div class="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-6 animate-fade-in-up"
-                style="animation-delay: 0.6s">
-                <a href="#projects"
-                    class="bg-primary hover:bg-primary/90 text-white px-8 py-4 rounded-2xl font-semibold shadow-lg shadow-primary/25 transition-all hover:scale-105 active:scale-95 w-full md:w-auto">
-                    View My Work
+            <div class="works-grid">
+                <a href="#" class="work-card glass-card">
+                    <div class="work-img-placeholder"></div>
+                    <div class="work-info">
+                        <h3>LumeX</h3>
+                        <p>SaaS Dashboard Design</p>
+                    </div>
                 </a>
-                <a href="#contact"
-                    class="glass hover:bg-white/10 text-white px-8 py-4 rounded-2xl font-semibold transition-all border-glass-border w-full md:w-auto">
-                    Get In Touch
+                <a href="#" class="work-card glass-card">
+                    <div class="work-img-placeholder"></div>
+                    <div class="work-info">
+                        <h3>Planza</h3>
+                        <p>Framer Website</p>
+                    </div>
+                </a>
+                <a href="#" class="work-card glass-card">
+                    <div class="work-img-placeholder"></div>
+                    <div class="work-info">
+                        <h3>Horizon Atlas</h3>
+                        <p>Travel Web Design</p>
+                    </div>
+                </a>
+                <a href="#" class="work-card glass-card">
+                    <div class="work-img-placeholder"></div>
+                    <div class="work-info">
+                        <h3>NeuroSync</h3>
+                        <p>Healthcare Mobile App</p>
+                    </div>
                 </a>
             </div>
         </div>
-
-        <!-- Scroll Indicator -->
-        <div class="absolute bottom-10 animate-bounce text-gray-500">
-            <i data-lucide="chevron-down"></i>
-        </div>
     </section>
 
-    <!-- About Section -->
-    <section id="about" class="py-24 px-6 max-w-7xl mx-auto">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-            <div class="reveal">
-                <h2 class="text-4xl md:text-5xl font-bold mb-8">About <span class="text-primary">Me</span></h2>
-                <div class="space-y-6 text-gray-400 text-lg leading-relaxed">
-                    <p>
-                        With over 5 years of experience in the industry, I have honed my skills in transforming complex
-                        problems into elegant digital solutions. My approach combines technical excellence with a deep
-                        understanding of user experience.
-                    </p>
-                    <p>
-                        I believe that every line of code should contribute to a better world. Whether it's a small
-                        landing page or a massive enterprise application, I bring the same level of passion and
-                        precision to every project.
-                    </p>
+    <!-- Testimonial & Awards -->
+    <section class="social-proof">
+        <div class="container">
+            <div class="proof-grid">
+                <div class="award-card glass-card">
+                    <div class="icon-wrapper">⭐</div>
+                    <h3>Awwwards Nominee</h3>
+                    <p>Recognized for excellence in web design and innovative digital experiences.</p>
                 </div>
-
-                <div class="grid grid-cols-2 gap-6 mt-10">
-                    <div class="glass p-6 rounded-2xl">
-                        <div class="text-3xl font-bold text-primary mb-1">50+</div>
-                        <div class="text-sm text-gray-500 uppercase tracking-wider">Projects Completed</div>
+                <div class="testimonial-large glass-card">
+                    <p class="quote">"Carter’s design expertise goes beyond aesthetics—he crafts experiences that truly
+                        connect with users. A great collaborator and a problem-solver at heart."</p>
+                    <div class="author">
+                        <strong>Samantha</strong>
+                        <span>Founder at NexaTech</span>
                     </div>
-                    <div class="glass p-6 rounded-2xl">
-                        <div class="text-3xl font-bold text-secondary mb-1">12+</div>
-                        <div class="text-sm text-gray-500 uppercase tracking-wider">Awards Won</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="relative reveal" style="transition-delay: 0.2s">
-                <div class="aspect-square rounded-3xl overflow-hidden glass p-4">
-                    <div
-                        class="w-full h-full rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
-                        <!-- Placeholder Image Replacement -->
-                        <i data-lucide="user" class="w-32 h-32 text-white/20"></i>
-                    </div>
-                </div>
-                <!-- Decorative element -->
-                <div class="absolute -bottom-6 -right-6 w-32 h-32 glass rounded-2xl -z-10 animate-pulse"></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Projects Section (Bento Grid) -->
-    <section id="projects" class="py-24 px-6 max-w-7xl mx-auto">
-        <div class="text-center mb-16 reveal">
-            <h2 class="text-4xl md:text-6xl font-bold mb-4">Featured <span class="text-gradient">Projects</span></h2>
-            <p class="text-gray-400 max-w-xl mx-auto">A curated selection of my latest work, blending aesthetics with
-                functionality.</p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-6 h-auto md:h-[800px]">
-            <!-- Large Project 1 -->
-            <div class="md:col-span-2 md:row-span-2 glass-card rounded-[2.5rem] overflow-hidden group relative reveal">
-                <div
-                    class="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/20 to-transparent z-10 opacity-60 group-hover:opacity-80 transition-opacity">
-                </div>
-                <div class="w-full h-full bg-indigo-900/20 flex items-center justify-center p-8">
-                    <i data-lucide="layout"
-                        class="w-24 h-24 text-primary/40 group-hover:scale-110 transition-transform duration-500"></i>
-                </div>
-                <div class="absolute bottom-0 left-0 p-10 z-20 w-full">
-                    <div class="flex justify-between items-end">
-                        <div>
-                            <div class="text-primary text-sm font-semibold mb-2 uppercase tracking-widest">Web
-                                Application</div>
-                            <h3 class="text-3xl font-bold mb-2">Nexus Platform</h3>
-                            <p class="text-gray-300 max-w-sm line-clamp-2">A revolutionary SaaS dashboard designed for
-                                data visualization and team collaboration.</p>
-                        </div>
-                        <a href="#"
-                            class="bg-white/10 hover:bg-white text-white hover:text-dark p-4 rounded-2xl transition-all">
-                            <i data-lucide="arrow-up-right"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Small Project 2 -->
-            <div class="md:col-span-2 glass-card rounded-[2.5rem] overflow-hidden group relative reveal"
-                style="transition-delay: 0.2s">
-                <div
-                    class="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/20 to-transparent z-10 opacity-60 group-hover:opacity-80 transition-opacity">
-                </div>
-                <div class="w-full h-full bg-purple-900/20 flex items-center justify-center p-8">
-                    <i data-lucide="smartphone"
-                        class="w-16 h-16 text-secondary/40 group-hover:scale-110 transition-transform duration-500"></i>
-                </div>
-                <div class="absolute bottom-0 left-0 p-8 z-20 w-full">
-                    <div class="flex justify-between items-end">
-                        <div>
-                            <div class="text-secondary text-sm font-semibold mb-1 uppercase tracking-widest">Mobile UI
-                            </div>
-                            <h3 class="text-2xl font-bold">Lumina App</h3>
-                        </div>
-                        <a href="#"
-                            class="bg-white/10 hover:bg-white text-white hover:text-dark p-3 rounded-xl transition-all">
-                            <i data-lucide="arrow-up-right"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Small Project 3 -->
-            <div class="md:col-span-1 glass-card rounded-[2.5rem] overflow-hidden group relative reveal"
-                style="transition-delay: 0.4s">
-                <div
-                    class="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/20 to-transparent z-10 opacity-60 group-hover:opacity-80 transition-opacity">
-                </div>
-                <div class="w-full h-full bg-cyan-900/20 flex items-center justify-center p-8">
-                    <i data-lucide="layers"
-                        class="w-12 h-12 text-cyan-400/40 group-hover:scale-110 transition-transform duration-500"></i>
-                </div>
-                <div class="absolute bottom-0 left-0 p-6 z-20 w-full">
-                    <h3 class="text-xl font-bold">Orbit UI Kit</h3>
-                </div>
-            </div>
-
-            <!-- Small Project 4 -->
-            <div class="md:col-span-1 glass-card rounded-[2.5rem] overflow-hidden group relative reveal"
-                style="transition-delay: 0.6s">
-                <div
-                    class="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/20 to-transparent z-10 opacity-60 group-hover:opacity-80 transition-opacity">
-                </div>
-                <div class="w-full h-full bg-pink-900/20 flex items-center justify-center p-8">
-                    <i data-lucide="zap"
-                        class="w-12 h-12 text-pink-400/40 group-hover:scale-110 transition-transform duration-500"></i>
-                </div>
-                <div class="absolute bottom-0 left-0 p-6 z-20 w-full">
-                    <h3 class="text-xl font-bold">Pulse Engine</h3>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Skills Section -->
-    <section id="skills" class="py-24 px-6 max-w-7xl mx-auto">
-        <div class="glass rounded-[3rem] p-12 md:p-20 relative overflow-hidden reveal">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 relative z-10">
-                <div>
-                    <h2 class="text-4xl md:text-5xl font-bold mb-8">Technical <span class="text-primary">Skills</span>
-                    </h2>
-                    <p class="text-gray-400 text-lg mb-12">I continuously evolve my tech stack to stay ahead in the
-                        rapidly changing digital landscape.</p>
-
-                    <div class="space-y-8">
-                        <div class="space-y-2">
-                            <div class="flex justify-between text-sm">
-                                <span>Frontend Development</span>
-                                <span class="text-primary">95%</span>
-                            </div>
-                            <div class="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
-                                <div class="h-full bg-primary rounded-full" style="width: 95%"></div>
-                            </div>
-                        </div>
-                        <div class="space-y-2">
-                            <div class="flex justify-between text-sm">
-                                <span>UI/UX Design</span>
-                                <span class="text-secondary">85%</span>
-                            </div>
-                            <div class="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
-                                <div class="h-full bg-secondary rounded-full" style="width: 85%"></div>
-                            </div>
-                        </div>
-                        <div class="space-y-2">
-                            <div class="flex justify-between text-sm">
-                                <span>Backend Logic</span>
-                                <span class="text-cyan-400">75%</span>
-                            </div>
-                            <div class="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
-                                <div class="h-full bg-cyan-400 rounded-full" style="width: 75%"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-2 sm:grid-cols-3 gap-6">
-                    <div
-                        class="glass flex flex-col items-center justify-center p-6 rounded-2xl hover:bg-white/10 transition-colors group">
-                        <i data-lucide="code"
-                            class="w-8 h-8 mb-3 text-primary group-hover:scale-110 transition-transform"></i>
-                        <span class="text-sm font-medium">Javascript</span>
-                    </div>
-                    <div
-                        class="glass flex flex-col items-center justify-center p-6 rounded-2xl hover:bg-white/10 transition-colors group">
-                        <i data-lucide="figma"
-                            class="w-8 h-8 mb-3 text-secondary group-hover:scale-110 transition-transform"></i>
-                        <span class="text-sm font-medium">Figma</span>
-                    </div>
-                    <div
-                        class="glass flex flex-col items-center justify-center p-6 rounded-2xl hover:bg-white/10 transition-colors group">
-                        <i data-lucide="database"
-                            class="w-8 h-8 mb-3 text-cyan-400 group-hover:scale-110 transition-transform"></i>
-                        <span class="text-sm font-medium">Supabase</span>
-                    </div>
-                    <div
-                        class="glass flex flex-col items-center justify-center p-6 rounded-2xl hover:bg-white/10 transition-colors group">
-                        <i data-lucide="git-branch"
-                            class="w-8 h-8 mb-3 text-pink-400 group-hover:scale-110 transition-transform"></i>
-                        <span class="text-sm font-medium">Git</span>
-                    </div>
-                    <div
-                        class="glass flex flex-col items-center justify-center p-6 rounded-2xl hover:bg-white/10 transition-colors group">
-                        <i data-lucide="cpu"
-                            class="w-8 h-8 mb-3 text-orange-400 group-hover:scale-110 transition-transform"></i>
-                        <span class="text-sm font-medium">Node.js</span>
-                    </div>
-                    <div
-                        class="glass flex flex-col items-center justify-center p-6 rounded-2xl hover:bg-white/10 transition-colors group">
-                        <i data-lucide="wind"
-                            class="w-8 h-8 mb-3 text-blue-400 group-hover:scale-110 transition-transform"></i>
-                        <span class="text-sm font-medium">Tailwind</span>
-                    </div>
-                </div>
+    <!-- Services Section -->
+    <section id="about" class="services">
+        <div class="container">
+            <div class="section-header">
+                <h2>Services</h2>
             </div>
 
-            <!-- Background Decoration -->
-            <div
-                class="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 w-96 h-96 bg-primary/10 rounded-full blur-[100px]">
+            <div class="services-list">
+                <!-- Service 1 -->
+                <div class="service-row glass-card">
+                    <div class="service-content">
+                        <h3>Branding Design</h3>
+                        <p>A strong brand is more than just a logo—it’s the foundation of how your audience perceives
+                            you. I create cohesive and impactful brand identities that ensure consistency across all
+                            touchpoints.</p>
+                        <ul class="tags">
+                            <li>Logo design</li>
+                            <li>Brand guideline</li>
+                            <li>Brand strategy</li>
+                            <li>+more</li>
+                        </ul>
+                    </div>
+                    <div class="service-action">
+                        <a href="#" class="btn btn-secondary">Start a Project</a>
+                    </div>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="service-row glass-card">
+                    <div class="service-content">
+                        <h3>Framer Development</h3>
+                        <p>Transforming designs into fully responsive, interactive websites with Framer. Whether it’s a
+                            landing page or a full-scale web experience, I build fast, modern sites optimized for
+                            seamless performance.</p>
+                        <ul class="tags">
+                            <li>Landing page</li>
+                            <li>Multipages</li>
+                            <li>Web migration</li>
+                            <li>+more</li>
+                        </ul>
+                    </div>
+                    <div class="service-action">
+                        <a href="#" class="btn btn-secondary">Start a Project</a>
+                    </div>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="service-row glass-card">
+                    <div class="service-content">
+                        <h3>UI/UX Design</h3>
+                        <p>Designing user-centered experiences that are both functional and visually engaging. From
+                            concept to final prototype, I focus on intuitive interfaces that enhance experiences and
+                            usability.</p>
+                        <ul class="tags">
+                            <li>Web & app design</li>
+                            <li>Design system</li>
+                            <li>Prototyping</li>
+                            <li>+more</li>
+                        </ul>
+                    </div>
+                    <div class="service-action">
+                        <a href="#" class="btn btn-secondary">Start a Project</a>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="py-24 px-6 max-w-7xl mx-auto">
-        <div class="text-center mb-16 reveal">
-            <h2 class="text-4xl md:text-6xl font-bold mb-4">Let's <span class="text-gradient">Connect</span></h2>
-            <p class="text-gray-400 max-w-xl mx-auto">Have a project in mind? Let's build something extraordinary
-                together.</p>
+    <!-- How it works -->
+    <section class="workflow">
+        <div class="container">
+            <div class="section-header">
+                <h2>How it works</h2>
+                <p>A simple and efficient workflow to bring your vision to life. From the first call to final delivery,
+                    every step is designed for clarity and efficiency.</p>
+            </div>
+
+            <div class="steps-grid">
+                <div class="step-card glass-card">
+                    <div class="step-num">1</div>
+                    <h3>Book a Call</h3>
+                    <p>Let’s start with a conversation! We’ll discuss your goals, ideas, and how I can help bring them
+                        to life. This is where we align expectations and ensure a great fit.</p>
+                </div>
+                <div class="step-card glass-card">
+                    <div class="step-num">2</div>
+                    <h3>Project Brief</h3>
+                    <p>Once we’re on the same page, we’ll define the project scope, timeline, and deliverables. A
+                        structured brief ensures a smooth and efficient process.</p>
+                </div>
+                <div class="step-card glass-card">
+                    <div class="step-num">3</div>
+                    <h3>Develop</h3>
+                    <p>This is where the magic happens! I’ll craft thoughtful designs and refine them based on feedback,
+                        ensuring the final outcome meets your vision and goals.</p>
+                </div>
+                <div class="step-card glass-card">
+                    <div class="step-num">4</div>
+                    <h3>Deliver</h3>
+                    <p>The final product is polished and ready to go. Whether it’s a brand identity, UI/UX design, or a
+                        Framer website, you’ll receive all the necessary files and guidance for a seamless handoff.</p>
+                </div>
+                <div class="step-card glass-card">
+                    <div class="step-num">5</div>
+                    <h3>Support</h3>
+                    <p>Enjoy one month of free support after project delivery. I’ll be available to answer questions,
+                        make minor adjustments, and ensure everything runs smoothly.</p>
+                </div>
+            </div>
         </div>
+    </section>
 
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
-            <div class="lg:col-span-1 space-y-8 reveal">
-                <div class="glass p-8 rounded-[2rem] flex items-center space-x-6">
-                    <div class="bg-primary/20 p-4 rounded-2xl text-primary">
-                        <i data-lucide="mail"></i>
-                    </div>
-                    <div>
-                        <div class="text-xs text-gray-500 uppercase tracking-widest font-bold">Email Me</div>
-                        <div class="text-lg font-medium">hello@johndoe.com</div>
-                    </div>
-                </div>
-                <div class="glass p-8 rounded-[2rem] flex items-center space-x-6">
-                    <div class="bg-secondary/20 p-4 rounded-2xl text-secondary">
-                        <i data-lucide="linkedin"></i>
-                    </div>
-                    <div>
-                        <div class="text-xs text-gray-500 uppercase tracking-widest font-bold">LinkedIn</div>
-                        <div class="text-lg font-medium">linkedin.com/in/johndoe</div>
-                    </div>
-                </div>
-                <div class="glass p-8 rounded-[2rem] flex items-center space-x-6">
-                    <div class="bg-cyan-400/20 p-4 rounded-2xl text-cyan-400">
-                        <i data-lucide="twitter"></i>
-                    </div>
-                    <div>
-                        <div class="text-xs text-gray-500 uppercase tracking-widest font-bold">Twitter</div>
-                        <div class="text-lg font-medium">@johndoe_dev</div>
-                    </div>
+    <!-- FAQs -->
+    <section class="faqs">
+        <div class="container">
+            <div class="section-header text-left">
+                <h2>FAQs</h2>
+                <p>Answers to common questions to help you understand the process and how we can work together.</p>
+                <div class="mt-4">
+                    <p>I'm here to help you</p>
+                    <a href="mailto:rosyidqoim@gmail.com" class="btn btn-outline mt-2">Email Me</a>
                 </div>
             </div>
 
-            <div class="lg:col-span-2 reveal" style="transition-delay: 0.2s">
-                <form class="glass p-10 md:p-12 rounded-[3rem] space-y-8">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div class="space-y-2">
-                            <label class="text-sm font-medium text-gray-400 ml-2">Name</label>
-                            <input type="text" placeholder="Your Name"
-                                class="w-full glass bg-transparent px-6 py-4 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all border-glass-border">
-                        </div>
-                        <div class="space-y-2">
-                            <label class="text-sm font-medium text-gray-400 ml-2">Email</label>
-                            <input type="email" placeholder="your@email.com"
-                                class="w-full glass bg-transparent px-6 py-4 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all border-glass-border">
-                        </div>
+            <div class="faq-list">
+                <details class="faq-item glass-card" open>
+                    <summary>What’s your typical project timeline?</summary>
+                    <div class="faq-content">
+                        <p>The timeline depends on the project’s scope and complexity. Branding and UI/UX projects
+                            usually take 2–6 weeks, while Framer website development can range from 1–4 weeks. I’ll
+                            provide a detailed timeline after the project brief.</p>
                     </div>
-                    <div class="space-y-2">
-                        <label class="text-sm font-medium text-gray-400 ml-2">Message</label>
-                        <textarea rows="5" placeholder="Tell me about your project..."
-                            class="w-full glass bg-transparent px-6 py-4 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all border-glass-border"></textarea>
+                </details>
+                <details class="faq-item glass-card">
+                    <summary>Do you offer revisions?</summary>
+                    <div class="faq-content">
+                        <p>Yes, revisions are included in the process to ensure you are fully satisfied with the final
+                            result. Specific terms are outlined in the project brief.</p>
                     </div>
-                    <button type="submit"
-                        class="w-full bg-white text-dark py-5 rounded-2xl font-bold hover:scale-[1.02] active:scale-[0.98] transition-all shadow-xl shadow-white/10">
-                        Send Message
-                    </button>
-                </form>
+                </details>
+                <details class="faq-item glass-card">
+                    <summary>What do you need from me to get started?</summary>
+                    <div class="faq-content">
+                        <p>A clear understanding of your goals, any existing brand materials, and your timeline. We'll
+                            discuss the specifics on our kickoff call.</p>
+                    </div>
+                </details>
+                <details class="faq-item glass-card">
+                    <summary>Can you work with my existing brand guidelines?</summary>
+                    <div class="faq-content">
+                        <p>Absolutely. I can adapt and build upon your current brand identity to ensure a consistent and
+                            elevated look.</p>
+                    </div>
+                </details>
+                <details class="faq-item glass-card">
+                    <summary>Do you provide post-project support?</summary>
+                    <div class="faq-content">
+                        <p>Yes, every project includes one month of free support for minor adjustments and questions.
+                        </p>
+                    </div>
+                </details>
+                <details class="faq-item glass-card">
+                    <summary>What’s the best way to reach you?</summary>
+                    <div class="faq-content">
+                        <p>You can email me directly or book a call using the links provided on this site.</p>
+                    </div>
+                </details>
             </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="contact" class="cta">
+        <div class="container text-center">
+            <h2 class="headline mb-4">Book a call, and I'll take care of the rest</h2>
+            <a href="#" class="btn btn-primary glow-btn large-btn">Book a Call</a>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="py-12 border-t border-glass-border px-6">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0">
-            <div class="text-2xl font-bold tracking-tighter">
-                JD<span class="text-primary">.</span>
+    <footer>
+        <div class="container footer-grid">
+            <div class="footer-col">
+                <h4>Navigation</h4>
+                <a href="#">Home</a>
+                <a href="#work">Works</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
             </div>
-            <div class="text-sm text-gray-500 font-medium">
-                &copy; 2026 John Doe. Designed with passion.
+            <div class="footer-col">
+                <h4>Connect</h4>
+                <a href="#">X (Twitter)</a>
+                <a href="#">Threads</a>
+                <a href="#">Instagram</a>
+                <a href="#">Youtube</a>
             </div>
-            <div class="flex space-x-6 text-gray-400">
-                <a href="#" class="hover:text-primary transition-colors"><i data-lucide="github"
-                        class="w-5 h-5"></i></a>
-                <a href="#" class="hover:text-primary transition-colors"><i data-lucide="instagram"
-                        class="w-5 h-5"></i></a>
-                <a href="#" class="hover:text-primary transition-colors"><i data-lucide="dribbble"
-                        class="w-5 h-5"></i></a>
+            <div class="footer-col">
+                <h4>Project</h4>
+                <a href="#">Framer Templates</a>
+                <a href="#">Become Affiliate</a>
+                <a href="#">Hire me on Contra</a>
             </div>
+        </div>
+        <div class="container footer-bottom">
+            <p>©Irise Studio 2026. All rights reserved.</p>
+            <p>Created by Rosyid Qoim. Made in Framer.</p>
         </div>
     </footer>
 
-    <!-- Scripts -->
-    <script>
-        // Initialize Lucide Icons
-        lucide.createIcons();
-
-        // Reveal on Scroll
-        const revealElements = document.querySelectorAll('.reveal');
-        const revealOnScroll = () => {
-            const windowHeight = window.innerHeight;
-            revealElements.forEach(el => {
-                const revealTop = el.getBoundingClientRect().top;
-                const revealPoint = 150;
-                if (revealTop < windowHeight - revealPoint) {
-                    el.classList.add('active');
-                }
-            });
-        };
-
-        window.addEventListener('scroll', revealOnScroll);
-        // Initial check
-        revealOnScroll();
-
-        // Mobile Menu Toggle
-        const menuToggle = document.getElementById('menu-toggle');
-        // (Simplified for this demo, would normally show a full screen overlay)
-        menuToggle.addEventListener('click', () => {
-            alert('Mobile menu clicked! In a full implementation, this would open a beautiful glassmorphism overlay.');
-        });
-
-        // Smooth Scroll for Navigation Links
-        document.querySelectorAll('nav a').forEach(link => {
-            link.addEventListener('click', e => {
-                e.preventDefault();
-                const target = document.querySelector(link.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' });
-                }
-            });
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 
 </html>
