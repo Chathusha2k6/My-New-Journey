@@ -1,41 +1,54 @@
-# Hey, I'm Chathusha 👋
+# Hi there, I'm Britney Senaratne 👋 🚀
 
-I’m a developer who thrives at the intersection of code and infrastructure. Currently, I’m deep-diving into **Full-Stack Development**, **Cloud Architecture**, and **DevOps**. My goal is to build applications that aren't just functional, but are also scalable, automated, and secure.
-
----
-
-### 🔍 What I’m Focused On
-
-* **Modern Web Apps:** Crafting high-performance interfaces using **Next.js** and robust backends with **Node.js**.
-* **Infrastructure as Code:** Automating everything. I'm obsessed with **Docker** containerization and managing **Linux** servers to ensure smooth deployments.
-* **Cloud Ecosystems:** Leveraging **AWS** and **Oracle Cloud** to host resilient services.
-* **AI Integration:** Experimenting with **Ollama** and **DeepSeek** to bring local AI intelligence into my dev workflow.
+<p align="center">
+  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&pause=1000&color=2E86C1&center=true&vCenter=true&width=435&lines=Business+Technology+Undergraduate;Aspiring+Operations+Associate;Process+Optimization+Enthusiast" alt="Typing SVG" />
+</p>
 
 ---
 
-### 🛠️ Technical Toolkit
+### 💫 About Me
+I am a **Business Technology Management** undergraduate from 🇱🇰 Gampaha, Sri Lanka. I specialize in bridging the gap between business operations and technology to drive efficiency.
 
-| Category | Tools & Technologies |
-| :--- | :--- |
-| **Languages** | TypeScript, JavaScript, HTML/CSS |
-| **Frameworks** | Next.js, React, Node.js, Express |
-| **Cloud & Ops** | AWS, Oracle Cloud, Docker, Bash/Linux |
-| **Automation** | n8n, GitHub Actions |
-
----
-
-### 🏗️ Current Projects & Side Quests
-
-- 🎓 **Personal LMS:** Building a custom Learning Management System to streamline my own studies and help friends stay organized.
-- 🚀 **Portfolio:** Polishing my personal space to showcase my work to the global freelance market.
-- 🕹️ **Recharge:** When I'm away from the terminal, you'll find me in a high-speed chase in **NFS** or diving into the lore of **Assassin's Creed**.
+- 🔭 Currently focusing on **Operations Management & Process Optimization**.
+- 📊 Passionate about **Data-Driven Decision Making** and **Workflow Automation**.
+- 🛠️ I love documenting complex processes and making them simple for teams.
+- ⚡ Fun fact: I believe any business problem can be solved with a good flowchart!
 
 ---
 
-### 📈 GitHub Status
-![Chathusha's Stats](https://github-readme-stats.vercel.app/api?username=Chathusha2k6&show_icons=true&theme=tokyonight&count_private=true)
+### 🛠️ My Toolbox
+
+#### 💼 Business & Operations
+![Process Mapping](https://img.shields.io/badge/Process-Mapping-blue?style=flat-square&logo=diagrams.net)
+![Workflow](https://img.shields.io/badge/Workflow-Optimization-brightgreen?style=flat-square)
+![CRM](https://img.shields.io/badge/CRM-Operations-orange?style=flat-square)
+![Agile](https://img.shields.io/badge/Agile-Coordination-red?style=flat-square)
+
+#### 📊 Data & Analytics
+![Excel](https://img.shields.io/badge/Microsoft_Excel-217346?style=for-the-badge&logo=microsoft-excel&logoColor=white)
+![PowerBI](https://img.shields.io/badge/Power_BI-F2C811?style=for-the-badge&logo=microsoft-power-bi&logoColor=black)
+![Reporting](https://img.shields.io/badge/KPI-Monitoring-blueviolet?style=for-the-badge)
+
+#### 🎨 Design & Visuals
+![Figma](https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white)
+![Canva](https://img.shields.io/badge/Canva-%2300C4CC.svg?style=for-the-badge&logo=Canva&logoColor=white)
+![Lucidchart](https://img.shields.io/badge/Lucidchart-FF691F?style=for-the-badge&logo=Lucidchart&logoColor=white)
 
 ---
 
-### 📫 Let's Chat
-- [LinkedIn](YOUR_LINKEDIN_URL) | [Fiverr](YOUR_FIVERR_URL)
+### 📈 Career Roadmap & Learning
+- 🌱 **Learning:** Business Intelligence (BI) & CRM System Architecture.
+- 🎯 **Goal:** To become a Business Operations & Process Specialist.
+
+---
+
+### 🤝 Connect with Me
+<p align="left">
+<a href="https://linkedin.com/in/YOUR_LINKEDIN_USERNAME" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="Britney Senaratne" height="30" width="40" /></a>
+<a href="mailto:your.email@example.com"><img align="center" src="https://img.icons8.com/fluency/48/000000/mail.png" height="30" width="30" /></a>
+</p>
+
+---
+<p align="center">
+  <img src="https://github-readme-stats.vercel.app/api?username=YOUR_GITHUB_USERNAME&show_icons=true&theme=radical" alt="GitHub Stats" />
+</p>
