@@ -1,53 +1,41 @@
-<div align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=auto&height=220&section=header&text=Britney%20Senaratne&fontSize=50&animation=fadeIn&fontAlignY=35&desc=Business%20Technology%20Undergraduate&descSize=20&descAlignY=60&theme=dark" width="100%" />
+# Hey, I'm Chathusha 👋
 
-  <br>
-  
-  <h3> 🚀 Engineering Operational Efficiency & Digital Workflows </h3>
-
-  <p align="center">
-    <a href="mailto:your.email@example.com"><img src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white" /></a>
-    <a href="https://linkedin.com/in/YOUR_LINKEDIN_USERNAME"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" /></a>
-    <a href="#"><img src="https://img.shields.io/badge/Location-Gampaha%2C%20Sri%20Lanka-27AE60?style=for-the-badge&logo=google-maps&logoColor=white" /></a>
-  </p>
-</div>
+I’m a developer who thrives at the intersection of code and infrastructure. Currently, I’m deep-diving into **Full-Stack Development**, **Cloud Architecture**, and **DevOps**. My goal is to build applications that aren't just functional, but are also scalable, automated, and secure.
 
 ---
 
-## ⚡ <img src="https://emojis.slackmojis.com/emojis/images/1547509100/5238/lightning.gif?1547509100" width="22"> Quick Overview
-<p align="left">
-  <img align="right" src="https://github-readme-stats.vercel.app/api/top-langs/?username=YOUR_GITHUB_USERNAME&layout=compact&theme=vision-friendly-dark&hide_border=true" width="300" />
-  
-  Driven **Business Technology Management** undergraduate with a passion for streamlining operational friction. I combine business acumen with modern tech solutions to transform chaotic manual workflows into automated, data-driven excellence.
-  <br><br>
-  🧩 **Core Strength:** Process mapping, optimization, and documentation. <br>
-  🌱 **Current Focus:** Agile Coordination & Business Intelligence Architecture. <br>
-  📊 **Philosophy:** Making businesses run smoother using intelligent design.
-</p>
+### 🔍 What I’m Focused On
 
-<br>
+* **Modern Web Apps:** Crafting high-performance interfaces using **Next.js** and robust backends with **Node.js**.
+* **Infrastructure as Code:** Automating everything. I'm obsessed with **Docker** containerization and managing **Linux** servers to ensure smooth deployments.
+* **Cloud Ecosystems:** Leveraging **AWS** and **Oracle Cloud** to host resilient services.
+* **AI Integration:** Experimenting with **Ollama** and **DeepSeek** to bring local AI intelligence into my dev workflow.
 
 ---
 
-## 🛠️ <img src="https://img.icons8.com/fluency/30/000000/hammer.png"/> Strategic Toolkit
+### 🛠️ Technical Toolkit
 
-<div align="center">
-  <table border="0">
-    <tr>
-      <td align="center"><img src="https://img.shields.io/badge/Business_Ops-2E86C1?style=for-the-badge&logo=briefcase&logoColor=white" /></td>
-      <td align="center"><img src="https://img.shields.io/badge/Workflow-Automation-27AE60?style=for-the-badge" /></td>
-      <td align="center"><img src="https://img.shields.io/badge/CRM_Strategy-E74C3C?style=for-the-badge" /></td>
-      <td align="center"><img src="https://img.shields.io/badge/BI_%26_Insights-8E44AD?style=for-the-badge&logo=chart&logoColor=white" /></td>
-    </tr>
-  </table>
-  
-  <br>
-
-  <img src="https://skillicons.dev/icons?i=excel,powerbi,figma,canva,github,git,discord,notion" alt="Tools Matrix" />
-</div>
+| Category | Tools & Technologies |
+| :--- | :--- |
+| **Languages** | TypeScript, JavaScript, HTML/CSS |
+| **Frameworks** | Next.js, React, Node.js, Express |
+| **Cloud & Ops** | AWS, Oracle Cloud, Docker, Bash/Linux |
+| **Automation** | n8n, GitHub Actions |
 
 ---
 
-## 🧩 <img src="https://img.icons8.com/fluency/30/000000/career.png"/> Professional Roadmap
-<div align="center">
-  <img src="
+### 🏗️ Current Projects & Side Quests
+
+- 🎓 **Personal LMS:** Building a custom Learning Management System to streamline my own studies and help friends stay organized.
+- 🚀 **Portfolio:** Polishing my personal space to showcase my work to the global freelance market.
+- 🕹️ **Recharge:** When I'm away from the terminal, you'll find me in a high-speed chase in **NFS** or diving into the lore of **Assassin's Creed**.
+
+---
+
+### 📈 GitHub Status
+![Chathusha's Stats](https://github-readme-stats.vercel.app/api?username=Chathusha2k6&show_icons=true&theme=tokyonight&count_private=true)
+
+---
+
+### 📫 Let's Chat
+- [LinkedIn](YOUR_LINKEDIN_URL) | [Fiverr](YOUR_FIVERR_URL)
