@@ -1,87 +1,89 @@
 <div align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:2E86C1,100:8E44AD&height=200&section=header&text=Britney%20Senaratne&fontSize=50&animation=fadeIn&fontAlignY=35" width="100%" />
+  <!-- Soft & Professional Header -->
+  <img src="https://capsule-render.vercel.app/api?type=soft&color=auto&height=200&section=header&text=Britney%20Senaratne&fontSize=50&animation=fadeIn&fontAlignY=40" width="100%" />
 
-  <h3> 🚀 Bridging the Gap Between Business & Technology </h3>
+  <br>
+  
+  ### 🚀 Optimizing Processes | Driving Efficiency | Leveraging Technology
+  
+  [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/YOUR_LINKEDIN_USERNAME)
+  [![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:your.email@example.com)
+  ![Location](https://img.shields.io/badge/Gampaha-Sri_Lanka-27AE60?style=for-the-badge&logo=google-maps&logoColor=white)
 
-  <p align="center">
-    <a href="mailto:your.email@example.com"><img src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white" /></a>
-    <a href="https://linkedin.com/in/YOUR_LINKEDIN_USERNAME"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" /></a>
-    <a href="#"><img src="https://img.shields.io/badge/Location-Gampaha%2C%20Sri%20Lanka-27AE60?style=for-the-badge&logo=google-maps&logoColor=white" /></a>
-  </p>
 </div>
 
 ---
 
-### ⚡ Quick Overview
+### ⚡ Professional Summary
 <p align="left">
-  <img align="right" src="https://github-readme-stats.vercel.app/api/top-langs/?username=YOUR_GITHUB_USERNAME&layout=compact&theme=vision-friendly-dark&hide_border=true" width="300" />
-  
-  I'm a **Business Technology Management** undergraduate passionate about making businesses run smoother. I don't just look at processes; I optimize them using data and modern tech stacks.
+  <img align="right" src="https://github-readme-stats.vercel.app/api/top-langs/?username=YOUR_GITHUB_USERNAME&layout=compact&theme=flat&hide_border=true" width="300" />
+
+  I am a **Business Technology Management** undergraduate specialized in bridging the gap between operational needs and technical solutions. I focus on transforming complex workflows into streamlined, data-driven processes.
   <br><br>
-  🔹 **Focus:** Operations, Efficiency, and Scalable Workflows.<br>
-  🔹 **Mission:** To transform manual chaos into automated excellence.<br>
-  🔹 **Current Study:** Refining BI and Agile methodologies.
+  🎯 **Goal:** Building sustainable business growth through operational excellence.  
+  🧩 **Passion:** Solving "The Efficiency Puzzle" using modern tech stacks.  
+  🌱 **Currently:** Deep diving into Business Intelligence and CRM Architecture.
 </p>
 
 <br>
 
 ---
 
-### 🛠️ Professional Skill Matrix
+### 🛠️ Strategic Skill Matrix
 
-<table border="0">
+<table border="0" width="100%">
  <tr>
-    <td><b>💼 Core Operations</b></td>
-    <td><b>📊 Data & Insights</b></td>
-    <td><b>🎨 Design & Logic</b></td>
+    <td width="33%" align="center"><b>💼 Operations</b></td>
+    <td width="33%" align="center"><b>📊 Data Intelligence</b></td>
+    <td width="33%" align="center"><b>⚙️ Digital Tools</b></td>
  </tr>
  <tr>
-    <td>
-      • Workflow Documentation <br>
-      • Process Mapping <br>
-      • Operational Reporting <br>
-      • CRM Operations
+    <td align="center">
+        Workflow Design <br>
+        Process Mapping <br>
+        Resource Planning
     </td>
-    <td>
-      • Microsoft Excel (Advanced) <br>
-      • Power BI Dashboards <br>
-      • KPI Monitoring <br>
-      • Data Visualization
+    <td align="center">
+        KPI Tracking <br>
+        Power BI Analysis <br>
+        Market Reporting
     </td>
-    <td>
-      • Figma / Canva <br>
-      • Lucidchart / Draw.io <br>
-      • Mermaid.js <br>
-      • Agile Coordination
+    <td align="center">
+        CRM Systems <br>
+        Agile Methodologies <br>
+        Digital Transformation
     </td>
  </tr>
 </table>
 
 ---
 
-### 🎯 What I Bring to the Table
-
-| 🚀 Strategy | ⚙️ Execution | 📈 Growth |
-| :--- | :--- | :--- |
-| Analyzing business bottlenecks with a tech-first mindset. | Implementing robust workflows using tools like CRM & ERP. | Turning raw data into actionable business insights. |
-
----
-
-### 🛠️ Digital Toolkit
-<p align="left">
-  <!-- Data & BI -->
-  <img src="https://skillicons.dev/icons?i=excel,powerbi,figma,canva,github,git" />
+### 🧰 Digital Toolbox
+<p align="center">
+  <!-- Fixed Icons using Skill Icons API for guaranteed loading -->
+  <img src="https://skillicons.dev/icons?i=excel,powerbi,figma,canva,github,git,discord,notion" alt="Skills" />
 </p>
 
 ---
 
-### 🧩 Career Goal
-> *"My goal is to build a career where technology meets operational excellence—optimizing every step of the business journey to drive growth and efficiency."*
+### 🚀 Career North Star
+<div align="center">
+<table>
+  <tr>
+    <td>
+      <p align="center">
+        <i>"My mission is to engineer <b>seamless business ecosystems</b> where technology and human operations exist in perfect harmony. I strive to eliminate operational friction and empower businesses to scale through <b>intelligent automation</b> and <b>insight-driven</b> decision making."</i>
+      </p>
+    </td>
+  </tr>
+</table>
+</div>
 
 ---
 
+### 📈 Contribution & Activity
 <div align="center">
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=YOUR_GITHUB_USERNAME&theme=tokyonight&hide_border=true" alt="GitHub Streak" />
+  <img src="https://github-readme-streak-stats.herokuapp.com/?user=YOUR_GITHUB_USERNAME&theme=flat&hide_border=true" alt="Streak" />
 </div>
 
 <p align="center">
